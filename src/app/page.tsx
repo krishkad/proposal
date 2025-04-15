@@ -14,8 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { BsTwitter, BsTwitterX } from "react-icons/bs";
-import { LiaLinkedin } from "react-icons/lia";
+import { BsTwitterX } from "react-icons/bs";
 import { CiLinkedin } from "react-icons/ci";
 
 export default function Home() {
@@ -31,7 +30,7 @@ export default function Home() {
             </h1>
             <p className="text-xl text-center mt-6">
               Create stunning proposals and professional emails in minutes. Just
-              enter client details — we'll do the rest.
+              enter client details — we&apos;ll do the rest.
             </p>
             <div className="w-full flex max-md:flex-col items-center justify-center gap-5 mt-6">
               <Button className="text-lg">
@@ -83,7 +82,7 @@ export default function Home() {
           <h1 className="font-bold text-4xl text-center">
             Made for Freelancers & Small Business Owners
           </h1>
-          <p className="text-center text-xl mt-5">Whether you're a...</p>
+          <p className="text-center text-xl mt-5">Whether you&apos;re a...</p>
 
           <div className="max-w-5xl mx-auto">
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mt-16">
@@ -177,7 +176,7 @@ export default function Home() {
               <h3 className="font-semibold text-base">What happens next?</h3>
               <p className="mt-2.5">
                 After submitting your details, our AI will generate a custom
-                proposal tailored to your client's needs. You'll be able to
+                proposal tailored to your client&apos;s needs. You&apos;ll be able to
                 review, edit, and send it directly to your client.
               </p>
             </div>
@@ -327,9 +326,9 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                  "I used to spend 3-4 hours writing proposals. Now, I can
+                &quot;I used to spend 3-4 hours writing proposals. Now, I can
                   create a professional proposal in 20 minutes that has doubled
-                  my closing rate!"
+                  my closing rate!&quot;
                 </i>
               </p>
 
@@ -360,9 +359,9 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                  "The AI perfectly captures my voice and tone. My clients can't
+                &quot;The AI perfectly captures my voice and tone. My clients can&apos;t
                   tell the difference between the AI-generated content and what
-                  I would write myself."
+                  I would write myself.&quot;
                 </i>
               </p>
 
@@ -393,9 +392,9 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                  "The templates are amazing and customizable. I've closed 4 new
+                &quot;The templates are amazing and customizable. I&apos;ve closed 4 new
                   clients in the first month of using this platform. Worth every
-                  penny!"
+                  penny!&quot;
                 </i>
               </p>
 
@@ -607,7 +606,7 @@ export default function Home() {
                     Is it animated?
                   </AccordionTrigger>
                   <AccordionContent className="text-lg">
-                    Yes. It's animated by default, but you can disable it if you
+                    Yes. It&apos;s animated by default, but you can disable it if you
                     prefer.
                   </AccordionContent>
                 </AccordionItem>
