@@ -21,7 +21,7 @@ const Navbar = () => {
           Pricing
         </Link>
         <Link href={"#"} className="hover:text-primary transition-all">
-          FAQ's
+          FAQ&apos;s
         </Link>
       </div>
 

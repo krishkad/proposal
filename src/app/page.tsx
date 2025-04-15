@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { features, madeFor } from "@/constants/constants";
-import { BirdIcon, CheckIcon, FileIcon, Mail, StarIcon } from "lucide-react";
+import { CheckIcon, FileIcon, Mail, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SiCodemagic } from "react-icons/si";
@@ -427,7 +427,7 @@ export default function Home() {
             Pricing
           </h1>
           <p className="mt-5 text-center text-xl">
-            Choose the plan that's right for your business
+            Choose the plan that&apos;s right for your business
           </p>
 
           <div className="w-full mt-16">
