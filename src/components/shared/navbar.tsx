@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className="max-w-wrapper h-14 flex items-center justify-between border-b border-gray-200">
       {/* LOGO */}
-      <h1 className="text-3xl font-bold text-primary">Proposal.ai</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-primary">Proposal.ai</h1>
 
       {/* LINKS */}
       <div className="w-max hidden md:flex items-center-justify-center gap-8">
@@ -31,7 +31,7 @@ const Navbar = () => {
           Log-in
         </Link>
         <Link
-          href={"#"}
+          href={"/dashboard/overview"}
           className={cn(buttonVariants({ variant: "default", size: "sm" }))}
         >
           Start Free

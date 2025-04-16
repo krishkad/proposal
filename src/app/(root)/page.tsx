@@ -20,7 +20,7 @@ import { CiLinkedin } from "react-icons/ci";
 export default function Home() {
   return (
     <div className="w-full">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="max-w-wrapper">
         <div className="w-full flex items-center justify-center">
           <div className="w-full md:max-w-4xl mt-[20vh]">
@@ -28,7 +28,7 @@ export default function Home() {
               <span className="text-gradient-primary">Win More Clients</span>{" "}
               With Ready-to-Send Proposals & Emails — Powered by AI
             </h1>
-            <p className="text-xl text-center mt-6">
+            <p className="max-w-3xl mx-auto text-xl text-center mt-6">
               Create stunning proposals and professional emails in minutes. Just
               enter client details — we&apos;ll do the rest.
             </p>
@@ -59,7 +59,7 @@ export default function Home() {
             {features.map((fea, i) => {
               return (
                 <div
-                  className="w-full h-full p-6 rounded-md bg-white shadow hover:shadow-md transition-all"
+                  className="w-full h-full p-6 rounded-md bg-background shadow hover:shadow-md transition-all"
                   key={i}
                 >
                   <div className="w-max h-max p-3 rounded-md bg-primary/10">
@@ -77,7 +77,7 @@ export default function Home() {
       </div>
 
       {/* MADE FOR  */}
-      <div className="w-full bg-white">
+      <div className="w-full bg-background">
         <div className="max-w-wrapper py-24">
           <h1 className="font-bold text-4xl text-center">
             Made for Freelancers & Small Business Owners
@@ -176,8 +176,8 @@ export default function Home() {
               <h3 className="font-semibold text-base">What happens next?</h3>
               <p className="mt-2.5">
                 After submitting your details, our AI will generate a custom
-                proposal tailored to your client&apos;s needs. You&apos;ll be able to
-                review, edit, and send it directly to your client.
+                proposal tailored to your client&apos;s needs. You&apos;ll be
+                able to review, edit, and send it directly to your client.
               </p>
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function Home() {
               Simple Process
             </p>
             <h2 className="text-4xl text-center font-bold mt-5">
-              How It <span className="text-gradient-primary">Proposal.ai</span>{" "}
+              How <span className="text-gradient-primary">Proposal.ai</span>{" "}
               Works
             </h2>
             <p className="text-xl text-center mt-5">
@@ -202,8 +202,8 @@ export default function Home() {
 
           <div className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* BOXES  */}
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300">
-              <div className="bg-white rounded-md p-6">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+              <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
                     <FileIcon className="w-7 h-7 shrink-0 text-violet-700" />
@@ -224,8 +224,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300">
-              <div className="bg-white rounded-md p-6">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+              <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
                     <FileIcon className="w-7 h-7 shrink-0 text-violet-700" />
@@ -246,8 +246,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-green-300 via-green-200 to-green-300">
-              <div className="bg-white rounded-md p-6">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-green-300 via-green-200 to-green-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+              <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
                     <FileIcon className="w-7 h-7 shrink-0 text-violet-700" />
@@ -302,7 +302,7 @@ export default function Home() {
       </div>
 
       {/* FREELANCERS LOVE US  */}
-      <div className="w-full bg-white">
+      <div className="w-full bg-background">
         <div className="max-w-wrapper py-24">
           <div className="max-w-xl mx-auto">
             <h1 className="text-4xl font-bold text-center">
@@ -326,7 +326,7 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                &quot;I used to spend 3-4 hours writing proposals. Now, I can
+                  &quot;I used to spend 3-4 hours writing proposals. Now, I can
                   create a professional proposal in 20 minutes that has doubled
                   my closing rate!&quot;
                 </i>
@@ -359,9 +359,9 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                &quot;The AI perfectly captures my voice and tone. My clients can&apos;t
-                  tell the difference between the AI-generated content and what
-                  I would write myself.&quot;
+                  &quot;The AI perfectly captures my voice and tone. My clients
+                  can&apos;t tell the difference between the AI-generated
+                  content and what I would write myself.&quot;
                 </i>
               </p>
 
@@ -392,9 +392,9 @@ export default function Home() {
               </div>
               <p className="mt-5">
                 <i>
-                &quot;The templates are amazing and customizable. I&apos;ve closed 4 new
-                  clients in the first month of using this platform. Worth every
-                  penny!&quot;
+                  &quot;The templates are amazing and customizable. I&apos;ve
+                  closed 4 new clients in the first month of using this
+                  platform. Worth every penny!&quot;
                 </i>
               </p>
 
@@ -432,7 +432,7 @@ export default function Home() {
 
           <div className="w-full mt-16">
             <div className="w-full flex max-md:flex-col items-center justify-center gap-6">
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-white">
+              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background">
                 <h3 className="text-xl font-bold mt-3">Free</h3>
                 <h2 className="text-3xl font-bold mt-3">Free</h2>
                 <p className="mt-3">Perfect for trying out the platform</p>
@@ -464,7 +464,7 @@ export default function Home() {
                   Email support
                 </p>
               </div>
-              <div className="w-[350px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-white">
+              <div className="w-[350px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-background">
                 <div className="w-full text-center bg-primary py-2">
                   <p className="font-bold text-center text-white">
                     Most Popular
@@ -513,7 +513,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-white">
+              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background">
                 <h3 className="text-xl font-bold mt-3">Business</h3>
                 <h2 className="text-3xl font-bold mt-3">
                   $49 <span className="text-base text-gray-400">/month</span>
@@ -571,7 +571,7 @@ export default function Home() {
       </div>
 
       {/* FAQ'S  */}
-      <div className="w-full bg-white">
+      <div className="w-full bg-background">
         <div className="max-w-wrapper py-24">
           <h1 className="text-4xl text-center font-bold">
             Frequently Asked{" "}
@@ -606,8 +606,8 @@ export default function Home() {
                     Is it animated?
                   </AccordionTrigger>
                   <AccordionContent className="text-lg">
-                    Yes. It&apos;s animated by default, but you can disable it if you
-                    prefer.
+                    Yes. It&apos;s animated by default, but you can disable it
+                    if you prefer.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -648,7 +648,7 @@ export default function Home() {
 
       {/* FOOTER  */}
       <div className="w-full bg-[#111827]">
-        <div className="max-w-wrapper py-16">
+        <div className="max-w-wrapper pt-16 pb-8">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <div className="w-full">
               <h3 className="font-bold text-3xl text-white">Proposal.ai</h3>
@@ -667,17 +667,42 @@ export default function Home() {
             <div className="w-full max-md:mt-14">
               <h3 className="font-bold text-xl text-white">Product</h3>
 
-              {/* <p className="mt-5 md:max-w-[260px] text-gray-300">AI-powered proposal and email generation for freelancers and small businesses.</p>
-
-              <div className="w-full flex items-center justify-start gap-4 mt-5">
-                <BsTwitterX className="text-gray-300 shrink-0" />
-                <CiLinkedin className="w-6 h-6 text-gray-300 shrink-0" />
-                <Mail className="text-gray-300 shrink-0" />
-              </div> */}
+              <div className="w-full mt-6">
+                <Link
+                  href={"#"}
+                  className=" text-gray-300 hover:text-white transition-all"
+                >
+                  Features
+                </Link>
+              </div>
+              <div className="w-full mt-3">
+                <Link
+                  href={"#"}
+                  className=" text-gray-300 hover:text-white transition-all"
+                >
+                  How It Works
+                </Link>
+              </div>
+              <div className="w-full mt-3">
+                <Link
+                  href={"#"}
+                  className=" text-gray-300 hover:text-white transition-all"
+                >
+                  Pricing
+                </Link>
+              </div>
+              <div className="w-full mt-3">
+                <Link
+                  href={"#"}
+                  className=" text-gray-300 hover:text-white transition-all"
+                >
+                  FAQ&apos;s
+                </Link>
+              </div>
             </div>
           </div>
           <div className="w-full mt-24 flex max-md:flex-col items-center justify-between gap-3">
-            <p className="text-lg text-gray-300">
+            <p className="text-gray-300">
               © 2025 Proposal.ai. All rights reserved.
             </p>
 
