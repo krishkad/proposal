@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { SearchForm } from "@/components/ui/search-form";
-import { VersionSwitcher } from "@/components/ui/version-switcher";
 import {
   Sidebar,
   SidebarContent,
