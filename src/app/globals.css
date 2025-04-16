@@ -112,7 +112,6 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
-
 @layer base {
   * {
     @apply box-border outline-ring/50;
@@ -131,5 +130,14 @@
 
   .text-gradient-primary {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
