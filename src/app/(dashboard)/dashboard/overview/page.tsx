@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { ClockIcon, PlusCircleIcon } from "lucide-react";
+import { ClockIcon, FilterIcon, PlusCircleIcon } from "lucide-react";
 import { FaRegFileLines } from "react-icons/fa6";
 
 export default function OverView() {
@@ -17,7 +18,7 @@ export default function OverView() {
             </p>
           </div>
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="w-full h-32 rounded-xl bg-gradient-primary shadow-md p-5 flex items-center justify-start gap-6">
+            <div className="w-full h-28 rounded-xl bg-gradient-primary shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
               <div className="w-max-h-max">
                 <PlusCircleIcon className="w-10 h-10 shrink-0 text-white" />
               </div>
@@ -28,7 +29,7 @@ export default function OverView() {
                 <p className="text-white">Start From scratch</p>
               </div>
             </div>
-            <div className="w-full h-32 rounded-xl bg-background shadow-md p-5 flex items-center justify-start gap-6">
+            <div className="w-full h-28 rounded-xl bg-background shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
               <div className="w-max-h-max">
                 <FaRegFileLines className="w-10 h-10 shrink-0 text-blue-400" />
               </div>
@@ -37,7 +38,7 @@ export default function OverView() {
                 <p className="">Start from a template</p>
               </div>
             </div>
-            <div className="w-full h-32 rounded-xl bg-background shadow-md p-5 flex items-center justify-start gap-6">
+            <div className="w-full h-28 rounded-xl bg-background shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
               <div className="w-max-h-max">
                 <ClockIcon className="w-10 h-10 shrink-0 text-yellow-400" />
               </div>
@@ -46,9 +47,32 @@ export default function OverView() {
                 <p className="">Continue where you left off</p>
               </div>
             </div>
-          
           </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min mt-6 shadow-md" />
+
+
+          <div className=" flex-1 rounded-xl bg-white mt-6 shadow-md p-5">
+            <div className="w-full flex justify-between items-center">
+              <div className="w-full">
+                <h2 className="text-xl font-semibold">
+                  Recent Proposals & Emails
+                </h2>
+                <p className="">Your most recently created proposals</p>
+              </div>
+              <Button variant={'outline'} className="max-md:hidden"><PlusCircleIcon className="w-4 h-4 shrink-0 inline-flex mr-0.5" /> New Proposal</Button>
+            </div>
+          </div>
+
+          <div className=" flex-1 rounded-xl bg-white mt-6 shadow-md p-5">
+            <div className="w-full flex justify-between items-center">
+              <div className="w-full">
+                <h2 className="text-xl font-semibold">
+                 Get Inspired
+                </h2>
+                <p className="">Browse successful proposals from the community</p>
+              </div>
+              <Button variant={'outline'} className="max-md:hidden"><FilterIcon className="w-4 h-4 shrink-0 inline-flex mr-0.5" /> Filter</Button>
+            </div>
+          </div>
         </div>
       </div>
     </SidebarInset>
