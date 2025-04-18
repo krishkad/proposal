@@ -32,7 +32,7 @@ export default function Home() {
               enter client details — we&apos;ll do the rest.
             </p>
             <div className="w-full flex max-md:flex-col items-center justify-center gap-5 mt-6">
-              <Button className="text-lg">
+              <Button className="text-lg" size={'lg'}>
                 Start Free — No Credit Card Required
               </Button>
               <Link href={"#"} className="text-lg text-primary font-medium">
@@ -201,7 +201,7 @@ export default function Home() {
 
           <div className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* BOXES  */}
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 hover:-translate-y-2 duration-300 transition-all hover:shadow-lg">
               <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
@@ -223,7 +223,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300 hover:-translate-y-2 duration-300 transition-all hover:shadow-lg">
               <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
@@ -245,7 +245,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-green-300 via-green-200 to-green-300 hover:-translate-y-4 duration-300 transition-all hover:shadow-lg">
+            <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-green-300 via-green-200 to-green-300 hover:-translate-y-2 duration-300 transition-all hover:shadow-lg">
               <div className="bg-background rounded-md p-6">
                 <div className="w-full">
                   <div className="w-max h-max p-2 rounded-full bg-primary/10">
@@ -255,7 +255,7 @@ export default function Home() {
 
                 <div className="w-full">
                   <h3 className="text-2xl font-bold mt-3 text-gradient-primary">
-                    Step 2
+                    Step 3
                   </h3>
                   <h3 className="text-3xl font-bold mt-3">
                     Send & Win Clients
@@ -290,7 +290,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col justify-center items-center rounded-md mt-20 px-4 py-8 space-y-4 bg-gradient-to-r from-purple-50 via-purple-100/75 to-purple-50">
+          <div className="w-full flex flex-col justify-center items-center rounded-md mt-20 px-4 py-8 space-y-4 bg-background">
             <h2 className="text-center text-3xl font-bold">
               Ready to transform your proposal process?
             </h2>
@@ -431,7 +431,7 @@ export default function Home() {
 
           <div className="w-full mt-16">
             <div className="w-full flex max-md:flex-col items-center justify-center gap-6">
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background">
+              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background hover:shadow-md">
                 <h3 className="text-xl font-bold mt-3">Free</h3>
                 <h2 className="text-3xl font-bold mt-3">Free</h2>
                 <p className="mt-3">Perfect for trying out the platform</p>
@@ -463,7 +463,7 @@ export default function Home() {
                   Email support
                 </p>
               </div>
-              <div className="w-[350px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-background">
+              <div className="w-[350px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-background shadow-md">
                 <div className="w-full text-center bg-primary py-2">
                   <p className="font-bold text-center text-white">
                     Most Popular
@@ -512,7 +512,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background">
+              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background hover:shadow-md">
                 <h3 className="text-xl font-bold mt-3">Business</h3>
                 <h2 className="text-3xl font-bold mt-3">
                   $49 <span className="text-base text-gray-400">/month</span>
