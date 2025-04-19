@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -155,7 +156,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           defaultVersion={data.versions[0]}
         /> */}
         <h1 className="px-3 mt-2 text-2xl font-bold text-gradient-primary">
-          Proposal.ai
+          <Link href={"/"}>Proposal.ai</Link>
         </h1>
         <SearchForm className="mt-5" />
       </SidebarHeader>

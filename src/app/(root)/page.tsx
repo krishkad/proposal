@@ -22,7 +22,7 @@ export default function Home() {
       {/* <Navbar /> */}
       <div className="max-w-wrapper">
         <div className="w-full flex items-center justify-center">
-          <div className="w-full md:max-w-4xl mt-[20vh]">
+          <div className="w-full md:max-w-4xl mt-[10vh] md:mt-[20vh]">
             <h1 className="text-4xl md:text-6xl font-bold text-wrap text-center">
               <span className="text-gradient-primary">Win More Clients</span>{" "}
               With Ready-to-Send Proposals & Emails — Powered by AI
