@@ -151,10 +151,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        {/* <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        /> */}
         <h1 className="px-3 mt-2 text-2xl font-bold text-gradient-primary">
           <Link href={"/"}>Proposal.ai</Link>
         </h1>

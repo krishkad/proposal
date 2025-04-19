@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { SidebarInset } from "@/components/ui/sidebar";
 import { invoices } from "@/constants/constants";
 import { ClockIcon, FilterIcon, PlusCircleIcon } from "lucide-react";
 import { FaRegFileLines } from "react-icons/fa6";
