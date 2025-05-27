@@ -2,11 +2,9 @@
 import React from "react";
 import { Plus, FileText, Clock, Target, Eye, Edit, Trash2 } from "lucide-react";
 
-interface DashboardProps {
-  onPageChange: (page: string) => void;
-}
 
-const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
+
+const Dashboard  = () => {
   const metrics = [
     {
       title: "Proposals Generated",
@@ -75,7 +73,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
           </p>
 
           <button
-            onClick={() => onPageChange("generate")}
             className="bg-gradient-primary text-white px-8 py-4 rounded-xl font-semibold flex items-center transition-all duration-200 transform hover:scale-105 shadow-lg"
           >
             <Plus className="w-5 h-5 mr-2" />
@@ -123,7 +120,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
               Choose from our collection of proven proposal templates
             </p>
             <button
-              onClick={() => onPageChange("templates")}
               className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors"
             >
               Browse Templates
@@ -138,7 +134,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
               Create a completely custom proposal from scratch
             </p>
             <button
-              onClick={() => onPageChange("generate")}
               className="bg-white text-purple-600 px-4 py-2 rounded-lg font-medium hover:bg-purple-50 transition-colors"
             >
               Start Blank
@@ -226,3 +221,5 @@ const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
 };
 
 export default Dashboard;
+
+
