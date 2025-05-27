@@ -44,7 +44,7 @@ const ProposalGenerator: React.FC = () => {
   //   const [generatedProposals, setGeneratedProposals] = useState<
   //     ProposalVariation[]
   //   >([]);
-  const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
+//   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
 
 //   const isFormValid =
@@ -380,12 +380,7 @@ const ProposalGenerator: React.FC = () => {
                       (tone) => (
                         <button
                           key={tone}
-                          onClick={() =>
-                            setFormData((prev) => ({
-                              ...prev,
-                              tone: tone as any,
-                            }))
-                          }
+                         
                           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                             formData.tone === tone
                               ? "bg-purple-600 text-white"
@@ -467,7 +462,7 @@ const ProposalGenerator: React.FC = () => {
                       AI-Generated Proposals
                     </CardTitle>
                   </div>
-                  {[1, 2, 3, 4].length > 0 && selectedProposal && (
+                  {[1, 2, 3, 4].length > 0 && (
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm">
                         <Copy className="w-4 h-4" />
@@ -522,7 +517,7 @@ const ProposalGenerator: React.FC = () => {
                           key={proposal}
                         //   onClick={() => setSelectedProposal(proposal.id)}
                           className={`p-4 border rounded-lg text-left transition-all hover:border-blue-300 ${
-                            selectedProposal === 1
+                            1 === 1
                               ? "border-blue-500 bg-blue-50"
                               : "border-gray-200 hover:bg-gray-50"
                           }`}
@@ -536,7 +531,7 @@ const ProposalGenerator: React.FC = () => {
                                 {/* {proposal.style} */}
                               </p>
                             </div>
-                            {selectedProposal === 1 && (
+                            {1 === 1 && (
                               <Check className="w-5 h-5 text-blue-600 flex-shrink-0" />
                             )}
                           </div>
@@ -545,7 +540,7 @@ const ProposalGenerator: React.FC = () => {
                     </div>
 
                     {/* Selected Proposal Content */}
-                    {selectedProposal && (
+                    {1 && (
                       <div className="border-t pt-6">
                         <div className="prose prose-sm max-w-none">
                           <div className="whitespace-pre-wrap font-sans leading-relaxed"></div>
