@@ -17,12 +17,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-interface ProposalVariation {
-  id: number;
-  title: string;
-  content: string;
-  style: string;
-}
+// interface ProposalVariation {
+//   id: number;
+//   title: string;
+//   content: string;
+//   style: string;
+// }
 
 const ProposalGenerator: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -40,15 +40,15 @@ const ProposalGenerator: React.FC = () => {
   });
 
   const [serviceInput, setServiceInput] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedProposals, setGeneratedProposals] = useState<
-    ProposalVariation[]
-  >([]);
+  //   const [isGenerating, setIsGenerating] = useState(false);
+  //   const [generatedProposals, setGeneratedProposals] = useState<
+  //     ProposalVariation[]
+  //   >([]);
   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
 
-  const isFormValid =
-    formData.clientName.trim() && formData.proposalTitle.trim();
+//   const isFormValid =
+//     formData.clientName.trim() && formData.proposalTitle.trim();
 
   const addService = () => {
     if (
@@ -70,168 +70,164 @@ const ProposalGenerator: React.FC = () => {
     }));
   };
 
-//   const generateProposalVariations = (): ProposalVariation[] => {
-//     const baseContent = {
-//       clientName: formData.clientName,
-//       proposalTitle: formData.proposalTitle,
-//       services: formData.services,
-//       goals:
-//         formData.goals ||
-//         "We will work closely with your team to achieve measurable outcomes that align with your business objectives.",
-//     };
+  //   const generateProposalVariations = (): ProposalVariation[] => {
+  //     const baseContent = {
+  //       clientName: formData.clientName,
+  //       proposalTitle: formData.proposalTitle,
+  //       services: formData.services,
+  //       goals:
+  //         formData.goals ||
+  //         "We will work closely with your team to achieve measurable outcomes that align with your business objectives.",
+  //     };
 
-//     return [
-//       {
-//         id: 1,
-//         title: "Executive Summary Focus",
-//         style: "Concise and strategic",
-//         content: `# ${baseContent.proposalTitle}
+  //     return [
+  //       {
+  //         id: 1,
+  //         title: "Executive Summary Focus",
+  //         style: "Concise and strategic",
+  //         content: `# ${baseContent.proposalTitle}
 
-// **Client:** ${baseContent.clientName}
+  // **Client:** ${baseContent.clientName}
 
-// ## Executive Summary
+  // ## Executive Summary
 
-// We propose a comprehensive solution tailored specifically for ${
-//           baseContent.clientName
-//         }. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
+  // We propose a comprehensive solution tailored specifically for ${
+  //           baseContent.clientName
+  //         }. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
 
-// ## Core Services
+  // ## Core Services
 
-// ${baseContent.services.map((service) => `• ${service}`).join("\n")}
+  // ${baseContent.services.map((service) => `• ${service}`).join("\n")}
 
-// ## Strategic Objectives
+  // ## Strategic Objectives
 
-// ${baseContent.goals}
+  // ${baseContent.goals}
 
-// ## Investment & Timeline
+  // ## Investment & Timeline
 
-// **Phase 1:** Discovery & Planning (Week 1-2)
-// **Phase 2:** Implementation (Week 3-6)
-// **Phase 3:** Optimization & Launch (Week 7-8)
+  // **Phase 1:** Discovery & Planning (Week 1-2)
+  // **Phase 2:** Implementation (Week 3-6)
+  // **Phase 3:** Optimization & Launch (Week 7-8)
 
-// *Investment details will be provided upon approval of this proposal scope.*
+  // *Investment details will be provided upon approval of this proposal scope.*
 
-// ---
+  // ---
 
-// Ready to transform your vision into reality? Let's discuss the next steps.`,
-//       },
-//       {
-//         id: 2,
-//         title: "Detailed Technical Approach",
-//         style: "Comprehensive and methodical",
-//         content: `# ${baseContent.proposalTitle}
+  // Ready to transform your vision into reality? Let's discuss the next steps.`,
+  //       },
+  //       {
+  //         id: 2,
+  //         title: "Detailed Technical Approach",
+  //         style: "Comprehensive and methodical",
+  //         content: `# ${baseContent.proposalTitle}
 
-// **Prepared for:** ${baseContent.clientName}
-// **Date:** ${new Date().toLocaleDateString()}
+  // **Prepared for:** ${baseContent.clientName}
+  // **Date:** ${new Date().toLocaleDateString()}
 
-// ## Project Overview
+  // ## Project Overview
 
-// This proposal outlines a detailed approach to deliver exceptional value through strategic implementation of your requirements. Our methodology ensures measurable outcomes and sustainable growth.
+  // This proposal outlines a detailed approach to deliver exceptional value through strategic implementation of your requirements. Our methodology ensures measurable outcomes and sustainable growth.
 
-// ## Deliverables & Services
+  // ## Deliverables & Services
 
-// ${baseContent.services
-//   .map((service, index) => `**${index + 1}.** ${service}`)
-//   .join("\n")}
+  // ${baseContent.services
+  //   .map((service, index) => `**${index + 1}.** ${service}`)
+  //   .join("\n")}
 
-// ## Project Goals & Success Metrics
+  // ## Project Goals & Success Metrics
 
-// ${baseContent.goals}
+  // ${baseContent.goals}
 
-// **Key Performance Indicators:**
-// • Project completion within timeline
-// • Quality assurance at every milestone
-// • Regular communication and updates
-// • Post-project support and optimization
+  // **Key Performance Indicators:**
+  // • Project completion within timeline
+  // • Quality assurance at every milestone
+  // • Regular communication and updates
+  // • Post-project support and optimization
 
-// ## Implementation Roadmap
+  // ## Implementation Roadmap
 
-// **Week 1-2: Foundation**
-// - Initial consultation and requirement gathering
-// - Strategy development and planning
-// - Resource allocation and team assignment
+  // **Week 1-2: Foundation**
+  // - Initial consultation and requirement gathering
+  // - Strategy development and planning
+  // - Resource allocation and team assignment
 
-// **Week 3-6: Execution**
-// - Core implementation phase
-// - Regular progress reviews
-// - Quality testing and validation
+  // **Week 3-6: Execution**
+  // - Core implementation phase
+  // - Regular progress reviews
+  // - Quality testing and validation
 
-// **Week 7-8: Finalization**
-// - Final testing and optimization
-// - Documentation and handover
-// - Training and support setup
+  // **Week 7-8: Finalization**
+  // - Final testing and optimization
+  // - Documentation and handover
+  // - Training and support setup
 
-// ## Investment Structure
+  // ## Investment Structure
 
-// Our flexible pricing model ensures you get maximum value for your investment. Detailed pricing will be provided based on the final project scope.
+  // Our flexible pricing model ensures you get maximum value for your investment. Detailed pricing will be provided based on the final project scope.
 
-// ---
+  // ---
 
-// *This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${
-//           baseContent.clientName
-//         }.*`,
-//       },
-//       {
-//         id: 3,
-//         title: "Results-Driven Approach",
-//         style: "Outcome-focused and persuasive",
-//         content: `# ${baseContent.proposalTitle}
+  // *This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${
+  //           baseContent.clientName
+  //         }.*`,
+  //       },
+  //       {
+  //         id: 3,
+  //         title: "Results-Driven Approach",
+  //         style: "Outcome-focused and persuasive",
+  //         content: `# ${baseContent.proposalTitle}
 
-// **Transforming ${baseContent.clientName}'s Vision into Reality**
+  // **Transforming ${baseContent.clientName}'s Vision into Reality**
 
-// ## Why Choose Our Solution?
+  // ## Why Choose Our Solution?
 
-// Your success is our priority. We don't just deliver services—we deliver results that drive your business forward and create lasting impact.
+  // Your success is our priority. We don't just deliver services—we deliver results that drive your business forward and create lasting impact.
 
-// ## What You'll Gain
+  // ## What You'll Gain
 
-// ${baseContent.services.map((service) => `✓ ${service}`).join("\n")}
+  // ${baseContent.services.map((service) => `✓ ${service}`).join("\n")}
 
-// ## Your Goals, Our Mission
+  // ## Your Goals, Our Mission
 
-// ${baseContent.goals}
+  // ${baseContent.goals}
 
-// **Our Commitment:**
-// - Transparent communication throughout the project
-// - Delivery that exceeds expectations
-// - Ongoing support for long-term success
-// - Measurable ROI on your investment
+  // **Our Commitment:**
+  // - Transparent communication throughout the project
+  // - Delivery that exceeds expectations
+  // - Ongoing support for long-term success
+  // - Measurable ROI on your investment
 
-// ## The Path Forward
+  // ## The Path Forward
 
-// **Immediate Impact (Week 1-2)**
-// Quick wins and foundational setup to show immediate value
+  // **Immediate Impact (Week 1-2)**
+  // Quick wins and foundational setup to show immediate value
 
-// **Core Transformation (Week 3-6)**
-// Deep implementation of core strategies and solutions
+  // **Core Transformation (Week 3-6)**
+  // Deep implementation of core strategies and solutions
 
-// **Optimization & Growth (Week 7-8)**
-// Fine-tuning and preparation for sustained success
+  // **Optimization & Growth (Week 7-8)**
+  // Fine-tuning and preparation for sustained success
 
-// ## Your Investment
+  // ## Your Investment
 
-// We believe in providing exceptional value. Our pricing reflects the quality and impact of our work, with flexible options to fit your budget.
+  // We believe in providing exceptional value. Our pricing reflects the quality and impact of our work, with flexible options to fit your budget.
 
-// ## Next Steps
+  // ## Next Steps
 
-// Ready to get started? Here's what happens next:
+  // Ready to get started? Here's what happens next:
 
-// 1. **Approve this proposal** - We'll send the detailed contract
-// 2. **Kick-off meeting** - We'll align on expectations and timeline  
-// 3. **Project launch** - We begin delivering results immediately
+  // 1. **Approve this proposal** - We'll send the detailed contract
+  // 2. **Kick-off meeting** - We'll align on expectations and timeline
+  // 3. **Project launch** - We begin delivering results immediately
 
-// ---
+  // ---
 
-// **Let's make ${baseContent.clientName} even more successful together.**
+  // **Let's make ${baseContent.clientName} even more successful together.**
 
-// *Questions? We're here to help: [Contact Information]*`,
-//       },
-//     ];
-//   };
-
- 
-
-  
+  // *Questions? We're here to help: [Contact Information]*`,
+  //       },
+  //     ];
+  //   };
 
   const templates = [
     {
@@ -443,11 +439,8 @@ const ProposalGenerator: React.FC = () => {
                 </div>
 
                 {/* Generate Button */}
-                <Button
-                  disabled={!isFormValid || isGenerating}
-                  className="w-full h-12 text-base font-semibold"
-                >
-                  {isGenerating ? (
+                <Button className="w-full h-12 text-base font-semibold">
+                  {false ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
                       Generating 3 Variations...
@@ -474,7 +467,7 @@ const ProposalGenerator: React.FC = () => {
                       AI-Generated Proposals
                     </CardTitle>
                   </div>
-                  {generatedProposals.length > 0 && selectedProposal && (
+                  {[1, 2, 3, 4].length > 0 && selectedProposal && (
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm">
                         <Copy className="w-4 h-4" />
@@ -493,7 +486,7 @@ const ProposalGenerator: React.FC = () => {
                 </div>
               </CardHeader>
               <CardContent>
-                {isGenerating ? (
+                {false ? (
                   <div className="space-y-6">
                     <div className="text-center py-8">
                       <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -520,16 +513,16 @@ const ProposalGenerator: React.FC = () => {
                       ))}
                     </div>
                   </div>
-                ) : generatedProposals.length > 0 ? (
+                ) : [].length > 0 ? (
                   <div className="space-y-4">
                     {/* Proposal Selector */}
                     <div className="grid grid-cols-1 gap-3">
-                      {generatedProposals.map((proposal) => (
+                      {[].map((proposal) => (
                         <button
-                          key={proposal.id}
-                          onClick={() => setSelectedProposal(proposal.id)}
+                          key={proposal}
+                        //   onClick={() => setSelectedProposal(proposal.id)}
                           className={`p-4 border rounded-lg text-left transition-all hover:border-blue-300 ${
-                            selectedProposal === proposal.id
+                            selectedProposal === 1
                               ? "border-blue-500 bg-blue-50"
                               : "border-gray-200 hover:bg-gray-50"
                           }`}
@@ -537,13 +530,13 @@ const ProposalGenerator: React.FC = () => {
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <h3 className="font-semibold text-gray-900 mb-1">
-                                {proposal.title}
+                                {/* {proposal.title} */}
                               </h3>
                               <p className="text-sm text-gray-600">
-                                {proposal.style}
+                                {/* {proposal.style} */}
                               </p>
                             </div>
-                            {selectedProposal === proposal.id && (
+                            {selectedProposal === 1 && (
                               <Check className="w-5 h-5 text-blue-600 flex-shrink-0" />
                             )}
                           </div>
