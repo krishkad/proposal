@@ -2,11 +2,9 @@
 import React from 'react';
 import { Plus, Tag, Star, Clock, FileText } from 'lucide-react';
 
-interface TemplatesProps {
-  onPageChange: (page: string) => void;
-}
 
-const Templates: React.FC<TemplatesProps> = ({ onPageChange }) => {
+
+const Templates = () => {
   const templates = [
     {
       id: 1,
@@ -171,7 +169,6 @@ const Templates: React.FC<TemplatesProps> = ({ onPageChange }) => {
                 </span>
                 
                 <button 
-                  onClick={() => onPageChange('generate')}
                   className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary transition-colors"
                 >
                   Use Template

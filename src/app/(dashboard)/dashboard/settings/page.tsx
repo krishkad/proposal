@@ -3,7 +3,7 @@
 import React from 'react';
 import { User, Bell, Shield, CreditCard, Download, Trash2 } from 'lucide-react';
 
-const Settings: React.FC = () => {
+const Settings = () => {
   return (
     <div className="w-full bg-secondary/50">
     <div className=" p-6 max-w-4xl mx-auto">

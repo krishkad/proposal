@@ -24,7 +24,7 @@ import { Label } from "@/components/ui/label";
 //   style: string;
 // }
 
-const ProposalGenerator: React.FC = () => {
+const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
     clientName: "",
     proposalTitle: "",
