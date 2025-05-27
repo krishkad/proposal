@@ -1,9 +1,11 @@
+"use client";
 import * as React from "react";
 
 import { SearchForm } from "@/components/ui/search-form";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -14,6 +16,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { sidebarLinks } from "@/constants/constants";
+import { Button } from "./button";
+import { cn } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 // This is sample data.
 const data = {
@@ -148,34 +155,40 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname();
+  const router = useRouter();
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="bg-white">
         <h1 className="px-3 mt-2 text-2xl font-bold text-gradient-primary">
           <Link href={"/"}>Proposal.ai</Link>
         </h1>
-        <SearchForm className="mt-5" />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white px-5">
         {/* We create a SidebarGroup for each parent. */}
-        {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+        <div className="w-full mt-6 space-y-3">
+          {sidebarLinks.map((links, i) => {
+            return (
+              <Button
+                key={i}
+                variant={"outline"}
+                onClick={() => router.push(links.path) }
+                className={cn("w-full !h-11 !px-5 shadow-none flex items-center justify-start gap-3 text-base rounded-xl hover:bg-gray-100 transition-all duration-200", links.path === pathname ? "border-[0.2px] border-primary text-primary bg-primary/5 hover:bg-primary/5 hover:text-primary " : "bg-white border-white text-gray-700")}
+              >
+                <links.icon />
+                {links.label}
+              </Button>
+            );
+          })}
+        </div>
       </SidebarContent>
       <SidebarRail />
+      <SidebarFooter className="h-16 px-5">
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </SidebarFooter>
     </Sidebar>
   );
 }

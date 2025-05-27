@@ -1,124 +1,228 @@
-import { Button } from "@/components/ui/button";
-import { invoices } from "@/constants/constants";
-import { ClockIcon, FilterIcon, PlusCircleIcon } from "lucide-react";
-import { FaRegFileLines } from "react-icons/fa6";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+"use client";
+import React from "react";
+import { Plus, FileText, Clock, Target, Eye, Edit, Trash2 } from "lucide-react";
 
-export default function OverView() {
+interface DashboardProps {
+  onPageChange: (page: string) => void;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ onPageChange }) => {
+  const metrics = [
+    {
+      title: "Proposals Generated",
+      value: "24",
+      subtitle: "This week",
+      icon: FileText,
+      color: "blue",
+    },
+    {
+      title: "Average Time",
+      value: "2.3m",
+      subtitle: "Generation time",
+      icon: Clock,
+      color: "green",
+    },
+    {
+      title: "Most Used Template",
+      value: "SaaS Pitch",
+      subtitle: "12 times used",
+      icon: Target,
+      color: "purple",
+    },
+  ];
+
+  const recentProposals = [
+    {
+      id: 1,
+      title: "SaaS Marketing Strategy for TechCorp",
+      date: "2024-05-27",
+      length: "2,400 words",
+      status: "Completed",
+    },
+    {
+      id: 2,
+      title: "E-commerce Platform Proposal",
+      date: "2024-05-26",
+      length: "1,850 words",
+      status: "Completed",
+    },
+    {
+      id: 3,
+      title: "Mobile App Development Brief",
+      date: "2024-05-25",
+      length: "3,200 words",
+      status: "Completed",
+    },
+    {
+      id: 4,
+      title: "Digital Transformation Consulting",
+      date: "2024-05-24",
+      length: "2,800 words",
+      status: "Draft",
+    },
+  ];
+
   return (
-    
-      <div className="bg-secondary/50  flex-1 flex-col gap-4 py-4">
-        <div className="max-w-wrapper h-full flex flex-col gap-4 px-4 md:px-8">
-          <div className="w-full py-10">
-            <h1 className="text-4xl font-bold">Welcome to your dashboard</h1>
-            <p className="text-lg mt-2.5">
-              Create and manage your professional proposals and emails
+    <div className="w-full bg-secondary/50">
+      <div className="p-6 max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome back!
+          </h1>
+          <p className="text-gray-600 mb-6">
+            Ready to create your next winning proposal?
+          </p>
+
+          <button
+            onClick={() => onPageChange("generate")}
+            className="bg-gradient-primary text-white px-8 py-4 rounded-xl font-semibold flex items-center transition-all duration-200 transform hover:scale-105 shadow-lg"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            Generate New Proposal
+          </button>
+        </div>
+
+        {/* Metrics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {metrics.map((metric, index) => {
+            const Icon = metric.icon;
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">{metric.title}</p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {metric.value}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {metric.subtitle}
+                    </p>
+                  </div>
+                  <div
+                    className={`w-12 h-12 bg-${metric.color}-100 rounded-lg flex items-center justify-center`}
+                  >
+                    <Icon className={`w-6 h-6 text-${metric.color}-600`} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 border border-blue-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Start from Template
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Choose from our collection of proven proposal templates
             </p>
-          </div>
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="w-full h-28 rounded-xl bg-gradient-primary shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
-              <div className="w-max-h-max">
-                <PlusCircleIcon className="w-10 h-10 shrink-0 text-white" />
-              </div>
-              <div className="w-full">
-                <h3 className="text-lg font-bold text-white">
-                  Create New Proposal
-                </h3>
-                <p className="text-white">Start From scratch</p>
-              </div>
-            </div>
-            <div className="w-full h-28 rounded-xl bg-background shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
-              <div className="w-max-h-max">
-                <FaRegFileLines className="w-10 h-10 shrink-0 text-blue-400" />
-              </div>
-              <div className="w-full">
-                <h3 className="text-lg font-bold">Use Template</h3>
-                <p className="">Start from a template</p>
-              </div>
-            </div>
-            <div className="w-full h-28 rounded-xl bg-background shadow-sm hover:shadow-md p-5 flex items-center justify-start gap-6">
-              <div className="w-max-h-max">
-                <ClockIcon className="w-10 h-10 shrink-0 text-yellow-400" />
-              </div>
-              <div className="w-full">
-                <h3 className="text-lg font-bold">View Recent</h3>
-                <p className="">Continue where you left off</p>
-              </div>
-            </div>
+            <button
+              onClick={() => onPageChange("templates")}
+              className="bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+            >
+              Browse Templates
+            </button>
           </div>
 
-          <div className=" flex-1 rounded-xl bg-white mt-6 shadow-md p-5">
-            <div className="w-full flex justify-between items-center">
-              <div className="w-full">
-                <h2 className="text-xl font-semibold">
-                  Recent Proposals & Emails
-                </h2>
-                <p className="">Your most recently created proposals</p>
-              </div>
-              <Button variant={"outline"} className="max-md:hidden">
-                <PlusCircleIcon className="w-4 h-4 shrink-0 inline-flex mr-0.5" />{" "}
-                New Proposal
-              </Button>
-            </div>
-            <div className="w-full mt-4">
-              <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[100px]">Invoice</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                      <TableCell className="font-medium">
-                        {invoice.invoice}
-                      </TableCell>
-                      <TableCell>{invoice.paymentStatus}</TableCell>
-                      <TableCell>{invoice.paymentMethod}</TableCell>
-                      <TableCell className="text-right">
-                        {invoice.totalAmount}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </div>
+          <div className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl p-6 border border-purple-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Start Blank
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              Create a completely custom proposal from scratch
+            </p>
+            <button
+              onClick={() => onPageChange("generate")}
+              className="bg-white text-purple-600 px-4 py-2 rounded-lg font-medium hover:bg-purple-50 transition-colors"
+            >
+              Start Blank
+            </button>
+          </div>
+        </div>
+
+        {/* Recent Proposals */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <div className="p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900">
+              Recent Proposals
+            </h2>
           </div>
 
-          <div className=" flex-1 rounded-xl bg-white mt-6 shadow-md p-5">
-            <div className="w-full flex justify-between items-center">
-              <div className="w-full">
-                <h2 className="text-xl font-semibold">Get Inspired</h2>
-                <p className="">
-                  Browse successful proposals from the community
-                </p>
-              </div>
-              <Button variant={"outline"} className="max-md:hidden">
-                <FilterIcon className="w-4 h-4 shrink-0 inline-flex mr-0.5" />{" "}
-                Filter
-              </Button>
-            </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                    Proposal Title
+                  </th>
+                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                    Date Created
+                  </th>
+                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                    Length
+                  </th>
+                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                    Status
+                  </th>
+                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentProposals.map((proposal) => (
+                  <tr
+                    key={proposal.id}
+                    className="border-b border-gray-100 hover:bg-gray-50"
+                  >
+                    <td className="py-4 px-6">
+                      <p className="font-medium text-gray-900">
+                        {proposal.title}
+                      </p>
+                    </td>
+                    <td className="py-4 px-6 text-gray-600">{proposal.date}</td>
+                    <td className="py-4 px-6 text-gray-600">
+                      {proposal.length}
+                    </td>
+                    <td className="py-4 px-6">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          proposal.status === "Completed"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}
+                      >
+                        {proposal.status}
+                      </span>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex space-x-2">
+                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                          <Eye className="w-4 h-4 text-gray-600" />
+                        </button>
+                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                          <Edit className="w-4 h-4 text-gray-600" />
+                        </button>
+                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                          <Trash2 className="w-4 h-4 text-gray-600" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </div>
   );
-}
+};
+
+export default Dashboard;
