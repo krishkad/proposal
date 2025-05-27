@@ -1,18 +1,11 @@
 "use client";
 import * as React from "react";
 
-import { SearchForm } from "@/components/ui/search-form";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";

@@ -1,11 +1,21 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { FileText, Copy, Download, Save, RotateCcw, Wand2, X, Plus, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+"use client";
+import React, { useState } from "react";
+import {
+  FileText,
+  Copy,
+  Download,
+  Save,
+  RotateCcw,
+  Wand2,
+  X,
+  Plus,
+  Check,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 interface ProposalVariation {
   id: number;
@@ -16,37 +26,47 @@ interface ProposalVariation {
 
 const ProposalGenerator: React.FC = () => {
   const [formData, setFormData] = useState({
-    clientName: '',
-    proposalTitle: '',
+    clientName: "",
+    proposalTitle: "",
     services: [] as string[],
-    goals: '',
-    tone: 'professional' as 'formal' | 'friendly' | 'persuasive' | 'professional',
-    instructions: '',
-    templateId: null as string | null
+    goals: "",
+    tone: "professional" as
+      | "formal"
+      | "friendly"
+      | "persuasive"
+      | "professional",
+    instructions: "",
+    templateId: null as string | null,
   });
 
-  const [serviceInput, setServiceInput] = useState('');
+  const [serviceInput, setServiceInput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedProposals, setGeneratedProposals] = useState<ProposalVariation[]>([]);
+  const [generatedProposals, setGeneratedProposals] = useState<
+    ProposalVariation[]
+  >([]);
   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
 
-  const isFormValid = formData.clientName.trim() && formData.proposalTitle.trim();
+  const isFormValid =
+    formData.clientName.trim() && formData.proposalTitle.trim();
 
   const addService = () => {
-    if (serviceInput.trim() && !formData.services.includes(serviceInput.trim())) {
-      setFormData(prev => ({
+    if (
+      serviceInput.trim() &&
+      !formData.services.includes(serviceInput.trim())
+    ) {
+      setFormData((prev) => ({
         ...prev,
-        services: [...prev.services, serviceInput.trim()]
+        services: [...prev.services, serviceInput.trim()],
       }));
-      setServiceInput('');
+      setServiceInput("");
     }
   };
 
   const removeService = (service: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      services: prev.services.filter(s => s !== service)
+      services: prev.services.filter((s) => s !== service),
     }));
   };
 
@@ -55,7 +75,9 @@ const ProposalGenerator: React.FC = () => {
       clientName: formData.clientName,
       proposalTitle: formData.proposalTitle,
       services: formData.services,
-      goals: formData.goals || 'We will work closely with your team to achieve measurable outcomes that align with your business objectives.'
+      goals:
+        formData.goals ||
+        "We will work closely with your team to achieve measurable outcomes that align with your business objectives.",
     };
 
     return [
@@ -69,11 +91,13 @@ const ProposalGenerator: React.FC = () => {
 
 ## Executive Summary
 
-We propose a comprehensive solution tailored specifically for ${baseContent.clientName}. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
+We propose a comprehensive solution tailored specifically for ${
+          baseContent.clientName
+        }. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
 
 ## Core Services
 
-${baseContent.services.map(service => `• ${service}`).join('\n')}
+${baseContent.services.map((service) => `• ${service}`).join("\n")}
 
 ## Strategic Objectives
 
@@ -89,7 +113,7 @@ ${baseContent.goals}
 
 ---
 
-Ready to transform your vision into reality? Let's discuss the next steps.`
+Ready to transform your vision into reality? Let's discuss the next steps.`,
       },
       {
         id: 2,
@@ -106,7 +130,9 @@ This proposal outlines a detailed approach to deliver exceptional value through 
 
 ## Deliverables & Services
 
-${baseContent.services.map((service, index) => `**${index + 1}.** ${service}`).join('\n')}
+${baseContent.services
+  .map((service, index) => `**${index + 1}.** ${service}`)
+  .join("\n")}
 
 ## Project Goals & Success Metrics
 
@@ -141,7 +167,9 @@ Our flexible pricing model ensures you get maximum value for your investment. De
 
 ---
 
-*This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${baseContent.clientName}.*`
+*This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${
+          baseContent.clientName
+        }.*`,
       },
       {
         id: 3,
@@ -157,7 +185,7 @@ Your success is our priority. We don't just deliver services—we deliver result
 
 ## What You'll Gain
 
-${baseContent.services.map(service => `✓ ${service}`).join('\n')}
+${baseContent.services.map((service) => `✓ ${service}`).join("\n")}
 
 ## Your Goals, Our Mission
 
@@ -196,8 +224,8 @@ Ready to get started? Here's what happens next:
 
 **Let's make ${baseContent.clientName} even more successful together.**
 
-*Questions? We're here to help: [Contact Information]*`
-      }
+*Questions? We're here to help: [Contact Information]*`,
+      },
     ];
   };
 
@@ -206,7 +234,7 @@ Ready to get started? Here's what happens next:
 
     setIsGenerating(true);
     setSelectedProposal(null);
-    
+
     // Simulate API call
     setTimeout(() => {
       const variations = generateProposalVariations();
@@ -216,57 +244,46 @@ Ready to get started? Here's what happens next:
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
       e.preventDefault();
       handleGenerate();
     }
   };
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown as any);
-    return () => document.removeEventListener('keydown', handleKeyDown as any);
-  }, [isFormValid]);
-
-  const renderProposalContent = (content: string) => {
-    return content.split('\n').map((line, index) => {
-      if (line.startsWith('# ')) {
-        return <h1 key={index} className="text-2xl font-bold text-gray-900 mb-4">{line.slice(2)}</h1>;
-      }
-      if (line.startsWith('## ')) {
-        return <h2 key={index} className="text-xl font-semibold text-gray-900 mt-6 mb-3">{line.slice(3)}</h2>;
-      }
-      if (line.startsWith('**') && line.endsWith('**')) {
-        return <p key={index} className="font-semibold text-gray-900 mb-2">{line.slice(2, -2)}</p>;
-      }
-      if (line.startsWith('• ') || line.startsWith('✓ ')) {
-        return <p key={index} className="ml-4 mb-1">{line}</p>;
-      }
-      if (line.startsWith('*') && line.endsWith('*')) {
-        return <p key={index} className="italic text-gray-600 text-sm mt-4">{line.slice(1, -1)}</p>;
-      }
-      if (line.trim() === '---') {
-        return <hr key={index} className="my-6 border-gray-200" />;
-      }
-      if (line.trim()) {
-        return <p key={index} className="mb-3 text-gray-700">{line}</p>;
-      }
-      return <div key={index} className="h-2"></div>;
-    });
-  };
-
   const templates = [
-    { id: 'saas', name: 'SaaS Platform', preview: '📱 Software as a Service proposal template' },
-    { id: 'marketing', name: 'Digital Marketing', preview: '📈 Marketing campaign proposal template' },
-    { id: 'design', name: 'Design Services', preview: '🎨 Creative design project template' },
-    { id: 'consulting', name: 'Business Consulting', preview: '💼 Strategic consulting template' }
+    {
+      id: "saas",
+      name: "SaaS Platform",
+      preview: "📱 Software as a Service proposal template",
+    },
+    {
+      id: "marketing",
+      name: "Digital Marketing",
+      preview: "📈 Marketing campaign proposal template",
+    },
+    {
+      id: "design",
+      name: "Design Services",
+      preview: "🎨 Creative design project template",
+    },
+    {
+      id: "consulting",
+      name: "Business Consulting",
+      preview: "💼 Strategic consulting template",
+    },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Generate Proposal</h1>
-          <p className="text-gray-600">Create professional proposals with AI assistance - choose from 3 unique variations</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Generate Proposal
+          </h1>
+          <p className="text-gray-600">
+            Create professional proposals with AI assistance - choose from 3
+            unique variations
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -285,7 +302,12 @@ Ready to get started? Here's what happens next:
                   <Input
                     id="clientName"
                     value={formData.clientName}
-                    onChange={(e) => setFormData(prev => ({ ...prev, clientName: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        clientName: e.target.value,
+                      }))
+                    }
                     placeholder="Enter client or company name"
                     className="h-11"
                   />
@@ -293,13 +315,21 @@ Ready to get started? Here's what happens next:
 
                 {/* Proposal Title */}
                 <div className="space-y-2">
-                  <Label htmlFor="proposalTitle" className="text-sm font-medium">
+                  <Label
+                    htmlFor="proposalTitle"
+                    className="text-sm font-medium"
+                  >
                     Proposal Title *
                   </Label>
                   <Input
                     id="proposalTitle"
                     value={formData.proposalTitle}
-                    onChange={(e) => setFormData(prev => ({ ...prev, proposalTitle: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        proposalTitle: e.target.value,
+                      }))
+                    }
                     placeholder="e.g., Website Redesign & Development Project"
                     className="h-11"
                   />
@@ -307,13 +337,17 @@ Ready to get started? Here's what happens next:
 
                 {/* Services */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Services & Deliverables</Label>
+                  <Label className="text-sm font-medium">
+                    Services & Deliverables
+                  </Label>
                   <div className="flex gap-2">
                     <Input
                       value={serviceInput}
                       onChange={(e) => setServiceInput(e.target.value)}
                       placeholder="Add a service or deliverable"
-                      onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addService())}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" && (e.preventDefault(), addService())
+                      }
                       className="flex-1"
                     />
                     <Button onClick={addService} size="sm" variant="outline">
@@ -348,7 +382,12 @@ Ready to get started? Here's what happens next:
                   <Textarea
                     id="goals"
                     value={formData.goals}
-                    onChange={(e) => setFormData(prev => ({ ...prev, goals: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        goals: e.target.value,
+                      }))
+                    }
                     placeholder="Describe the main objectives and problems this proposal should address..."
                     className="min-h-24"
                   />
@@ -358,34 +397,43 @@ Ready to get started? Here's what happens next:
                 <div className="space-y-2">
                   <Label className="text-sm font-medium">Tone & Style</Label>
                   <div className="grid grid-cols-2 gap-2">
-                    {['formal', 'friendly', 'persuasive', 'professional'].map((tone) => (
-                      <button
-                        key={tone}
-                        onClick={() => setFormData(prev => ({ ...prev, tone: tone as any }))}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          formData.tone === tone
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                      >
-                        {tone.charAt(0).toUpperCase() + tone.slice(1)}
-                      </button>
-                    ))}
+                    {["formal", "friendly", "persuasive", "professional"].map(
+                      (tone) => (
+                        <button
+                          key={tone}
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              tone: tone as any,
+                            }))
+                          }
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                            formData.tone === tone
+                              ? "bg-purple-600 text-white"
+                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        >
+                          {tone.charAt(0).toUpperCase() + tone.slice(1)}
+                        </button>
+                      )
+                    )}
                   </div>
                 </div>
 
                 {/* Template Selector */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Template (Optional)</Label>
+                  <Label className="text-sm font-medium">
+                    Template (Optional)
+                  </Label>
                   <Button
                     variant="outline"
                     onClick={() => setShowTemplateModal(true)}
                     className="w-full justify-start"
                   >
-                    {formData.templateId ? 
-                      templates.find(t => t.id === formData.templateId)?.name || 'Choose Template' :
-                      'Choose Template'
-                    }
+                    {formData.templateId
+                      ? templates.find((t) => t.id === formData.templateId)
+                          ?.name || "Choose Template"
+                      : "Choose Template"}
                   </Button>
                 </div>
 
@@ -397,7 +445,12 @@ Ready to get started? Here's what happens next:
                   <Textarea
                     id="instructions"
                     value={formData.instructions}
-                    onChange={(e) => setFormData(prev => ({ ...prev, instructions: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        instructions: e.target.value,
+                      }))
+                    }
                     placeholder="Any specific requirements, formatting preferences, or additional context..."
                     className="min-h-20"
                   />
@@ -435,7 +488,9 @@ Ready to get started? Here's what happens next:
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <FileText className="w-5 h-5 text-blue-600" />
-                    <CardTitle className="text-xl">AI-Generated Proposals</CardTitle>
+                    <CardTitle className="text-xl">
+                      AI-Generated Proposals
+                    </CardTitle>
                   </div>
                   {generatedProposals.length > 0 && selectedProposal && (
                     <div className="flex gap-2">
@@ -462,8 +517,13 @@ Ready to get started? Here's what happens next:
                       <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Creating 3 Unique Proposals</h3>
-                      <p className="text-gray-600">Our AI is crafting proposals tailored to different approaches...</p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        Creating 3 Unique Proposals
+                      </h3>
+                      <p className="text-gray-600">
+                        Our AI is crafting proposals tailored to different
+                        approaches...
+                      </p>
                     </div>
                     <div className="space-y-4 animate-pulse">
                       {[1, 2, 3].map((i) => (
@@ -488,14 +548,18 @@ Ready to get started? Here's what happens next:
                           onClick={() => setSelectedProposal(proposal.id)}
                           className={`p-4 border rounded-lg text-left transition-all hover:border-blue-300 ${
                             selectedProposal === proposal.id
-                              ? 'border-blue-500 bg-blue-50'
-                              : 'border-gray-200 hover:bg-gray-50'
+                              ? "border-blue-500 bg-blue-50"
+                              : "border-gray-200 hover:bg-gray-50"
                           }`}
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h3 className="font-semibold text-gray-900 mb-1">{proposal.title}</h3>
-                              <p className="text-sm text-gray-600">{proposal.style}</p>
+                              <h3 className="font-semibold text-gray-900 mb-1">
+                                {proposal.title}
+                              </h3>
+                              <p className="text-sm text-gray-600">
+                                {proposal.style}
+                              </p>
                             </div>
                             {selectedProposal === proposal.id && (
                               <Check className="w-5 h-5 text-blue-600 flex-shrink-0" />
@@ -509,11 +573,7 @@ Ready to get started? Here's what happens next:
                     {selectedProposal && (
                       <div className="border-t pt-6">
                         <div className="prose prose-sm max-w-none">
-                          <div className="whitespace-pre-wrap font-sans leading-relaxed">
-                            {renderProposalContent(
-                              generatedProposals.find(p => p.id === selectedProposal)?.content || ''
-                            )}
-                          </div>
+                          <div className="whitespace-pre-wrap font-sans leading-relaxed"></div>
                         </div>
                       </div>
                     )}
@@ -523,8 +583,13 @@ Ready to get started? Here's what happens next:
                     <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <FileText className="w-8 h-8 text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No proposals yet</h3>
-                    <p className="text-gray-600">Fill out the form and click Generate to create 3 unique AI-powered proposals</p>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      No proposals yet
+                    </h3>
+                    <p className="text-gray-600">
+                      Fill out the form and click Generate to create 3 unique
+                      AI-powered proposals
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -539,7 +604,11 @@ Ready to get started? Here's what happens next:
           <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold">Choose Template</h2>
-              <Button variant="ghost" size="sm" onClick={() => setShowTemplateModal(false)}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowTemplateModal(false)}
+              >
                 <X className="w-4 h-4" />
               </Button>
             </div>
@@ -548,7 +617,10 @@ Ready to get started? Here's what happens next:
                 <button
                   key={template.id}
                   onClick={() => {
-                    setFormData(prev => ({ ...prev, templateId: template.id }));
+                    setFormData((prev) => ({
+                      ...prev,
+                      templateId: template.id,
+                    }));
                     setShowTemplateModal(false);
                   }}
                   className="p-4 border rounded-lg text-left hover:border-blue-500 hover:bg-blue-50 transition-colors"
