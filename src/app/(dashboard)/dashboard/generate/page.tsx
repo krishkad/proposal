@@ -70,185 +70,168 @@ const ProposalGenerator: React.FC = () => {
     }));
   };
 
-  const generateProposalVariations = (): ProposalVariation[] => {
-    const baseContent = {
-      clientName: formData.clientName,
-      proposalTitle: formData.proposalTitle,
-      services: formData.services,
-      goals:
-        formData.goals ||
-        "We will work closely with your team to achieve measurable outcomes that align with your business objectives.",
-    };
+//   const generateProposalVariations = (): ProposalVariation[] => {
+//     const baseContent = {
+//       clientName: formData.clientName,
+//       proposalTitle: formData.proposalTitle,
+//       services: formData.services,
+//       goals:
+//         formData.goals ||
+//         "We will work closely with your team to achieve measurable outcomes that align with your business objectives.",
+//     };
 
-    return [
-      {
-        id: 1,
-        title: "Executive Summary Focus",
-        style: "Concise and strategic",
-        content: `# ${baseContent.proposalTitle}
+//     return [
+//       {
+//         id: 1,
+//         title: "Executive Summary Focus",
+//         style: "Concise and strategic",
+//         content: `# ${baseContent.proposalTitle}
 
-**Client:** ${baseContent.clientName}
+// **Client:** ${baseContent.clientName}
 
-## Executive Summary
+// ## Executive Summary
 
-We propose a comprehensive solution tailored specifically for ${
-          baseContent.clientName
-        }. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
+// We propose a comprehensive solution tailored specifically for ${
+//           baseContent.clientName
+//         }. Our approach combines industry best practices with innovative strategies to deliver exceptional results that exceed your expectations.
 
-## Core Services
+// ## Core Services
 
-${baseContent.services.map((service) => `• ${service}`).join("\n")}
+// ${baseContent.services.map((service) => `• ${service}`).join("\n")}
 
-## Strategic Objectives
+// ## Strategic Objectives
 
-${baseContent.goals}
+// ${baseContent.goals}
 
-## Investment & Timeline
+// ## Investment & Timeline
 
-**Phase 1:** Discovery & Planning (Week 1-2)
-**Phase 2:** Implementation (Week 3-6)
-**Phase 3:** Optimization & Launch (Week 7-8)
+// **Phase 1:** Discovery & Planning (Week 1-2)
+// **Phase 2:** Implementation (Week 3-6)
+// **Phase 3:** Optimization & Launch (Week 7-8)
 
-*Investment details will be provided upon approval of this proposal scope.*
+// *Investment details will be provided upon approval of this proposal scope.*
 
----
+// ---
 
-Ready to transform your vision into reality? Let's discuss the next steps.`,
-      },
-      {
-        id: 2,
-        title: "Detailed Technical Approach",
-        style: "Comprehensive and methodical",
-        content: `# ${baseContent.proposalTitle}
+// Ready to transform your vision into reality? Let's discuss the next steps.`,
+//       },
+//       {
+//         id: 2,
+//         title: "Detailed Technical Approach",
+//         style: "Comprehensive and methodical",
+//         content: `# ${baseContent.proposalTitle}
 
-**Prepared for:** ${baseContent.clientName}
-**Date:** ${new Date().toLocaleDateString()}
+// **Prepared for:** ${baseContent.clientName}
+// **Date:** ${new Date().toLocaleDateString()}
 
-## Project Overview
+// ## Project Overview
 
-This proposal outlines a detailed approach to deliver exceptional value through strategic implementation of your requirements. Our methodology ensures measurable outcomes and sustainable growth.
+// This proposal outlines a detailed approach to deliver exceptional value through strategic implementation of your requirements. Our methodology ensures measurable outcomes and sustainable growth.
 
-## Deliverables & Services
+// ## Deliverables & Services
 
-${baseContent.services
-  .map((service, index) => `**${index + 1}.** ${service}`)
-  .join("\n")}
+// ${baseContent.services
+//   .map((service, index) => `**${index + 1}.** ${service}`)
+//   .join("\n")}
 
-## Project Goals & Success Metrics
+// ## Project Goals & Success Metrics
 
-${baseContent.goals}
+// ${baseContent.goals}
 
-**Key Performance Indicators:**
-• Project completion within timeline
-• Quality assurance at every milestone
-• Regular communication and updates
-• Post-project support and optimization
+// **Key Performance Indicators:**
+// • Project completion within timeline
+// • Quality assurance at every milestone
+// • Regular communication and updates
+// • Post-project support and optimization
 
-## Implementation Roadmap
+// ## Implementation Roadmap
 
-**Week 1-2: Foundation**
-- Initial consultation and requirement gathering
-- Strategy development and planning
-- Resource allocation and team assignment
+// **Week 1-2: Foundation**
+// - Initial consultation and requirement gathering
+// - Strategy development and planning
+// - Resource allocation and team assignment
 
-**Week 3-6: Execution**
-- Core implementation phase
-- Regular progress reviews
-- Quality testing and validation
+// **Week 3-6: Execution**
+// - Core implementation phase
+// - Regular progress reviews
+// - Quality testing and validation
 
-**Week 7-8: Finalization**
-- Final testing and optimization
-- Documentation and handover
-- Training and support setup
+// **Week 7-8: Finalization**
+// - Final testing and optimization
+// - Documentation and handover
+// - Training and support setup
 
-## Investment Structure
+// ## Investment Structure
 
-Our flexible pricing model ensures you get maximum value for your investment. Detailed pricing will be provided based on the final project scope.
+// Our flexible pricing model ensures you get maximum value for your investment. Detailed pricing will be provided based on the final project scope.
 
----
+// ---
 
-*This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${
-          baseContent.clientName
-        }.*`,
-      },
-      {
-        id: 3,
-        title: "Results-Driven Approach",
-        style: "Outcome-focused and persuasive",
-        content: `# ${baseContent.proposalTitle}
+// *This proposal remains valid for 30 days. We're excited about the opportunity to partner with ${
+//           baseContent.clientName
+//         }.*`,
+//       },
+//       {
+//         id: 3,
+//         title: "Results-Driven Approach",
+//         style: "Outcome-focused and persuasive",
+//         content: `# ${baseContent.proposalTitle}
 
-**Transforming ${baseContent.clientName}'s Vision into Reality**
+// **Transforming ${baseContent.clientName}'s Vision into Reality**
 
-## Why Choose Our Solution?
+// ## Why Choose Our Solution?
 
-Your success is our priority. We don't just deliver services—we deliver results that drive your business forward and create lasting impact.
+// Your success is our priority. We don't just deliver services—we deliver results that drive your business forward and create lasting impact.
 
-## What You'll Gain
+// ## What You'll Gain
 
-${baseContent.services.map((service) => `✓ ${service}`).join("\n")}
+// ${baseContent.services.map((service) => `✓ ${service}`).join("\n")}
 
-## Your Goals, Our Mission
+// ## Your Goals, Our Mission
 
-${baseContent.goals}
+// ${baseContent.goals}
 
-**Our Commitment:**
-- Transparent communication throughout the project
-- Delivery that exceeds expectations
-- Ongoing support for long-term success
-- Measurable ROI on your investment
+// **Our Commitment:**
+// - Transparent communication throughout the project
+// - Delivery that exceeds expectations
+// - Ongoing support for long-term success
+// - Measurable ROI on your investment
 
-## The Path Forward
+// ## The Path Forward
 
-**Immediate Impact (Week 1-2)**
-Quick wins and foundational setup to show immediate value
+// **Immediate Impact (Week 1-2)**
+// Quick wins and foundational setup to show immediate value
 
-**Core Transformation (Week 3-6)**
-Deep implementation of core strategies and solutions
+// **Core Transformation (Week 3-6)**
+// Deep implementation of core strategies and solutions
 
-**Optimization & Growth (Week 7-8)**
-Fine-tuning and preparation for sustained success
+// **Optimization & Growth (Week 7-8)**
+// Fine-tuning and preparation for sustained success
 
-## Your Investment
+// ## Your Investment
 
-We believe in providing exceptional value. Our pricing reflects the quality and impact of our work, with flexible options to fit your budget.
+// We believe in providing exceptional value. Our pricing reflects the quality and impact of our work, with flexible options to fit your budget.
 
-## Next Steps
+// ## Next Steps
 
-Ready to get started? Here's what happens next:
+// Ready to get started? Here's what happens next:
 
-1. **Approve this proposal** - We'll send the detailed contract
-2. **Kick-off meeting** - We'll align on expectations and timeline  
-3. **Project launch** - We begin delivering results immediately
+// 1. **Approve this proposal** - We'll send the detailed contract
+// 2. **Kick-off meeting** - We'll align on expectations and timeline  
+// 3. **Project launch** - We begin delivering results immediately
 
----
+// ---
 
-**Let's make ${baseContent.clientName} even more successful together.**
+// **Let's make ${baseContent.clientName} even more successful together.**
 
-*Questions? We're here to help: [Contact Information]*`,
-      },
-    ];
-  };
+// *Questions? We're here to help: [Contact Information]*`,
+//       },
+//     ];
+//   };
 
-  const handleGenerate = async () => {
-    if (!isFormValid) return;
+ 
 
-    setIsGenerating(true);
-    setSelectedProposal(null);
-
-    // Simulate API call
-    setTimeout(() => {
-      const variations = generateProposalVariations();
-      setGeneratedProposals(variations);
-      setIsGenerating(false);
-    }, 2500);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-      e.preventDefault();
-      handleGenerate();
-    }
-  };
+  
 
   const templates = [
     {
@@ -461,7 +444,6 @@ Ready to get started? Here's what happens next:
 
                 {/* Generate Button */}
                 <Button
-                  onClick={handleGenerate}
                   disabled={!isFormValid || isGenerating}
                   className="w-full h-12 text-base font-semibold"
                 >
