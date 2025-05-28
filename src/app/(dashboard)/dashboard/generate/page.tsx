@@ -592,7 +592,7 @@ const ProposalGenerator = () => {
                     }));
                     setShowTemplateModal(false);
                   }}
-                  className="p-4 border rounded-lg text-left hover:border-blue-500 hover:bg-blue-50 transition-colors"
+                  className="p-4 border rounded-lg text-left hover:border-purple-500 hover:bg-purple-50 transition-colors"
                 >
                   <h3 className="font-semibold mb-2">{template.name}</h3>
                   <p className="text-sm text-gray-600">{template.preview}</p>
