@@ -44,11 +44,11 @@ const ProposalGenerator = () => {
   //   const [generatedProposals, setGeneratedProposals] = useState<
   //     ProposalVariation[]
   //   >([]);
-//   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
+  //   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
 
-//   const isFormValid =
-//     formData.clientName.trim() && formData.proposalTitle.trim();
+  //   const isFormValid =
+  //     formData.clientName.trim() && formData.proposalTitle.trim();
 
   const addService = () => {
     if (
@@ -380,7 +380,6 @@ const ProposalGenerator = () => {
                       (tone) => (
                         <button
                           key={tone}
-                         
                           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                             formData.tone === tone
                               ? "bg-purple-600 text-white"
@@ -434,7 +433,7 @@ const ProposalGenerator = () => {
                 </div>
 
                 {/* Generate Button */}
-                <Button className="w-full h-12 text-base font-semibold">
+                <Button className="w-full bg-gradient-primary h-12 text-base font-semibold">
                   {false ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
@@ -455,7 +454,7 @@ const ProposalGenerator = () => {
           <div>
             <Card className="shadow-lg border-0 bg-white min-h-[600px]">
               <CardHeader>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between max-md:flex-col max-md:items-start max-md:gap-2">
                   <div className="flex items-center gap-2">
                     <FileText className="w-5 h-5 text-blue-600" />
                     <CardTitle className="text-xl">
@@ -515,7 +514,7 @@ const ProposalGenerator = () => {
                       {[].map((proposal) => (
                         <button
                           key={proposal}
-                        //   onClick={() => setSelectedProposal(proposal.id)}
+                          //   onClick={() => setSelectedProposal(proposal.id)}
                           className={`p-4 border rounded-lg text-left transition-all hover:border-blue-300 ${
                             1 === 1
                               ? "border-blue-500 bg-blue-50"
