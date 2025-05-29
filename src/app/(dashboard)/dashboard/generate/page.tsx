@@ -2,10 +2,6 @@
 import React, { useState } from "react";
 import {
   FileText,
-  Copy,
-  Download,
-  Save,
-  RotateCcw,
   Wand2,
   X,
   Plus,

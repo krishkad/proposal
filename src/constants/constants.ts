@@ -2,23 +2,11 @@ import { IconType } from "react-icons";
 import { FaRegClock } from "react-icons/fa";
 import { Home, Edit, FileText, Settings, LucideIcon } from "lucide-react";
 import {
-  Copy,
-  Download,
-  Save,
-  RotateCcw,
-  Wand2,
   Mail,
-  MessageCircle,
   Twitter,
   Briefcase,
   User,
-  Link,
-  StickyNote,
-  RefreshCw,
-  Eye,
-  Zap,
-  Bot,
-  Target,
+  
 } from "lucide-react";
 
 interface FeatureType {
