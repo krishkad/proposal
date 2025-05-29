@@ -1,13 +1,14 @@
 import { IconType } from "react-icons";
 import { FaRegClock } from "react-icons/fa";
-import { Home, Edit, FileText, Settings, LucideIcon } from "lucide-react";
 import {
-  Mail,
-  Twitter,
-  Briefcase,
-  User,
-  
+  Home,
+  Edit,
+  FileText,
+  Settings,
+  LucideIcon,
+  FolderOpen,
 } from "lucide-react";
+import { Mail, Twitter, Briefcase, User } from "lucide-react";
 
 interface FeatureType {
   Icon: IconType;
@@ -147,6 +148,11 @@ export type SidebarLink = {
 export const sidebarLinks: SidebarLink[] = [
   { label: "Dashboard", icon: Home, path: "/dashboard/overview" },
   { label: "Generate", icon: Edit, path: "/dashboard/generate" },
+  {
+    label: "All Proposals",
+    icon: FolderOpen,
+    path: "/dashboard/all-proposals",
+  },
   { label: "Templates", icon: FileText, path: "/dashboard/templates" },
   { label: "Settings", icon: Settings, path: "/dashboard/settings" },
 ];

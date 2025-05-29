@@ -315,9 +315,11 @@ const ProposalGenerator = () => {
 
         {/* Input Panel - Now at the top */}
         <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-6">
-            <CardTitle className="text-2xl font-semibold text-gray-900 flex items-center gap-3">
-              <div className="w-2 h-8 bg-gradient-to-b from-purple-500 to-purple-600 rounded-full"></div>
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                2
+              </div>
               Proposal Details
             </CardTitle>
           </CardHeader>
@@ -512,8 +514,8 @@ const ProposalGenerator = () => {
             </div>
 
             {/* Learning System Note */}
-            <div className="p-4 bg-gradient-to-r from-blue-50 to-blue-50 rounded-xl border border-blue-200 mt-8">
-              <p className="text-sm text-blue-800 flex items-center gap-2">
+            <div className="p-4 bg-gradient-to-r from-purple-50 to-purple-50 rounded-xl border border-purple-200 mt-8">
+              <p className="text-sm text-purple-800 flex items-center gap-2">
                 <Bot className="w-4 h-4" />
                 <strong>Real-time Learning:</strong> We improve your outreach
                 with every edit you make.
