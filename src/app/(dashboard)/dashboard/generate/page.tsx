@@ -1,14 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  FileText,
-  Wand2,
-  X,
-  Plus,
-  Check,
-  Sparkles,
-  Bot,
-} from "lucide-react";
+import { FileText, Wand2, X, Plus, Check, Sparkles, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,7 +21,7 @@ import { outreachTypes } from "@/constants/constants";
 // }
 
 type OutreachType = "upwork" | "email" | "linkedin" | "twitter";
-// type ToneType = "friendly" | "professional" | "bold";
+type ToneType = "formal" | "friendly" | "persuasive" | "professional";
 
 const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
@@ -433,7 +425,7 @@ const ProposalGenerator = () => {
                           onClick={() =>
                             setFormData((prev) => ({
                               ...prev,
-                              tone: tone as any,
+                              tone: tone as ToneType,
                             }))
                           }
                           className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
