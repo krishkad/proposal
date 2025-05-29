@@ -1,6 +1,25 @@
 import { IconType } from "react-icons";
 import { FaRegClock } from "react-icons/fa";
 import { Home, Edit, FileText, Settings, LucideIcon } from "lucide-react";
+import {
+  Copy,
+  Download,
+  Save,
+  RotateCcw,
+  Wand2,
+  Mail,
+  MessageCircle,
+  Twitter,
+  Briefcase,
+  User,
+  Link,
+  StickyNote,
+  RefreshCw,
+  Eye,
+  Zap,
+  Bot,
+  Target,
+} from "lucide-react";
 
 interface FeatureType {
   Icon: IconType;
@@ -142,4 +161,31 @@ export const sidebarLinks: SidebarLink[] = [
   { label: "Generate", icon: Edit, path: "/dashboard/generate" },
   { label: "Templates", icon: FileText, path: "/dashboard/templates" },
   { label: "Settings", icon: Settings, path: "/dashboard/settings" },
+];
+
+export const outreachTypes = [
+  {
+    id: "upwork",
+    label: "Upwork Proposal",
+    icon: Briefcase,
+    color: "from-green-500 to-emerald-600",
+  },
+  {
+    id: "email",
+    label: "Email Pitch",
+    icon: Mail,
+    color: "from-blue-500 to-cyan-600",
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn DM",
+    icon: User,
+    color: "from-blue-600 to-indigo-700",
+  },
+  {
+    id: "twitter",
+    label: "Twitter DM",
+    icon: Twitter,
+    color: "from-sky-400 to-blue-500",
+  },
 ];
