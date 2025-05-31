@@ -1,39 +1,10 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
-import {
-  FileText,
-  Edit,
-  Save,
-  X,
-  Calendar,
-  User,
-  Briefcase,
-  Mail,
-  MessageCircle,
-  Twitter,
-  Trash2,
-  Eye,
-  Search,
-  Filter,
-  Plus,
-  Clock,
-  Copy,
-  Star,
-  Archive,
-  Tag,
-  ChevronRight,
-  FileTextIcon,
-  MoreVertical,
-  Grid3X3,
-  List,
-  XIcon,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -41,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -50,7 +20,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import {
+  Briefcase,
+  Copy,
+  Edit,
+  FileText,
+  FileTextIcon,
+  Mail,
+  Save,
+  Search,
+  Trash2,
+  Twitter,
+  User,
+  X,
+  XIcon
+} from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface Proposal {
   id: string;

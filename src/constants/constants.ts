@@ -1,14 +1,16 @@
+import {
+  Briefcase,
+  Edit,
+  FolderOpen,
+  Home,
+  LucideIcon,
+  Mail,
+  Settings,
+  Twitter,
+  User
+} from "lucide-react";
 import { IconType } from "react-icons";
 import { FaRegClock } from "react-icons/fa";
-import {
-  Home,
-  Edit,
-  FileText,
-  Settings,
-  LucideIcon,
-  FolderOpen,
-} from "lucide-react";
-import { Mail, Twitter, Briefcase, User } from "lucide-react";
 
 interface FeatureType {
   Icon: IconType;
