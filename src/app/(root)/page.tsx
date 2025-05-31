@@ -465,7 +465,7 @@ export default function Home() {
                   Email support
                 </p>
               </div>
-              <div className="w-[350px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-background shadow-md">
+              <div className="w-[320px] h-[550px] overflow-hidden border rounded-xl border-purple-700 bg-background shadow-md">
                 <div className="w-full text-center bg-primary py-2">
                   <p className="font-bold text-center text-white">
                     Most Popular

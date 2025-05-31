@@ -791,7 +791,7 @@ const AllProposals: React.FC = () => {
 
   return (
     <div className="w-full bg-secondary/50  p-6">
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="max-w-7xl mx-auto min-h-screen flex flex-col bg-gray-50">
         {/* Header */}
         <div className="flex-shrink-0  border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -821,7 +821,7 @@ const AllProposals: React.FC = () => {
                 placeholder="Search proposals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500 bg-white"
               />
             </div>
 
@@ -832,7 +832,7 @@ const AllProposals: React.FC = () => {
                   value: "all" | "upwork" | "email" | "linkedin" | "twitter"
                 ) => setFilterType(value)}
               >
-                <SelectTrigger className="w-32 h-10">
+                <SelectTrigger className="w-32 h-10 bg-white">
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -850,7 +850,7 @@ const AllProposals: React.FC = () => {
                   value: "all" | "draft" | "sent" | "responded" | "archived"
                 ) => setFilterStatus(value)}
               >
-                <SelectTrigger className="w-32 h-10">
+                <SelectTrigger className="w-32 h-10 bg-white">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -866,7 +866,7 @@ const AllProposals: React.FC = () => {
                 value={sortBy}
                 onValueChange={(value: "title" | "newest" | "oldest" | "priority") => setSortBy(value)}
               >
-                <SelectTrigger className="w-32 h-10">
+                <SelectTrigger className="w-32 h-10 bg-white">
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
                 <SelectContent>
@@ -895,7 +895,7 @@ const AllProposals: React.FC = () => {
                  
 
                   {/* Proposals Content */}
-                  <ScrollArea className="size-full mt-5 bg-white">
+                  <ScrollArea className="size-full bg-white">
                     <div className="h-max ">
                       {filteredAndSortedProposals.length === 0 ? (
                         <div className="text-center py-12">
@@ -916,7 +916,7 @@ const AllProposals: React.FC = () => {
                         <div className="border border-gray-200 rounded-xl overflow-hidden">
                           <Table>
                             <TableHeader>
-                              <TableRow className="bg-gray-50">
+                              <TableRow className="bg-white h-12">
                                 <TableHead className="font-semibold text-gray-900">
                                   Title
                                 </TableHead>
