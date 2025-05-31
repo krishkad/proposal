@@ -593,13 +593,13 @@ const AllProposals: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<
     "all" | "draft" | "sent" | "responded" | "archived"
   >("all");
-  const [filterPriority, setFilterPriority] = useState<
-    "all" | "low" | "medium" | "high"
-  >("all");
+  // const [filterPriority, setFilterPriority] = useState<
+  //   "all" | "low" | "medium" | "high"
+  // >("all");
+  let filterPriority = "all"
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
   >("newest");
-  const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [showDetailPanel, setShowDetailPanel] = useState(false);
 
   // Load proposals from localStorage on component mount
@@ -624,7 +624,7 @@ const AllProposals: React.FC = () => {
 
   // Filter and sort proposals
   const filteredAndSortedProposals = useMemo(() => {
-    let filtered = proposals.filter((proposal) => {
+    const filtered = proposals.filter((proposal) => {
       const matchesSearch =
         proposal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         proposal.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -723,13 +723,13 @@ const AllProposals: React.FC = () => {
     );
   };
 
-  const handleEdit = (proposal: Proposal) => {
-    setSelectedProposal(proposal);
-    setEditedContent(proposal.content);
-    setEditedTitle(proposal.title);
-    setIsEditing(true);
-    setShowDetailPanel(true);
-  };
+  // const handleEdit = (proposal: Proposal) => {
+  //   setSelectedProposal(proposal);
+  //   setEditedContent(proposal.content);
+  //   setEditedTitle(proposal.title);
+  //   setIsEditing(true);
+  //   setShowDetailPanel(true);
+  // };
 
   const handleSave = () => {
     if (!selectedProposal) return;
