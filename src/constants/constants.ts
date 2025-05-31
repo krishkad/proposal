@@ -153,7 +153,7 @@ export const sidebarLinks: SidebarLink[] = [
     icon: FolderOpen,
     path: "/dashboard/all-proposals",
   },
-  { label: "Templates", icon: FileText, path: "/dashboard/templates" },
+  // { label: "Templates", icon: FileText, path: "/dashboard/templates" },
   { label: "Settings", icon: Settings, path: "/dashboard/settings" },
 ];
 

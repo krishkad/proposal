@@ -20,10 +20,11 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* <Navbar /> */}
-      <div className="max-w-wrapper">
+    
+      <div className="max-w-wrapper z-[10]">
         <div className="w-full flex items-center justify-center">
           <div className="w-full md:max-w-4xl mt-[10vh] md:mt-[20vh]">
-            <h1 className="text-4xl md:text-6xl font-bold text-wrap text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-wrap text-center z-10">
               <span className="text-gradient-primary">Win More Clients</span>{" "}
               With Ready-to-Send Proposals & Emails — Powered by AI
             </h1>
@@ -32,7 +33,7 @@ export default function Home() {
               enter client details — we&apos;ll do the rest.
             </p>
             <div className="w-full flex max-md:flex-col items-center justify-center gap-5 mt-6">
-              <Button className="text-lg" size={'lg'}>
+              <Button className="text-lg" size={"lg"}>
                 Start Free — No Credit Card Required
               </Button>
               <Link href={"#"} className="text-lg text-primary font-medium">
@@ -42,6 +43,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       {/* FEATURES  */}
       <div className="max-w-wrapper bg-secondary/50 mt-20">
         <div className="w-full py-24">
@@ -290,13 +292,13 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col justify-center items-center rounded-md mt-20 px-4 py-8 space-y-4 bg-background">
+          {/* <div className="w-full flex flex-col justify-center items-center rounded-md mt-20 px-4 py-8 space-y-4 bg-background">
             <h2 className="text-center text-3xl font-bold">
               Ready to transform your proposal process?
             </h2>
             <Button className="">Start Your Free Trial</Button>
             <p className="text-sm text-center">No credit card required</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
