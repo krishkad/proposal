@@ -35,7 +35,7 @@ import {
   Twitter,
   User,
   X,
-  XIcon
+  XIcon,
 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -596,7 +596,7 @@ const AllProposals: React.FC = () => {
   // const [filterPriority, setFilterPriority] = useState<
   //   "all" | "low" | "medium" | "high"
   // >("all");
-  let filterPriority = "all"
+  let filterPriority = "all";
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
   >("newest");
@@ -606,6 +606,7 @@ const AllProposals: React.FC = () => {
   useEffect(() => {
     const savedProposals = localStorage.getItem("saved-proposals");
     if (savedProposals) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const parsedProposals = JSON.parse(savedProposals).map((p: any) => ({
         ...p,
         createdAt: new Date(p.createdAt),
@@ -827,7 +828,9 @@ const AllProposals: React.FC = () => {
             <div className="flex flex-wrap gap-2">
               <Select
                 value={filterType}
-                onValueChange={(value: any) => setFilterType(value)}
+                onValueChange={(
+                  value: "all" | "upwork" | "email" | "linkedin" | "twitter"
+                ) => setFilterType(value)}
               >
                 <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Type" />
@@ -843,7 +846,9 @@ const AllProposals: React.FC = () => {
 
               <Select
                 value={filterStatus}
-                onValueChange={(value: any) => setFilterStatus(value)}
+                onValueChange={(
+                  value: "all" | "draft" | "sent" | "responded" | "archived"
+                ) => setFilterStatus(value)}
               >
                 <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Status" />
@@ -859,7 +864,7 @@ const AllProposals: React.FC = () => {
 
               <Select
                 value={sortBy}
-                onValueChange={(value: any) => setSortBy(value)}
+                onValueChange={(value: "title" | "newest" | "oldest" | "priority") => setSortBy(value)}
               >
                 <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Sort" />
