@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <SidebarProvider>
           <AppSidebar className="!bg-white" />
           <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4">
+            <header className="flex h-16 sticky top-0 bg-white z-30 shrink-0 items-center justify-between gap-2 border-b px-4">
               <SidebarTrigger className="-ml-1" />
               <Avatar>
                 <AvatarImage

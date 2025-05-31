@@ -791,9 +791,9 @@ const AllProposals: React.FC = () => {
 
   return (
     <div className="w-full bg-secondary/50  p-6">
-      <div className="h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Header */}
-        <div className="flex-shrink-0  border-b border-gray-200">
+        <div className="flex-shrink-0  border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -892,26 +892,7 @@ const AllProposals: React.FC = () => {
                 )}
               >
                 <div className="h-full flex flex-col bg-white">
-                  {/* Results Header */}
-                  <div className="flex-shrink-0 pb-3 border-b border-gray-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">
-                        {filteredAndSortedProposals.length} of{" "}
-                        {proposals.length} proposals
-                      </span>
-                      {(searchQuery ||
-                        filterType !== "all" ||
-                        filterStatus !== "all" ||
-                        filterPriority !== "all") && (
-                        <Badge
-                          variant="outline"
-                          className="text-xs bg-blue-50 text-blue-700 border-blue-200"
-                        >
-                          Filtered
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
+                 
 
                   {/* Proposals Content */}
                   <ScrollArea className="size-full mt-5 bg-white">
@@ -961,7 +942,7 @@ const AllProposals: React.FC = () => {
                                   <TableRow
                                     key={proposal.id}
                                     className={cn(
-                                      "cursor-pointer hover:bg-gray-50 transition-colors",
+                                      "h-12 cursor-pointer hover:bg-gray-50 transition-colors",
                                       selectedProposal?.id === proposal.id
                                         ? "bg-blue-50"
                                         : ""
