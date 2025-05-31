@@ -596,7 +596,7 @@ const AllProposals: React.FC = () => {
   // const [filterPriority, setFilterPriority] = useState<
   //   "all" | "low" | "medium" | "high"
   // >("all");
-  let filterPriority = "all";
+  const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
   >("newest");
