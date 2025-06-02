@@ -31,7 +31,7 @@ const Navbar = () => {
           Log-in
         </Link>
         <Link
-          href={"/dashboard/overview"}
+          href={"/dashboard/generate"}
           className={cn(buttonVariants({ variant: "default" }))}
         >
           Start Free
