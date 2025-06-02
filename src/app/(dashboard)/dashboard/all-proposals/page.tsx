@@ -21,6 +21,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import {
   Briefcase,
@@ -593,14 +599,24 @@ const AllProposals: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<
     "all" | "draft" | "sent" | "responded" | "archived"
   >("all");
-  // const [filterPriority, setFilterPriority] = useState<
-  //   "all" | "low" | "medium" | "high"
-  // >("all");
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
   >("newest");
   const [showDetailPanel, setShowDetailPanel] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   // Load proposals from localStorage on component mount
   useEffect(() => {
@@ -724,14 +740,6 @@ const AllProposals: React.FC = () => {
     );
   };
 
-  // const handleEdit = (proposal: Proposal) => {
-  //   setSelectedProposal(proposal);
-  //   setEditedContent(proposal.content);
-  //   setEditedTitle(proposal.title);
-  //   setIsEditing(true);
-  //   setShowDetailPanel(true);
-  // };
-
   const handleSave = () => {
     if (!selectedProposal) return;
 
@@ -789,14 +797,20 @@ const AllProposals: React.FC = () => {
     setShowDetailPanel(true);
   };
 
+  const closeModal = () => {
+    setShowDetailPanel(false);
+    setSelectedProposal(null);
+    setIsEditing(false);
+  };
+
   return (
-    <div className="w-full bg-secondary/50  p-6">
-      <div className="max-w-7xl mx-auto min-h-screen flex flex-col bg-gray-50">
+    <div className="w-full bg-secondary/50 p-3 sm:p-6">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Header */}
-        <div className="flex-shrink-0  border-gray-200">
+        <div className="flex-shrink-0 border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                 Proposals
               </h1>
               <p className="text-gray-600">Manage your generated proposals</p>
@@ -813,7 +827,7 @@ const AllProposals: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex-shrink-0 border-b border-gray-200  py-4">
+        <div className="flex-shrink-0 border-b border-gray-200 py-4">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -821,7 +835,7 @@ const AllProposals: React.FC = () => {
                 placeholder="Search proposals..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500 bg-white"
+                className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
 
@@ -832,7 +846,7 @@ const AllProposals: React.FC = () => {
                   value: "all" | "upwork" | "email" | "linkedin" | "twitter"
                 ) => setFilterType(value)}
               >
-                <SelectTrigger className="w-32 h-10 bg-white">
+                <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -850,7 +864,7 @@ const AllProposals: React.FC = () => {
                   value: "all" | "draft" | "sent" | "responded" | "archived"
                 ) => setFilterStatus(value)}
               >
-                <SelectTrigger className="w-32 h-10 bg-white">
+                <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -866,7 +880,7 @@ const AllProposals: React.FC = () => {
                 value={sortBy}
                 onValueChange={(value: "title" | "newest" | "oldest" | "priority") => setSortBy(value)}
               >
-                <SelectTrigger className="w-32 h-10 bg-white">
+                <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Sort" />
                 </SelectTrigger>
                 <SelectContent>
@@ -885,18 +899,11 @@ const AllProposals: React.FC = () => {
           <CardContent>
             <div className="flex-1 flex min-h-0">
               {/* Proposals List */}
-              <div
-                className={cn(
-                  "transition-all duration-300 border-r border-gray-200 bg-white",
-                  showDetailPanel ? "w-full lg:w-1/2" : "w-full"
-                )}
-              >
+              <div className="w-full">
                 <div className="h-full flex flex-col bg-white">
-                 
-
                   {/* Proposals Content */}
-                  <ScrollArea className="size-full bg-white">
-                    <div className="h-max ">
+                  <ScrollArea className="size-full mt-5 bg-white">
+                    <div className="h-max">
                       {filteredAndSortedProposals.length === 0 ? (
                         <div className="text-center py-12">
                           <FileTextIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
@@ -916,7 +923,7 @@ const AllProposals: React.FC = () => {
                         <div className="border border-gray-200 rounded-xl overflow-hidden">
                           <Table>
                             <TableHeader>
-                              <TableRow className="bg-white h-12">
+                              <TableRow className="bg-gray-50">
                                 <TableHead className="font-semibold text-gray-900">
                                   Title
                                 </TableHead>
@@ -1016,220 +1023,374 @@ const AllProposals: React.FC = () => {
                   </ScrollArea>
                 </div>
               </div>
-
-              {/* Detail Panel */}
-              <div
-                className={cn(
-                  " transition-all duration-300 bg-white",
-                  showDetailPanel ? "w-full lg:w-1/2 flex" : "w-0 hidden"
-                )}
-              >
-                <div className="flex-1 flex flex-col">
-                  {/* Detail Header */}
-                  <div className="flex-shrink-0 px-4 md:px-6 py-4 border-b border-gray-200">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        {selectedProposal ? (
-                          <>
-                            {isEditing ? (
-                              <Edit className="w-5 h-5 text-blue-600" />
-                            ) : (
-                              <XIcon
-                                className="w-5 h-5 text-black hover:text-red-500"
-                                onClick={() => setShowDetailPanel(false)}
-                              />
-                            )}
-                            <h2 className="text-lg font-semibold text-gray-900">
-                              {isEditing ? "Edit Proposal" : "View Proposal"}
-                            </h2>
-                          </>
-                        ) : (
-                          <>
-                            <FileTextIcon className="w-5 h-5 text-gray-400" />
-                            <h2 className="text-lg font-semibold text-gray-500">
-                              Select a proposal
-                            </h2>
-                          </>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {selectedProposal && (
-                          <>
-                            {isEditing ? (
-                              <>
-                                <Button
-                                  onClick={handleSave}
-                                  size="sm"
-                                  className="bg-green-600 hover:bg-green-700"
-                                >
-                                  <Save className="w-4 h-4 mr-2" />
-                                  Save
-                                </Button>
-                                <Button
-                                  onClick={handleCancel}
-                                  variant="outline"
-                                  size="sm"
-                                >
-                                  <X className="w-4 h-4 mr-2" />
-                                  Cancel
-                                </Button>
-                              </>
-                            ) : (
-                              <>
-                                <Button
-                                  onClick={() => setIsEditing(true)}
-                                  size="sm"
-                                >
-                                  <Edit className="w-4 h-4 mr-2" />
-                                  Edit
-                                </Button>
-                                <Button
-                                  onClick={() =>
-                                    copyToClipboard(selectedProposal.content)
-                                  }
-                                  variant="outline"
-                                  size="sm"
-                                >
-                                  <Copy className="w-4 h-4 mr-2" />
-                                  Copy
-                                </Button>
-                              </>
-                            )}
-                          </>
-                        )}
-                        <Button
-                          onClick={() => setShowDetailPanel(false)}
-                          variant="ghost"
-                          size="sm"
-                          className="lg:hidden"
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Detail Content */}
-                  <ScrollArea className="size-full">
-                    <div className="p-4 md:p-6">
-                      {selectedProposal ? (
-                        <div className="space-y-6">
-                          {/* Meta Information */}
-                          <div className="flex flex-wrap items-center gap-2 p-4 bg-gray-50 rounded-lg">
-                            <Badge
-                              className={`${getTypeColor(
-                                selectedProposal.type
-                              )} border`}
-                            >
-                              {React.createElement(
-                                getTypeIcon(selectedProposal.type),
-                                { className: "w-3 h-3 mr-1" }
-                              )}
-                              {selectedProposal.type.toUpperCase()}
-                            </Badge>
-                            <Badge
-                              className={`${getStatusColor(
-                                selectedProposal.status
-                              )} border`}
-                            >
-                              {selectedProposal.status.toUpperCase()}
-                            </Badge>
-                            <Badge
-                              className={`${getPriorityColor(
-                                selectedProposal.priority
-                              )} border`}
-                            >
-                              {selectedProposal.priority.toUpperCase()}
-                            </Badge>
-                            <div className="ml-auto text-xs text-gray-500">
-                              {selectedProposal.lastModified.toLocaleDateString()}
-                            </div>
-                          </div>
-
-                          {/* Client Info */}
-                          <div>
-                            <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                              <User className="w-4 h-4" />
-                              <span className="font-medium">
-                                {selectedProposal.clientName}
-                              </span>
-                            </div>
-                            {selectedProposal.tags.length > 0 && (
-                              <div className="flex gap-2 flex-wrap">
-                                {selectedProposal.tags.map((tag, index) => (
-                                  <span
-                                    key={index}
-                                    className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200"
-                                  >
-                                    #{tag}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Title */}
-                          <div>
-                            <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                              Title
-                            </Label>
-                            {isEditing ? (
-                              <Input
-                                value={editedTitle}
-                                onChange={(e) => setEditedTitle(e.target.value)}
-                                className="font-medium"
-                                placeholder="Enter proposal title"
-                              />
-                            ) : (
-                              <div className="text-lg font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
-                                {selectedProposal.title}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Content */}
-                          <div className="flex-1 flex flex-col">
-                            <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                              Content
-                            </Label>
-                            {isEditing ? (
-                              <Textarea
-                                value={editedContent}
-                                onChange={(e) =>
-                                  setEditedContent(e.target.value)
-                                }
-                                className="min-h-[400px] text-sm font-mono resize-none"
-                                placeholder="Enter proposal content"
-                              />
-                            ) : (
-                              <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[400px]">
-                                <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
-                                  {selectedProposal.content}
-                                </pre>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="h-full flex items-center justify-center">
-                          <div className="text-center">
-                            <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                              Select a proposal
-                            </h3>
-                            <p className="text-gray-500">
-                              Choose a proposal from the list to view or edit
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </ScrollArea>
-                </div>
-              </div>
             </div>
           </CardContent>
         </Card>
+
+        {/* Mobile Dialog / Desktop Panel */}
+        {isMobile ? (
+          <Dialog open={showDetailPanel} onOpenChange={closeModal}>
+            <DialogContent className="w-[95vw] max-w-none h-[90vh] max-h-none p-0 gap-0">
+              <DialogHeader className="px-4 py-3 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <DialogTitle className="text-lg font-semibold">
+                    {isEditing ? "Edit Proposal" : "View Proposal"}
+                  </DialogTitle>
+                  <div className="flex items-center gap-2">
+                    {selectedProposal && (
+                      <>
+                        {isEditing ? (
+                          <>
+                            <Button
+                              onClick={handleSave}
+                              size="sm"
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              <Save className="w-4 h-4 mr-2" />
+                              Save
+                            </Button>
+                            <Button
+                              onClick={handleCancel}
+                              variant="outline"
+                              size="sm"
+                            >
+                              <X className="w-4 h-4 mr-2" />
+                              Cancel
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button
+                              onClick={() => setIsEditing(true)}
+                              size="sm"
+                            >
+                              <Edit className="w-4 h-4 mr-2" />
+                              Edit
+                            </Button>
+                            <Button
+                              onClick={() =>
+                                copyToClipboard(selectedProposal.content)
+                              }
+                              variant="outline"
+                              size="sm"
+                            >
+                              <Copy className="w-4 h-4 mr-2" />
+                              Copy
+                            </Button>
+                          </>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </DialogHeader>
+              
+              <ScrollArea className="h-[calc(90vh-64px)] px-4 py-4">
+                {selectedProposal && (
+                  <div className="space-y-4">
+                    {/* Meta Information */}
+                    <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                      <Badge
+                        className={`${getTypeColor(
+                          selectedProposal.type
+                        )} border text-xs`}
+                      >
+                        {React.createElement(
+                          getTypeIcon(selectedProposal.type),
+                          { className: "w-3 h-3 mr-1" }
+                        )}
+                        {selectedProposal.type.toUpperCase()}
+                      </Badge>
+                      <Badge
+                        className={`${getStatusColor(
+                          selectedProposal.status
+                        )} border text-xs`}
+                      >
+                        {selectedProposal.status.toUpperCase()}
+                      </Badge>
+                      <Badge
+                        className={`${getPriorityColor(
+                          selectedProposal.priority
+                        )} border text-xs`}
+                      >
+                        {selectedProposal.priority.toUpperCase()}
+                      </Badge>
+                      <div className="ml-auto text-xs text-gray-500">
+                        {selectedProposal.lastModified.toLocaleDateString()}
+                      </div>
+                    </div>
+
+                    {/* Client Info */}
+                    <div>
+                      <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                        <User className="w-4 h-4" />
+                        <span className="font-medium">
+                          {selectedProposal.clientName}
+                        </span>
+                      </div>
+                      {selectedProposal.tags.length > 0 && (
+                        <div className="flex gap-2 flex-wrap">
+                          {selectedProposal.tags.map((tag, index) => (
+                            <span
+                              key={index}
+                              className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <div>
+                      <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                        Title
+                      </Label>
+                      {isEditing ? (
+                        <Input
+                          value={editedTitle}
+                          onChange={(e) => setEditedTitle(e.target.value)}
+                          className="font-medium"
+                          placeholder="Enter proposal title"
+                        />
+                      ) : (
+                        <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                          {selectedProposal.title}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 flex flex-col">
+                      <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                        Content
+                      </Label>
+                      {isEditing ? (
+                        <Textarea
+                          value={editedContent}
+                          onChange={(e) =>
+                            setEditedContent(e.target.value)
+                          }
+                          className="min-h-[300px] text-sm font-mono resize-none"
+                          placeholder="Enter proposal content"
+                        />
+                      ) : (
+                        <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
+                          <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
+                            {selectedProposal.content}
+                          </pre>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </ScrollArea>
+            </DialogContent>
+          </Dialog>
+        ) : (
+          // Desktop Panel (only show when not mobile and panel is open)
+          showDetailPanel && !isMobile && (
+            <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-xl z-50 flex flex-col">
+              {/* Detail Header */}
+              <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    {selectedProposal ? (
+                      <>
+                        {isEditing ? (
+                          <Edit className="w-5 h-5 text-blue-600" />
+                        ) : (
+                          <FileTextIcon className="w-5 h-5 text-gray-600" />
+                        )}
+                        <h2 className="text-lg font-semibold text-gray-900">
+                          {isEditing ? "Edit Proposal" : "View Proposal"}
+                        </h2>
+                      </>
+                    ) : (
+                      <>
+                        <FileTextIcon className="w-5 h-5 text-gray-400" />
+                        <h2 className="text-lg font-semibold text-gray-500">
+                          Select a proposal
+                        </h2>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {selectedProposal && (
+                      <>
+                        {isEditing ? (
+                          <>
+                            <Button
+                              onClick={handleSave}
+                              size="sm"
+                              className="bg-green-600 hover:bg-green-700"
+                            >
+                              <Save className="w-4 h-4 mr-2" />
+                              Save
+                            </Button>
+                            <Button
+                              onClick={handleCancel}
+                              variant="outline"
+                              size="sm"
+                            >
+                              <X className="w-4 h-4 mr-2" />
+                              Cancel
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button
+                              onClick={() => setIsEditing(true)}
+                              size="sm"
+                            >
+                              <Edit className="w-4 h-4 mr-2" />
+                              Edit
+                            </Button>
+                            <Button
+                              onClick={() =>
+                                copyToClipboard(selectedProposal.content)
+                              }
+                              variant="outline"
+                              size="sm"
+                            >
+                              <Copy className="w-4 h-4 mr-2" />
+                              Copy
+                            </Button>
+                          </>
+                        )}
+                      </>
+                    )}
+                    <Button
+                      onClick={closeModal}
+                      variant="ghost"
+                      size="sm"
+                    >
+                      <XIcon className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Detail Content */}
+              <ScrollArea className="h-[calc(100%-64px)]">
+                <div className="p-6">
+                  {selectedProposal ? (
+                    <div className="space-y-6">
+                      {/* Meta Information */}
+                      <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                        <Badge
+                          className={`${getTypeColor(
+                            selectedProposal.type
+                          )} border text-xs`}
+                        >
+                          {React.createElement(
+                            getTypeIcon(selectedProposal.type),
+                            { className: "w-3 h-3 mr-1" }
+                          )}
+                          {selectedProposal.type.toUpperCase()}
+                        </Badge>
+                        <Badge
+                          className={`${getStatusColor(
+                            selectedProposal.status
+                          )} border text-xs`}
+                        >
+                          {selectedProposal.status.toUpperCase()}
+                        </Badge>
+                        <Badge
+                          className={`${getPriorityColor(
+                            selectedProposal.priority
+                          )} border text-xs`}
+                        >
+                          {selectedProposal.priority.toUpperCase()}
+                        </Badge>
+                        <div className="ml-auto text-xs text-gray-500">
+                          {selectedProposal.lastModified.toLocaleDateString()}
+                        </div>
+                      </div>
+
+                      {/* Client Info */}
+                      <div>
+                        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                          <User className="w-4 h-4" />
+                          <span className="font-medium">
+                            {selectedProposal.clientName}
+                          </span>
+                        </div>
+                        {selectedProposal.tags.length > 0 && (
+                          <div className="flex gap-2 flex-wrap">
+                            {selectedProposal.tags.map((tag, index) => (
+                              <span
+                                key={index}
+                                className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <div>
+                        <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                          Title
+                        </Label>
+                        {isEditing ? (
+                          <Input
+                            value={editedTitle}
+                            onChange={(e) => setEditedTitle(e.target.value)}
+                            className="font-medium"
+                            placeholder="Enter proposal title"
+                          />
+                        ) : (
+                          <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                            {selectedProposal.title}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 flex flex-col">
+                        <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                          Content
+                        </Label>
+                        {isEditing ? (
+                          <Textarea
+                            value={editedContent}
+                            onChange={(e) =>
+                              setEditedContent(e.target.value)
+                            }
+                            className="min-h-[300px] text-sm font-mono resize-none"
+                            placeholder="Enter proposal content"
+                          />
+                        ) : (
+                          <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
+                            <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
+                              {selectedProposal.content}
+                            </pre>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      <div className="text-center">
+                        <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                          Select a proposal
+                        </h3>
+                        <p className="text-gray-500">
+                          Choose a proposal from the list to view or edit
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </ScrollArea>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
