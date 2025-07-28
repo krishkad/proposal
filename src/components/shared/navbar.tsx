@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className="max-w-wrapper h-16 flex items-center justify-between border-b border-gray-200">
       {/* LOGO */}
-      <h1 className="text-2xl font-bold text-primary">Proposal.ai</h1>
+      <h1 className="text-2xl font-bold text-primary">Freeposal.ai</h1>
 
       {/* LINKS */}
       <div className="w-max hidden md:flex items-center-justify-center gap-8">
@@ -27,7 +27,7 @@ const Navbar = () => {
 
       {/* BUTTONS */}
       <div className="w-max flex items-center justify-center gap-6">
-        <Link href={"#"} className="hover:text-primary transition-all">
+        <Link href={"/sign-in"} className="hover:text-primary transition-all">
           Log-in
         </Link>
         <Link

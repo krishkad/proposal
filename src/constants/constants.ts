@@ -161,8 +161,8 @@ export const sidebarLinks: SidebarLink[] = [
 
 export const outreachTypes = [
   {
-    id: "upwork",
-    label: "Upwork Proposal",
+    id: "freelance-proposal",
+    label: "Freelance Proposal",
     icon: Briefcase,
     color: "from-green-500 to-emerald-600",
   },

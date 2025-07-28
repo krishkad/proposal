@@ -1,9 +1,44 @@
 "use client";
 
 import React from "react";
-import { User, Bell, Shield, CreditCard, Download, Trash2 } from "lucide-react";
+import {
+  User,
+  Bell,
+  Shield,
+  CreditCard,
+  Download,
+  Trash2,
+  LogOutIcon,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Settings = () => {
+  const router = useRouter();
+
+  const handleLogOut = async () => {
+    try {
+      const response = await fetch("/api/auth/sign-out", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const res = await response.json();
+
+      if (!res.success) {
+        console.log("ERROR WHILE LOGING OUT");
+        return;
+      }
+      if (res.success) {
+        router.push("/sign-in");
+        localStorage.removeItem("freeposal-user");
+      }
+    } catch (error) {
+      console.log("ERROR WHILE LOGING OUT", error);
+    }
+  };
   return (
     <div className="w-full bg-secondary/50">
       <div className=" p-6 max-w-4xl mx-auto">
@@ -191,6 +226,24 @@ const Settings = () => {
               <button className="text-red-600 hover:text-red-700 font-medium flex items-center">
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete Account
+              </button>
+            </div>
+          </div>
+          {/* LOG OUT */}
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center">
+                <Download className="w-5 h-5 mr-2 text-gray-600" />
+                <h2 className="text-xl font-semibold text-gray-900">Log out</h2>
+              </div>
+            </div>
+            <div className="p-6 space-y-4">
+              <button
+                className="text-red-600 hover:text-red-700 font-medium flex items-center cursor-pointer"
+                onClick={handleLogOut}
+              >
+                <LogOutIcon className="w-4 h-4 mr-2" />
+                Log Out
               </button>
             </div>
           </div>
