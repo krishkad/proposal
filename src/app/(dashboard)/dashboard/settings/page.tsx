@@ -32,8 +32,12 @@ const Settings = () => {
         return;
       }
       if (res.success) {
-        router.push("/sign-in");
-        localStorage.removeItem("freeposal-user");
+        Promise.resolve().then(() => {
+          localStorage.removeItem("freeposal-user");
+        });
+        Promise.resolve().then(() => {
+          router.push("/sign-in");
+        });
       }
     } catch (error) {
       console.log("ERROR WHILE LOGING OUT", error);

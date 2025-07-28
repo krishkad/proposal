@@ -49,8 +49,13 @@ export function SignInForm({
 
       console.log("SUCCESSFULLY LOGED IN: ", res.data);
       setSignInData({ email: "", password: "" });
-      router.push("/dashboard/generate");
-      localStorage.setItem("freeposal-user", JSON.stringify(res.data));
+
+      Promise.resolve().then(() => {
+        localStorage.setItem("freeposal-user", JSON.stringify(res.data));
+      });
+      Promise.resolve().then(() => {
+        router.push("/dashboard/generate");
+      });
     } catch (error) {
       console.log("[ERROR WILE SIGN iN]: ", error);
     }
