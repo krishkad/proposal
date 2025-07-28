@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-  } catch (error: any) {
+  } catch (error) {
     console.log("error while loging user: ", error);
     return NextResponse.json({
       success: false,
