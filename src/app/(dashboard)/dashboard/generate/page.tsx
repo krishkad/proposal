@@ -1,15 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import { FileText, Wand2, X, Plus, Check, Sparkles, Bot } from "lucide-react";
+import ProposalRenderer from "@/components/shared/ProposalRenderer";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { outreachTypes } from "@/constants/constants";
-import { toast } from "sonner";
-import ProposalRenderer from "@/components/shared/ProposalRenderer";
+import { Bot, FileText, Sparkles, Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 // interface ProposalVariation {
 //   id: number;
@@ -50,23 +49,20 @@ const ProposalGenerator = () => {
     setGeneratedProposals("");
     try {
       setIsGenerating(true);
-      const response = await fetch(
-        "/api/proposal/generate-proposal",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            outreachType: selectedType,
-            clientNeeds: formData.goals,
-            proposalTone: formData.tone,
-            lengthPerference: "short",
-            additional: formData.instructions,
-          }),
-        }
-      );
+      const response = await fetch("/api/proposal/generate-proposal", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          outreachType: selectedType,
+          clientNeeds: formData.goals,
+          proposalTone: formData.tone,
+          lengthPerference: "short",
+          additional: formData.instructions,
+        }),
+      });
 
       const res = await response.json();
       console.log({ res });
@@ -79,7 +75,7 @@ const ProposalGenerator = () => {
       console.log({ generatedProposal: res.data });
       setGeneratedProposals(res.data);
       toast.success("Proposal Generated successfully");
-    } catch (error: any) {
+    } catch (error) {
       console.log("[ERROR WHILE GENERATING PROPOSALS]: ", error);
       toast.warning("failed to generate proposal");
     } finally {
@@ -87,28 +83,28 @@ const ProposalGenerator = () => {
     }
   };
 
-  const templates = [
-    {
-      id: "saas",
-      name: "SaaS Platform",
-      preview: "📱 Software as a Service proposal template",
-    },
-    {
-      id: "marketing",
-      name: "Digital Marketing",
-      preview: "📈 Marketing campaign proposal template",
-    },
-    {
-      id: "design",
-      name: "Design Services",
-      preview: "🎨 Creative design project template",
-    },
-    {
-      id: "consulting",
-      name: "Business Consulting",
-      preview: "💼 Strategic consulting template",
-    },
-  ];
+  // const templates = [
+  //   {
+  //     id: "saas",
+  //     name: "SaaS Platform",
+  //     preview: "📱 Software as a Service proposal template",
+  //   },
+  //   {
+  //     id: "marketing",
+  //     name: "Digital Marketing",
+  //     preview: "📈 Marketing campaign proposal template",
+  //   },
+  //   {
+  //     id: "design",
+  //     name: "Design Services",
+  //     preview: "🎨 Creative design project template",
+  //   },
+  //   {
+  //     id: "consulting",
+  //     name: "Business Consulting",
+  //     preview: "💼 Strategic consulting template",
+  //   },
+  // ];
 
   return (
     // bg-gradient-to-br from-slate-50 via-white to-blue-50

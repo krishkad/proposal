@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { generateAccessToken } from "@/actions/GenerateJWToken";
 import prisma from "@/lib/prisma";
+import { excludePassword } from "@/lib/utils";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,18 +26,18 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const { password: _, ...others } = user;
+    const safeUser = excludePassword(user);
 
     const token = await generateAccessToken(
-      others.id,
-      others.plan,
+      safeUser.id,
+      safeUser.plan,
       7 * 24 * 60 * 60
     );
 
     const response = NextResponse.json({
       success: true,
       message: "ok",
-      data: others,
+      data: safeUser,
     });
     response.cookies.set("freeposal-authentication", token, {
       httpOnly: true,
