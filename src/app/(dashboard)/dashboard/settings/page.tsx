@@ -36,6 +36,9 @@ const Settings = () => {
           localStorage.removeItem("freeposal-user");
         });
         Promise.resolve().then(() => {
+          localStorage.removeItem("freeposal-user");
+        });
+        Promise.resolve().then(() => {
           router.push("/sign-in");
         });
       }
