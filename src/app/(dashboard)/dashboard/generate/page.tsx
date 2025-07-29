@@ -65,17 +65,14 @@ const ProposalGenerator = () => {
           additional: formData.instructions,
         }),
       });
-      console.log({ response });
 
       const res = await response.json();
-      console.log({ res });
 
       if (!res.success) {
         toast.warning("failed to generate proposal");
         return;
       }
       router.push("#generated-proposal");
-      console.log({ generatedProposal: res.data });
       setGeneratedProposals(res.data);
       toast.success("Proposal Generated successfully");
     } catch (error) {

@@ -17,11 +17,7 @@ export async function POST(req: NextRequest) {
       additional,
     } = await req.json();
 
-    console.log({  outreachType,
-      clientNeeds,
-      lengthPerference,
-      proposalTone,
-      additional, });
+    console.log({  outreachType });
 
     if (!clientNeeds || !lengthPerference || !outreachType) {
       return NextResponse.json({
@@ -47,7 +43,6 @@ export async function POST(req: NextRequest) {
       temperature: 0.7,
     });
 
-    console.log({ response });
 
     return NextResponse.json({
       success: true,
