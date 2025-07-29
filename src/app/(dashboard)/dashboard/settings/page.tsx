@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import React from "react";
 import {
@@ -39,7 +40,7 @@ const Settings = () => {
           localStorage.removeItem("freeposal-user");
         });
         Promise.resolve().then(() => {
-          router.push("/sign-in");
+          router.refresh();
         });
       }
     } catch (error) {

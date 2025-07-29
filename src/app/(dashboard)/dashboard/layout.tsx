@@ -7,12 +7,11 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Toaster } from "sonner";
-import CheckIsUser from "@/components/auth/CheckIsUser";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+
   return (
     <div className="w-full">
-      <CheckIsUser />
       <main className="w-full">
         <SidebarProvider>
           <AppSidebar className="!bg-white" />
@@ -33,7 +32,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </SidebarInset>
         </SidebarProvider>
       </main>
-      <Toaster position="top-center" />
+      <Toaster richColors position="top-center" />
     </div>
   );
 };

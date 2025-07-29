@@ -1,10 +1,12 @@
-import CheckIsUser from "@/components/auth/CheckIsUser";
+import { cookies } from "next/headers";
 import React, { ReactNode } from "react";
 
-const AuthLayout = ({ children }: { children: ReactNode }) => {
+const AuthLayout = async ({ children }: { children: ReactNode }) => {
+  const token = await cookies();
+
+  console.log({ token });
   return (
     <div className="w-full">
-      <CheckIsUser />
       <main className="w-full">{children}</main>
     </div>
   );

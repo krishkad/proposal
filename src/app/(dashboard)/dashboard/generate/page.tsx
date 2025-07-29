@@ -1,4 +1,6 @@
 "use client";
+
+export const dynamic = 'force-dynamic'
 import ProposalRenderer from "@/components/shared/ProposalRenderer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

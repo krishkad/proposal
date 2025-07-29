@@ -1,26 +1,23 @@
-"use client";
-
+"use client"
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-const CheckIsUser = () => {
+const CheckIsToken = ({ token }: { token: string | null }) => {
   const router = useRouter();
   const pathname = usePathname();
-
   useEffect(() => {
-    const freeposal_user = localStorage.getItem("freeposal-user");
-
-    if (freeposal_user) {
+    if (token) {
       if (pathname.includes("/sign-in") || pathname.includes("/sign-up")) {
         router.push("/dashboard/generate");
+        return;
       }
       return;
     }
 
     router.push("/dashboard/generate");
-  }, [pathname]);
+  }, [token, pathname]);
 
   return <></>;
 };
 
-export default CheckIsUser;
+export default CheckIsToken;

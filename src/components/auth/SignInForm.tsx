@@ -54,7 +54,7 @@ export function SignInForm({
         localStorage.setItem("freeposal-user", JSON.stringify(res.data));
       });
       Promise.resolve().then(() => {
-        router.push("/dashboard/generate");
+        router.refresh();
       });
     } catch (error) {
       console.log("[ERROR WILE SIGN iN]: ", error);
