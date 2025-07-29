@@ -1,6 +1,6 @@
 "use client";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 import ProposalRenderer from "@/components/shared/ProposalRenderer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,6 +65,7 @@ const ProposalGenerator = () => {
           additional: formData.instructions,
         }),
       });
+      console.log({ response });
 
       const res = await response.json();
       console.log({ res });
@@ -78,7 +79,10 @@ const ProposalGenerator = () => {
       setGeneratedProposals(res.data);
       toast.success("Proposal Generated successfully");
     } catch (error) {
-      console.log("[ERROR WHILE GENERATING PROPOSALS]: ", error);
+      console.log(
+        "[ERROR WHILE GENERATING PROPOSALS]: ",
+        JSON.stringify(error)
+      );
       toast.warning("failed to generate proposal");
     } finally {
       setIsGenerating(false);
