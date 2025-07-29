@@ -6,7 +6,6 @@ import { buttonVariants } from "../ui/button";
 const Navbar = () => {
   return (
     <div className="max-w-wrapper h-16 flex items-center justify-between border-b border-gray-200">
-      {/* LOGO */}
       <h1 className="text-2xl font-bold text-primary">Freeposal.ai</h1>
 
       {/* LINKS */}

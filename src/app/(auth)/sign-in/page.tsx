@@ -1,7 +1,5 @@
-import React from "react";
-import { GalleryVerticalEndIcon } from "lucide-react";
-import Link from "next/link";
 import { SignInForm } from "@/components/auth/SignInForm";
+import Link from "next/link";
 
 const SignInPage = () => {
   return (
@@ -12,7 +10,7 @@ const SignInPage = () => {
           className="flex items-center gap-2 self-center font-medium"
         >
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <GalleryVerticalEndIcon className="size-4" />
+            <img src="/android-chrome.png" className="size-4" alt="logo" />
           </div>
           Freeposal.ai
         </Link>

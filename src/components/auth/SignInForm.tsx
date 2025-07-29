@@ -82,6 +82,7 @@ export function SignInForm({
                     name="email"
                     onChange={handleOnChange}
                     placeholder="m@example.com"
+                    className="h-12"
                     required
                   />
                 </div>
@@ -99,11 +100,12 @@ export function SignInForm({
                     id="password"
                     name="password"
                     onChange={handleOnChange}
+                     className="h-12"
                     type="password"
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full h-12">
                   Sign in
                 </Button>
               </div>

@@ -36,6 +36,7 @@ export function SignUpForm({
                     id="name"
                     type="text"
                     placeholder="john doe"
+                     className="h-12"
                     required
                   />
                 </div>
@@ -45,6 +46,7 @@ export function SignUpForm({
                     id="email"
                     type="email"
                     placeholder="m@example.com"
+                     className="h-12"
                     required
                   />
                 </div>
@@ -60,7 +62,7 @@ export function SignUpForm({
                   </div>
                   <Input id="password" type="password" required />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full h-12">
                   Sign Up
                 </Button>
               </div>
