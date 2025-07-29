@@ -1,5 +1,4 @@
-"use server"
-export async function getPrompt(value: {
+export  function getPrompt(value: {
   myGig: string;
   proposalTone?: string;
   clientNeeds: string;

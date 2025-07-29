@@ -1,4 +1,4 @@
-import { getPrompt } from "@/actions/prompt";
+import { getPrompt } from "@/lib/prompt";
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
@@ -17,7 +17,11 @@ export async function POST(req: NextRequest) {
       additional,
     } = await req.json();
 
-    console.log({ outreachType });
+    console.log({  outreachType,
+      clientNeeds,
+      lengthPerference,
+      proposalTone,
+      additional, });
 
     if (!clientNeeds || !lengthPerference || !outreachType) {
       return NextResponse.json({
@@ -26,7 +30,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const finalPromptToGenerate = await getPrompt({
+    const finalPromptToGenerate = getPrompt({
       myGig:
         "I build custom, responsive websites using React, Tailwind, and Framer Motion, focusing on fast performance and clean design.",
       clientNeeds,
