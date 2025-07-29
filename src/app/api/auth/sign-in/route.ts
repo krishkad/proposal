@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
 import { generateAccessToken } from "@/actions/GenerateJWToken";
 import prisma from "@/lib/prisma";
 import { excludePassword } from "@/lib/utils";
+import bcrypt from "bcrypt";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,11 +37,6 @@ export async function POST(req: NextRequest) {
     const safeUser = excludePassword(user);
 
     const token = await generateAccessToken(
-      safeUser.id,
-      safeUser.plan,
-      7 * 24 * 60 * 60
-    );
-    const generaltoken = await generateAccessToken(
       safeUser.id,
       safeUser.plan,
       7 * 24 * 60 * 60
