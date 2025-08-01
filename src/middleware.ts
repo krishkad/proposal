@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { jwtVerify } from "jose";
 
 const AUTH_ROUTES = ["/sign-in", "/sign-up"];
 const PROTECTED_ROUTES = [
@@ -8,7 +9,9 @@ const PROTECTED_ROUTES = [
   "/dashboard/all-proposals",
 ]; // Add your protected routes here
 
-export function middleware(request: NextRequest) {
+const secret = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
+
+export async function middleware(request: NextRequest) {
   const token =
     request.cookies.get("freeposal-authentication")?.value || // Adjust cookie name
     request.headers.get("Authorization")?.replace("Bearer ", "");
@@ -22,6 +25,21 @@ export function middleware(request: NextRequest) {
 
   // ✅ Case 1: User is logged in
   if (token) {
+    if (isProtectedRoute) {
+      try {
+        await jwtVerify(token, secret);
+
+        return NextResponse.next();
+      } catch (error) {
+        console.log("error jwt in middleware", error);
+        // If token is expired or invalid
+        const response = NextResponse.redirect(
+          new URL("/sign-in", request.url)
+        );
+        response.cookies.delete("freeposal-authentication");
+        return response;
+      }
+    }
     // ❌ Prevent access to signin/signup if logged in
     if (isAuthRoute) {
       return NextResponse.redirect(new URL("/dashboard/generate", request.url)); // or home
