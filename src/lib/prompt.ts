@@ -1,4 +1,4 @@
-export  function getPrompt(value: {
+export function getPrompt(value: {
   myGig: string;
   proposalTone?: string;
   clientNeeds: string;
@@ -34,16 +34,16 @@ ${value.additional && `Additional: ${value.additional}`}
 
 Output only the proposal content — no explanations or markdown formatting. `;
 
-
-
-const emailProposalPrompt = `Act as a professional freelance email proposal writer. Based on the gig or service I offer, write a personalized, persuasive, and professional cold/warm email to a potential client that builds trust and encourages a response.
+  const emailProposalPrompt = `Act as a professional freelance email proposal writer. Based on the gig or service I offer, write a personalized, persuasive, and professional cold/warm email to a potential client that builds trust and encourages a response.
 
 Use a friendly and respectful tone — not too formal, but confident — and keep the message concise, clear, and value-driven.
 
 Input Details:
 - My Gig/Service: ${value.myGig}
 - Client’s Needs or Context (if known): ${value.clientNeeds}
-- Email Tone (Optional): ${value.proposalTone || "Adjust tone based on service and target client"}
+- Email Tone (Optional): ${
+    value.proposalTone || "Adjust tone based on service and target client"
+  }
 - Length Preference: ${value.lengthPerference || "short"}
 
 Structure the Email As:
@@ -65,11 +65,9 @@ Only output the final email body and subject line — no extra explanation or ma
 
 If any additional instructions, context, client industry, or personalization data are added later, please use them to enhance the email.`;
 
-
   if (value.outreachType === "freelance-proposal") {
     return upworkPrompt;
-  } 
-  else if (value.outreachType === "email") {
+  } else if (value.outreachType === "email") {
     return emailProposalPrompt;
   }
   return `Act like a professional freelance proposal writer. Based on the following gig or service I offer, generate a personalized and compelling proposal I can send to potential clients. Make sure the tone is professional yet friendly, clearly state how I can solve their problem, and include a call-to-action at the end. Here is my gig description/service: ${

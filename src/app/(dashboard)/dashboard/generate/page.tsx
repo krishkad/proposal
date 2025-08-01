@@ -12,17 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-// interface ProposalVariation {
-//   id: number;
-//   title: string;
-//   content: string;
-//   style: string;
-// }
 
-// interface OutreachOutput {
-//   type: string;
-//   content: string;
-// }
 
 type OutreachType = "freelance-proposal" | "email";
 type ToneType = "formal" | "friendly" | "persuasive" | "professional";
