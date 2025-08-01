@@ -13,7 +13,7 @@ Use a friendly yet confident tone that builds trust and clearly communicates how
 Input Details:
 - My Gig/Service: ${value.myGig}
 - Client’s Needs or Project Description: ${value.clientNeeds}
-- Proposal Tone (Optional): ${
+- Proposal Tone: ${
     value.proposalTone || "Adjust tone based on gig type"
   }
 - Length Preference: ${value.lengthPerference || "short"}
@@ -41,7 +41,7 @@ Use a friendly and respectful tone — not too formal, but confident — and kee
 Input Details:
 - My Gig/Service: ${value.myGig}
 - Client’s Needs or Context (if known): ${value.clientNeeds}
-- Email Tone (Optional): ${
+- Email Tone: ${
     value.proposalTone || "Adjust tone based on service and target client"
   }
 - Length Preference: ${value.lengthPerference || "short"}
