@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* <Navbar /> */}
-    
+
       {/* <div className="max-w-wrapper z-[10]">
         <div className="w-full flex items-center justify-center">
           <div className="w-full md:max-w-4xl mt-[10vh] md:mt-[20vh]">
