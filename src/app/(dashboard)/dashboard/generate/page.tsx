@@ -12,15 +12,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-
-
 type OutreachType = "freelance-proposal" | "email";
-type ToneType = "formal" | "friendly" | "persuasive" | "professional";
+type ToneType = "formal & persuasive" | "friendly & persuasive";
 
 const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
     goals: "",
-    tone: "persuasive" as "formal" | "friendly" | "persuasive" | "professional",
+    tone: "friendly & persuasive" as
+      | "formal & persuasive"
+      | "friendly & persuasive",
     instructions: "",
   });
   const [selectedType, setSelectedType] =
@@ -192,7 +192,7 @@ const ProposalGenerator = () => {
                     Tone & Style
                   </Label>
                   <div className="grid grid-cols-2 gap-3">
-                    {["formal", "friendly", "persuasive", "professional"].map(
+                    {["formal & persuasive", "friendly & persuasive"].map(
                       (tone) => (
                         <button
                           key={tone}

@@ -73,6 +73,17 @@ export async function POST(req: NextRequest) {
       temperature: 0.7,
     });
 
+    if (
+      !response.choices[0].message?.content &&
+      !response.choices &&
+      !response
+    ) {
+      return NextResponse.json({
+        success: false,
+        message: "failed to generate proposal",
+      }); // or return response
+    }
+
     const proposal = await prisma.proposal.create({
       data: {
         prompt: finalPromptToGenerate,

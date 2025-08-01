@@ -2,11 +2,11 @@ export function getPrompt(value: {
   myGig: string;
   proposalTone?: string;
   clientNeeds: string;
-  lengthPerference: "formal" | "friendly" | "persuasive" | "professional";
+  lengthPerference: "formal & persuasive" | "friendly & persuasive";
   outreachType: string;
   additional: string;
 }) {
-  const upworkPrompt = `Act as an expert freelance proposal writer for Upwork. Based on the following gig or service I offer, craft a highly personalized, persuasive, and professional proposal tailored to a specific client.
+  const upworkPrompt = `Act as an expert freelance proposal writer for Upwork as bid. Based on the following gig or service I offer, craft a highly personalized, persuasive, and professional proposal tailored to a specific client.
 
 Use a friendly yet confident tone that builds trust and clearly communicates how I can solve the client’s problem.
 
