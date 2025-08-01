@@ -2,13 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SiCodemagic } from "react-icons/si";
@@ -27,6 +28,8 @@ const HeroSection = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
+  const router = useRouter();
+
   const form = useForm<FormData>({
     defaultValues: {
       jobDescription: "",
@@ -43,13 +46,13 @@ const HeroSection = () => {
 
   const onSubmit = async (data: FormData) => {
     if (!data.jobDescription.trim()) {
-      //   toast({
-      //     title: "Please enter a job description",
-      //     description: "We need the job details to generate a tailored proposal.",
-      //     variant: "destructive",
-      //   });
       return;
     }
+    localStorage.setItem(
+      "user-1st-jobDescription",
+      JSON.stringify(data.jobDescription)
+    );
+    router.push(`/dashboard/generate`);
 
     setIsGenerating(true);
 
@@ -62,7 +65,6 @@ const HeroSection = () => {
       //   });
     }, 2000);
   };
-
 
   return (
     <div className="min-h-screen gradient-hero relative overflow-hidden">

@@ -8,8 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { outreachTypes } from "@/constants/constants";
 import { Bot, FileText, Sparkles, Wand2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 // interface ProposalVariation {
@@ -30,21 +30,31 @@ type ToneType = "formal" | "friendly" | "persuasive" | "professional";
 const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
     goals: "",
-    tone: "persuasive" as
-      | "formal"
-      | "friendly"
-      | "persuasive"
-      | "professional",
+    tone: "persuasive" as "formal" | "friendly" | "persuasive" | "professional",
     instructions: "",
   });
   const [selectedType, setSelectedType] =
     useState<OutreachType>("freelance-proposal");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedProposals, setGeneratedProposals] = useState<string>("");
-  //   const [selectedProposal, setSelectedProposal] = useState<number | null>(null);
 
-  //   const isFormValid =
-  //     formData.clientName.trim() && formData.proposalTitle.trim();
+  useEffect(() => {
+    const localJobDescription =
+      localStorage.getItem("user-1st-jobDescription") || "";
+
+    const jobDescription = localJobDescription
+      ? JSON.parse(localJobDescription)
+      : null;
+
+    if (!jobDescription || jobDescription === null) return;
+    console.log({ jobDescription });
+
+    setFormData({
+      ...formData,
+      goals: jobDescription,
+    });
+  }, []);
+
   const router = useRouter();
 
   const generateProposal = async () => {
@@ -82,32 +92,10 @@ const ProposalGenerator = () => {
       );
       toast.warning("failed to generate proposal");
     } finally {
+      localStorage.removeItem("user-1st-jobDescription");
       setIsGenerating(false);
     }
   };
-
-  // const templates = [
-  //   {
-  //     id: "saas",
-  //     name: "SaaS Platform",
-  //     preview: "📱 Software as a Service proposal template",
-  //   },
-  //   {
-  //     id: "marketing",
-  //     name: "Digital Marketing",
-  //     preview: "📈 Marketing campaign proposal template",
-  //   },
-  //   {
-  //     id: "design",
-  //     name: "Design Services",
-  //     preview: "🎨 Creative design project template",
-  //   },
-  //   {
-  //     id: "consulting",
-  //     name: "Business Consulting",
-  //     preview: "💼 Strategic consulting template",
-  //   },
-  // ];
 
   return (
     // bg-gradient-to-br from-slate-50 via-white to-blue-50
@@ -349,12 +337,7 @@ const ProposalGenerator = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
-                {generatedProposals.length > 0 && (
-                  <div className="w-full">
-                    <ProposalRenderer proposalText={generatedProposals} />
-                  </div>
-                )}
+              <div className="w-full grid grid-cols-1 gap-5">
                 {generatedProposals.length > 0 && (
                   <div>
                     <ProposalRenderer proposalText={generatedProposals} />
