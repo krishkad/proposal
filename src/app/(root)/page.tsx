@@ -15,13 +15,14 @@ import {
 } from "@/components/ui/accordion";
 import { BsTwitterX } from "react-icons/bs";
 import { CiLinkedin } from "react-icons/ci";
+import HeroSection from "@/components/shared/HeroSection";
 
 export default function Home() {
   return (
     <div className="w-full">
       {/* <Navbar /> */}
     
-      <div className="max-w-wrapper z-[10]">
+      {/* <div className="max-w-wrapper z-[10]">
         <div className="w-full flex items-center justify-center">
           <div className="w-full md:max-w-4xl mt-[10vh] md:mt-[20vh]">
             <h1 className="text-4xl md:text-6xl font-bold text-wrap text-center z-10">
@@ -42,7 +43,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <HeroSection />
 
       {/* FEATURES  */}
       <div className="max-w-wrapper bg-secondary/50 mt-20">
