@@ -136,7 +136,7 @@ const HeroSection = () => {
               <Card className="glass-card border-l-4 border-l-primary p-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-2">
-                    <p className="text-lg font-medium italic">"{testimonials[currentTestimonial].text}"</p>
+                    <p className="text-lg font-medium italic">&quot;{testimonials[currentTestimonial].text}&quot;</p>
                     <p className="text-sm text-muted-foreground">— {testimonials[currentTestimonial].author}</p>
                   </div>
                   <div className="flex gap-1">
@@ -184,7 +184,7 @@ const HeroSection = () => {
                                 />
                                 {!field.value && (
                                   <div className="absolute top-16 left-4 text-muted-foreground/60 text-sm">
-                                    Example: "Looking for a React developer to build..."
+                                    Example: &quot;Looking for a React developer to build...&quot;
                                   </div>
                                 )}
                               </div>
