@@ -24,13 +24,13 @@ import { toast } from "sonner";
 //   content: string;
 // }
 
-type OutreachType = "freelance-proposal" | "email" | "linkedin" | "twitter";
+type OutreachType = "freelance-proposal" | "email";
 type ToneType = "formal" | "friendly" | "persuasive" | "professional";
 
 const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
     goals: "",
-    tone: "professional" as
+    tone: "persuasive" as
       | "formal"
       | "friendly"
       | "persuasive"
@@ -136,7 +136,7 @@ const ProposalGenerator = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {outreachTypes.map((type) => {
                 const Icon = type.icon;
                 return (

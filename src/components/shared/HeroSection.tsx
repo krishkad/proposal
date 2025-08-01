@@ -9,6 +9,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SiCodemagic } from "react-icons/si";
@@ -33,6 +34,7 @@ const HeroSection = () => {
     },
   });
 
+  const router = useRouter();
   // Rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,6 +64,7 @@ const HeroSection = () => {
       //   });
     }, 2000);
   };
+
 
   return (
     <div className="min-h-screen gradient-hero relative overflow-hidden">

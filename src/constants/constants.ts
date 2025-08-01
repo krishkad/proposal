@@ -5,9 +5,7 @@ import {
   Home,
   LucideIcon,
   Mail,
-  Settings,
-  Twitter,
-  User
+  Settings
 } from "lucide-react";
 import { IconType } from "react-icons";
 import { FaRegClock } from "react-icons/fa";
@@ -171,17 +169,5 @@ export const outreachTypes = [
     label: "Email Pitch",
     icon: Mail,
     color: "from-blue-500 to-cyan-600",
-  },
-  {
-    id: "linkedin",
-    label: "LinkedIn DM",
-    icon: User,
-    color: "from-blue-600 to-indigo-700",
-  },
-  {
-    id: "twitter",
-    label: "Twitter DM",
-    icon: Twitter,
-    color: "from-sky-400 to-blue-500",
-  },
+  }
 ];
