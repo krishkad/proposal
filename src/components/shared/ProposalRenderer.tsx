@@ -50,7 +50,7 @@ export default function ProposalRenderer({
   if (!proposalText || proposalText.length <= 0) return null;
 
   return (
-    <div className="w-full mx-auto p-2 sm:p-6 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 rounded-2xl sm:shadow-lg sm:border border-zinc-200 dark:border-zinc-800">
+    <div className="w-full mx-auto p-2 bg-white dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 rounded-2xl dark:border-zinc-800">
       {displayedLines.map((line, index) => (
         <motion.div
           key={index}

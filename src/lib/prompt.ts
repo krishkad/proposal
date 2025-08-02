@@ -2,7 +2,7 @@ export function getPrompt(value: {
   myGig: string;
   proposalTone?: string;
   clientNeeds: string;
-  lengthPerference: "formal & persuasive" | "friendly & persuasive";
+  lengthPerference: "professional & persuasive" | "friendly & persuasive";
   outreachType: string;
   additional: string;
 }) {
@@ -65,18 +65,55 @@ Only output the final email body and subject line — no extra explanation or ma
 
 If any additional instructions, context, client industry, or personalization data are added later, please use them to enhance the email.`;
 
+
+const freelance_prompt = `You are an expert freelance proposal writer. Your task is to create a compelling, professional, and tailored proposal for a freelance job based on the provided job post and freelancer details. The proposal should grab the client's attention, demonstrate a clear understanding of their needs, and convincingly position the freelancer as the ideal candidate.
+
+**Input Details**:
+- **Job Post**: ${value.clientNeeds}
+- **Freelancer Details**: ${value.myGig}
+
+**Instructions**:
+1. **Structure**:
+   - Start with a professional greeting addressing the client by name (if provided) or "Hi [Client Name]."
+   - Write a brief introduction (1–2 sentences) stating enthusiasm for the project and summarizing the freelancer’s fit.
+   - Demonstrate understanding of the client’s needs or challenges based on the job post (2–3 sentences).
+   - Propose a clear solution, explaining how the freelancer will address the client’s needs using their skills and experience (3–4 sentences).
+   - Highlight the freelancer’s relevant qualifications, including specific skills, past successes, or portfolio examples that align with the job (2–3 sentences).
+   - End with a confident call to action, inviting the client to discuss further or schedule a call (1–2 sentences).
+2. **Tone and Style**:
+   - Use a professional, confident, and client-focused tone.
+   - Avoid generic phrases like "I’m the best candidate" or overly salesy language.
+   - Adapt the tone slightly to match the job type (e.g., formal for corporate projects, conversational for creative projects).
+3. **Persuasive Elements**:
+   - Emphasize how the freelancer’s skills solve the client’s specific problems or meet their goals.
+   - Include specific examples or achievements from the freelancer’s experience (if provided) to build credibility.
+   - Show enthusiasm and readiness to start the project.
+4. **Constraints**:
+   - Keep the proposal concise, between 200–300 words.
+   - Avoid jargon unless relevant to the job post.
+   - Ensure the proposal is grammatically perfect and free of fluff.
+5. **Output**:
+   - Provide the proposal as plain text, formatted with clear paragraphs.
+   - Do not include placeholders or incomplete sections.
+
+**Example Output (for reference, do not include in final response)**:
+Dear Client,
+
+I’m excited to apply for your e-commerce website project, as my 5 years of experience in web development with React and Node.js align perfectly with your needs. Your goal of building a responsive, SEO-optimized site with seamless payment integration is critical for driving sales, and I understand the importance of delivering a user-friendly platform within your 4-week timeline.
+
+My proposed solution involves designing a modern, responsive e-commerce site using React for a dynamic front-end and Node.js for a robust backend, with integrated payment gateways like Stripe or PayPal. I’ll ensure SEO best practices are applied to boost visibility, drawing on my experience building 10+ e-commerce sites with 100% client satisfaction. For example, I recently delivered a similar project 20% ahead of schedule, enhancing the client’s online sales by 30% (see portfolio: [link]).
+
+I’m confident I can deliver a high-quality website that meets your needs and exceeds expectations. I’d love to discuss your vision further—please let me know a convenient time for a call!
+
+Best regards,
+John Doe
+
+Now, generate a proposal based on the provided job post and freelancer details.`
+
   if (value.outreachType === "freelance-proposal") {
-    return upworkPrompt;
+    return freelance_prompt;
   } else if (value.outreachType === "email") {
     return emailProposalPrompt;
   }
-  return `Act like a professional freelance proposal writer. Based on the following gig or service I offer, generate a personalized and compelling proposal I can send to potential clients. Make sure the tone is professional yet friendly, clearly state how I can solve their problem, and include a call-to-action at the end. Here is my gig description/service: ${
-    value.myGig
-  } Additional context or client needs: ${value.clientNeeds} Proposal tone: ${
-    value.proposalTone
-      ? value.proposalTone
-      : "Make the tone accroding to freelance work gig"
-  } Length preference: ${
-    value.lengthPerference ? value.lengthPerference : "short"
-  } Please structure the proposal with: A warm introduction A paragraph showing understanding of the client's problem My solution and why I’m a great fit (Optional) Mention relevant past work or results A clear call to action to start the project or schedule a chat. And make the make proposal readable and easy to understand, eg. if the work gig is more technical make the proposal also a bit technical and if the work gig is about tech but is described as a now tech user make it easy to undertand for a non tech user. Make it highly persuiative and convincing`;
+  return upworkPrompt;
 }

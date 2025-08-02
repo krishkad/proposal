@@ -73,9 +73,11 @@ export async function POST(req: NextRequest) {
       temperature: 0.7,
     });
 
+
     if (
-      !response.choices[0].message?.content &&
-      !response.choices &&
+      !response.choices[0].message?.content ||
+      !response.choices ||
+      !response.id ||
       !response
     ) {
       return NextResponse.json({

@@ -13,13 +13,13 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 type OutreachType = "freelance-proposal" | "email";
-type ToneType = "formal & persuasive" | "friendly & persuasive";
+type ToneType = "professional & persuasive" | "friendly & persuasive";
 
 const ProposalGenerator = () => {
   const [formData, setFormData] = useState({
     goals: "",
     tone: "friendly & persuasive" as
-      | "formal & persuasive"
+      | "professional & persuasive"
       | "friendly & persuasive",
     instructions: "",
   });
@@ -192,7 +192,7 @@ const ProposalGenerator = () => {
                     Tone & Style
                   </Label>
                   <div className="grid grid-cols-2 gap-3">
-                    {["formal & persuasive", "friendly & persuasive"].map(
+                    {["professional & persuasive", "friendly & persuasive"].map(
                       (tone) => (
                         <button
                           key={tone}
@@ -222,7 +222,7 @@ const ProposalGenerator = () => {
                   htmlFor="instructions"
                   className="text-sm font-semibold text-gray-700 uppercase tracking-wide"
                 >
-                  Additional Instructions
+                  Additional Instructions (Optional)
                 </Label>
                 <Textarea
                   id="instructions"
@@ -281,9 +281,9 @@ const ProposalGenerator = () => {
         {generatedProposals.length > 0 && (
           <Card
             id="generated-proposal"
-            className="shadow-xl border-0 bg-white/80 backdrop-blur-sm min-h-[600px]"
+            className="shadow-xl border-0 bg-white/80 backdrop-blur-sm min-h-[500px]"
           >
-            <CardHeader className="pb-6">
+            <CardHeader className="">
               <div className="flex max-md:flex-col max-md:items-start items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-2 h-8 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
@@ -327,7 +327,7 @@ const ProposalGenerator = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="w-full grid grid-cols-1 gap-5">
+              <div className="w-full grid grid-cols-1">
                 {generatedProposals.length > 0 && (
                   <div>
                     <ProposalRenderer proposalText={generatedProposals} />
