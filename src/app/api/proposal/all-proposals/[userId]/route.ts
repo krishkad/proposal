@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { CustomJwtPayload } from "../../generate-proposal/route";
-import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 import { excludePrompt } from "@/lib/utils";
-import { AppRouteRouteHandlerContext } from "next/dist/server/route-modules/app-route/module";
+import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
+import { CustomJwtPayload } from "../../generate-proposal/route";
 
 export async function GET(
   req: NextRequest,
