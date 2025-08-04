@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { CustomJwtPayload } from "../../generate-proposal/route";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
+import { excludePrompt } from "@/lib/utils";
 
 export async function GET(
   req: NextRequest,
@@ -52,7 +53,7 @@ export async function GET(
       });
     }
 
-    const filteredProposals = proposals.map(({ prompt, ...rest }) => rest);
+    const filteredProposals = excludePrompt(proposals);
 
     return NextResponse.json({ success: true, proposals: filteredProposals });
   } catch (error) {
