@@ -1,5 +1,5 @@
 "use client";
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -612,11 +612,11 @@ const AllProposals: React.FC = () => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Load proposals from localStorage on component mount
@@ -638,6 +638,30 @@ const AllProposals: React.FC = () => {
       setProposals(sampleProposals);
       localStorage.setItem("saved-proposals", JSON.stringify(sampleProposals));
     }
+  }, []);
+
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(
+          "/api/proposal/all-proposals/08dabe1b-5cf1-470c-836a-05ba53c50299",
+          {
+            credentials: "include",
+          }
+        );
+
+        const res = await response.json();
+
+        console.log({ res });
+      } catch (error) {
+        console.log("ERROR WHILE FETCHING PROPOSALS", error);
+      }
+    };
+
+
+
+    fetchPost();
   }, []);
 
   // Filter and sort proposals
@@ -879,7 +903,9 @@ const AllProposals: React.FC = () => {
 
               <Select
                 value={sortBy}
-                onValueChange={(value: "title" | "newest" | "oldest" | "priority") => setSortBy(value)}
+                onValueChange={(
+                  value: "title" | "newest" | "oldest" | "priority"
+                ) => setSortBy(value)}
               >
                 <SelectTrigger className="w-32 h-10">
                   <SelectValue placeholder="Sort" />
@@ -1085,7 +1111,7 @@ const AllProposals: React.FC = () => {
                   </div>
                 </div>
               </DialogHeader>
-              
+
               <ScrollArea className="h-[calc(90vh-64px)] px-4 py-4">
                 {selectedProposal && (
                   <div className="space-y-4">
@@ -1170,9 +1196,7 @@ const AllProposals: React.FC = () => {
                       {isEditing ? (
                         <Textarea
                           value={editedContent}
-                          onChange={(e) =>
-                            setEditedContent(e.target.value)
-                          }
+                          onChange={(e) => setEditedContent(e.target.value)}
                           className="min-h-[300px] text-sm font-mono resize-none"
                           placeholder="Enter proposal content"
                         />
@@ -1191,7 +1215,8 @@ const AllProposals: React.FC = () => {
           </Dialog>
         ) : (
           // Desktop Panel (only show when not mobile and panel is open)
-          showDetailPanel && !isMobile && (
+          showDetailPanel &&
+          !isMobile && (
             <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-xl z-50 flex flex-col">
               {/* Detail Header */}
               <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200">
@@ -1262,11 +1287,7 @@ const AllProposals: React.FC = () => {
                         )}
                       </>
                     )}
-                    <Button
-                      onClick={closeModal}
-                      variant="ghost"
-                      size="sm"
-                    >
+                    <Button onClick={closeModal} variant="ghost" size="sm">
                       <XIcon className="w-4 h-4" />
                     </Button>
                   </div>
@@ -1359,9 +1380,7 @@ const AllProposals: React.FC = () => {
                         {isEditing ? (
                           <Textarea
                             value={editedContent}
-                            onChange={(e) =>
-                              setEditedContent(e.target.value)
-                            }
+                            onChange={(e) => setEditedContent(e.target.value)}
                             className="min-h-[300px] text-sm font-mono resize-none"
                             placeholder="Enter proposal content"
                           />

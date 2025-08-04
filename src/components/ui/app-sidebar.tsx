@@ -15,6 +15,8 @@ import { Button } from "./button";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "./separator";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { SheetClose } from "./sheet";
 
 // This is sample data.
 // const data = {
@@ -151,6 +153,7 @@ import { Separator } from "./separator";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const router = useRouter();
+  const isMobile = useIsMobile();
   return (
     <Sidebar {...props}>
       <SidebarHeader className="bg-white">
@@ -163,20 +166,41 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="w-full mt-6 space-y-3">
           {sidebarLinks.map((links, i) => {
             return (
-              <Button
-                key={i}
-                variant={"outline"}
-                onClick={() => router.push(links.path)}
-                className={cn(
-                  "w-full !h-11 !px-5 shadow-none flex items-center justify-start gap-3 text-base rounded-xl hover:bg-gray-100 transition-all duration-150",
-                  links.path === pathname
-                    ? "border-[0.2px] border-primary text-primary bg-primary/5 hover:bg-primary/5 hover:text-primary "
-                    : "bg-white border-white text-gray-700"
+              <React.Fragment key={i}>
+                {isMobile ? (
+                  <SheetClose asChild >
+                    <Button
+                      key={i}
+                      variant={"outline"}
+                      onClick={() => router.push(links.path)}
+                      className={cn(
+                        "w-full !h-11 !px-5 shadow-none flex items-center justify-start gap-3 text-base rounded-xl hover:bg-gray-100 transition-all duration-150",
+                        links.path === pathname
+                          ? "border-[0.2px] border-primary text-primary bg-primary/5 hover:bg-primary/5 hover:text-primary "
+                          : "bg-white border-white text-gray-700"
+                      )}
+                    >
+                      <links.icon />
+                      {links.label}
+                    </Button>
+                  </SheetClose>
+                ) : (
+                  <Button
+                    // key={i}
+                    variant={"outline"}
+                    onClick={() => router.push(links.path)}
+                    className={cn(
+                      "w-full !h-11 !px-5 shadow-none flex items-center justify-start gap-3 text-base rounded-xl hover:bg-gray-100 transition-all duration-150",
+                      links.path === pathname
+                        ? "border-[0.2px] border-primary text-primary bg-primary/5 hover:bg-primary/5 hover:text-primary "
+                        : "bg-white border-white text-gray-700"
+                    )}
+                  >
+                    <links.icon />
+                    {links.label}
+                  </Button>
                 )}
-              >
-                <links.icon />
-                {links.label}
-              </Button>
+              </React.Fragment>
             );
           })}
         </div>

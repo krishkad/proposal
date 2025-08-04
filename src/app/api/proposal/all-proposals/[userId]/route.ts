@@ -3,18 +3,18 @@ import { CustomJwtPayload } from "../../generate-proposal/route";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 
-type Context = {
-  params: {
-    userId: string;
-  };
-};
-
-export async function GET(req: NextRequest, content: Context) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { userId: string } }
+) {
   try {
-    const { userId } = await content.params;
+    const { userId } = await params;
+
+    console.log({ userId });
 
     const token = req.cookies.get("freeposal-authentication")?.value;
 
+    console.log({ token });
     if (!token) {
       return NextResponse.json({
         success: false,
@@ -52,7 +52,9 @@ export async function GET(req: NextRequest, content: Context) {
       });
     }
 
-    return NextResponse.json({ success: true, proposals });
+    const filteredProposals = proposals.map(({ prompt, ...rest }) => rest);
+
+    return NextResponse.json({ success: true, proposals: filteredProposals });
   } catch (error) {
     console.log("[ERROR WHILE GETTING ALL PROPOSALS]: ", error);
     return NextResponse.json({
