@@ -15,6 +15,7 @@ export function excludePassword(user: User) {
 
 
 export function excludePrompt(proposals: Proposal[]) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const filteredProposals = proposals.map(({ prompt, ...rest }) => rest);
   return filteredProposals
 }
