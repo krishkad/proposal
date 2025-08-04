@@ -7,10 +7,10 @@ import { AppRouteRouteHandlerContext } from "next/dist/server/route-modules/app-
 
 export async function GET(
   req: NextRequest,
-  params: AppRouteRouteHandlerContext
+ { params }: { params: Record<string, string | string[]> }
 ) {
   try {
-    const userId  = params.params?.userId as string;
+    const userId  = params.userId as string;
 
     console.log({ userId });
 
