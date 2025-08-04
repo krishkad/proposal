@@ -4,12 +4,11 @@ import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 import { CustomJwtPayload } from "../../generate-proposal/route";
 
-export async function GET(
-  req: NextRequest,
- { params }: { params: Record<string, string | string[]> }
-) {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(req: NextRequest, params: any) {
   try {
-    const userId  = params.userId as string;
+    const userId = params.params.userId as string;
 
     console.log({ userId });
 
