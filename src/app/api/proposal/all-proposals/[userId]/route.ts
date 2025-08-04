@@ -3,13 +3,14 @@ import { CustomJwtPayload } from "../../generate-proposal/route";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 import { excludePrompt } from "@/lib/utils";
+import { AppRouteRouteHandlerContext } from "next/dist/server/route-modules/app-route/module";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Record<string, string> }
+  params: AppRouteRouteHandlerContext
 ) {
   try {
-    const userId = params.userId;
+    const userId  = params.params?.userId as string;
 
     console.log({ userId });
 
