@@ -5,10 +5,10 @@ import prisma from "@/lib/prisma";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } }
+  params : { params: { userId: string } }
 ) {
   try {
-    const { userId } = await params;
+    const { userId } = await params.params;
 
     const token = req.cookies.get("freeposal-authentication")?.value;
 
