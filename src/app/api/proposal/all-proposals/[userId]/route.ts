@@ -6,7 +6,7 @@ import { excludePrompt } from "@/lib/utils";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Record<string, string> }
 ) {
   try {
     const userId = params.userId;
