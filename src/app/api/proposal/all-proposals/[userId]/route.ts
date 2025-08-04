@@ -3,12 +3,15 @@ import { CustomJwtPayload } from "../../generate-proposal/route";
 import jwt from "jsonwebtoken";
 import prisma from "@/lib/prisma";
 
-export async function GET(
-  req: NextRequest,
-  params : { params: { userId: string } }
-) {
+type Context = {
+  params: {
+    userId: string;
+  };
+};
+
+export async function GET(req: NextRequest, content: Context) {
   try {
-    const { userId } = await params.params;
+    const { userId } = await content.params;
 
     const token = req.cookies.get("freeposal-authentication")?.value;
 
