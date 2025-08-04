@@ -217,7 +217,7 @@ const ProposalGenerator = () => {
               </div>
 
               {/* Additional Instructions */}
-              <div className="space-y-3">
+              {/* <div className="space-y-3">
                 <Label
                   htmlFor="instructions"
                   className="text-sm font-semibold text-gray-700 uppercase tracking-wide"
@@ -239,7 +239,7 @@ const ProposalGenerator = () => {
                 <p className="text-xs text-gray-500 flex items-center gap-1">
                   <span className="font-mono">⌘/Ctrl + Enter</span> to generate
                 </p>
-              </div>
+              </div> */}
 
               {/* Right Column */}
               <div className="space-y-8"></div>

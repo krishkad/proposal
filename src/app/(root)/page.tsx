@@ -195,7 +195,7 @@ export default function Home() {
               Simple Process
             </p>
             <h2 className="text-4xl text-center font-bold mt-5">
-              How <span className="text-gradient-primary">Freeposal.ai</span>{" "}
+              How <span className="text-gradient-primary">Freeposal</span>{" "}
               Works
             </h2>
             <p className="text-xl text-center mt-5">
@@ -654,7 +654,7 @@ export default function Home() {
         <div className="max-w-wrapper pt-16 pb-8">
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <div className="w-full">
-              <h3 className="font-bold text-3xl text-white">Freeposal.ai</h3>
+              <h3 className="font-bold text-3xl text-white">Freeposal</h3>
 
               <p className="mt-5 md:max-w-[260px] text-gray-300">
                 AI-powered proposal and email generation for freelancers and
@@ -706,7 +706,7 @@ export default function Home() {
           </div>
           <div className="w-full mt-24 flex max-md:flex-col items-center justify-between gap-3">
             <p className="text-gray-300">
-              © 2025 Freeposal.ai. All rights reserved.
+              © 2025 Freeposal. All rights reserved.
             </p>
 
             <div className=" flex items-center justify-center gap-5">

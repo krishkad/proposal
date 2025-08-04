@@ -155,7 +155,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar {...props}>
       <SidebarHeader className="bg-white">
         <h1 className="px-3 mt-2 text-2xl font-bold text-gradient-primary">
-          <Link href={"/"}>Freeposal.ai</Link>
+          <Link href={"/"}>Freeposal</Link>
         </h1>
       </SidebarHeader>
       <SidebarContent className="bg-white px-5">

@@ -12,7 +12,7 @@ const SignUpPage = () => {
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <img src="/android-chrome.png" className="size-4" alt="logo" />
           </div>
-          Freeposal.ai
+          Freeposal
         </Link>
         <SignUpForm />
       </div>
