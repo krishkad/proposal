@@ -704,6 +704,10 @@ const AllProposals: React.FC = () => {
     );
   };
 
+
+
+
+  
   const handleSave = () => {
     if (!selectedProposal) return;
 
