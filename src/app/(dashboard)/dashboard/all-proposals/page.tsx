@@ -24,6 +24,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -43,6 +44,7 @@ import {
   User,
   X,
   XIcon,
+  XSquareIcon,
 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -690,8 +692,6 @@ const AllProposals: React.FC = () => {
     );
   };
 
-
-
   const getPriorityColor = (priority: string) => {
     const colors = {
       low: "bg-slate-100 text-slate-700 border-slate-300",
@@ -704,10 +704,6 @@ const AllProposals: React.FC = () => {
     );
   };
 
-
-
-
-  
   const handleSave = () => {
     if (!selectedProposal) return;
 
@@ -978,7 +974,12 @@ const AllProposals: React.FC = () => {
         {/* Mobile Dialog / Desktop Panel */}
         {isMobile ? (
           <Dialog open={showDetailPanel} onOpenChange={closeModal}>
-            <DialogContent className="w-[95vw] max-w-none h-[90vh] max-h-none p-0 gap-0">
+            <DialogContent
+              onOpenAutoFocus={(e) => e.preventDefault()}
+              className="w-[95vw] max-w-none h-[90vh] max-h-none p-0 gap-0"
+              showCloseButton={false}
+              aria-describedby={undefined}
+            >
               <DialogHeader className="px-4 py-3 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <DialogTitle className="text-lg font-semibold">
@@ -994,7 +995,7 @@ const AllProposals: React.FC = () => {
                               size="sm"
                               className="bg-green-600 hover:bg-green-700"
                             >
-                              <Save className="w-4 h-4 mr-2" />
+                              <Save className="w-4 h-4 sm:mr-2" />
                               Save
                             </Button>
                             <Button
@@ -1002,7 +1003,7 @@ const AllProposals: React.FC = () => {
                               variant="outline"
                               size="sm"
                             >
-                              <X className="w-4 h-4 mr-2" />
+                              <X className="w-4 h-4 sm:mr-2" />
                               Cancel
                             </Button>
                           </>
@@ -1012,7 +1013,7 @@ const AllProposals: React.FC = () => {
                               onClick={() => setIsEditing(true)}
                               size="sm"
                             >
-                              <Edit className="w-4 h-4 mr-2" />
+                              <Edit className="w-4 h-4 sm:mr-2" />
                               Edit
                             </Button>
                             <Button
@@ -1022,13 +1023,18 @@ const AllProposals: React.FC = () => {
                               variant="outline"
                               size="sm"
                             >
-                              <Copy className="w-4 h-4 mr-2" />
+                              <Copy className="w-4 h-4 sm:mr-2" />
                               Copy
                             </Button>
                           </>
                         )}
                       </>
                     )}
+                    <DialogClose asChild>
+                      <Button variant={"outline"} size={"icon"}>
+                        <XIcon />
+                      </Button>
+                    </DialogClose>
                   </div>
                 </div>
               </DialogHeader>

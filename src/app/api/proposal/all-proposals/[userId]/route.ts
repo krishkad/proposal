@@ -51,7 +51,9 @@ export async function GET(req: NextRequest, params: any) {
       return response;
     }
 
-    const proposals = await prisma.proposal.findMany({ where: { userId } });
+    const proposals = await prisma.proposal.findMany({
+      where: { userId },
+    });
 
     if (!proposals || proposals.length <= 0) {
       return NextResponse.json({

@@ -28,7 +28,6 @@ export async function middleware(request: NextRequest) {
     if (isProtectedRoute) {
       try {
         await jwtVerify(token, secret);
-
         return NextResponse.next();
       } catch (error) {
         console.log("error jwt in middleware", error);
