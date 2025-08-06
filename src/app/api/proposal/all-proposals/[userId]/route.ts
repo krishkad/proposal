@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 import { CustomJwtPayload } from "../../generate-proposal/route";
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function GET(req: NextRequest, params: any) {
   try {
@@ -37,10 +36,19 @@ export async function GET(req: NextRequest, params: any) {
     }
 
     if (userId !== userToken.id) {
-      return NextResponse.json({
-        success: false,
-        message: "proposal not found",
-      });
+      console.log("userid and token userid does not match");
+      const response = NextResponse.redirect(new URL("/sign-in", req.url));
+      response.cookies.delete("freeposal-authentication");
+      return response;
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: userToken.id } });
+
+    if (!user) {
+      console.log(`no user with this id: `, userToken.id);
+      const response = NextResponse.redirect(new URL("/sign-in", req.url));
+      response.cookies.delete("freeposal-authentication");
+      return response;
     }
 
     const proposals = await prisma.proposal.findMany({ where: { userId } });

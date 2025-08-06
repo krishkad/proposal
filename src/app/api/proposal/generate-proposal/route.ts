@@ -25,6 +25,14 @@ export async function POST(req: NextRequest) {
       additional,
     } = await req.json();
 
+    console.log({ outreachType });
+    if (!clientNeeds || !lengthPerference || !outreachType) {
+      return NextResponse.json({
+        success: false,
+        message: "all fields are required",
+      });
+    }
+
     const token = req.cookies.get("freeposal-authentication")?.value;
 
     if (!token) {
@@ -48,13 +56,15 @@ export async function POST(req: NextRequest) {
       return response;
     }
 
-    console.log({ outreachType });
+    console.log({ userToken });
 
-    if (!clientNeeds || !lengthPerference || !outreachType) {
-      return NextResponse.json({
-        success: false,
-        message: "all fields are required",
-      });
+    const user = await prisma.user.findUnique({ where: { id: userToken.id } });
+
+    if (!user) {
+      console.log(`no user with this id: `, userToken.id);
+      const response = NextResponse.redirect(new URL("/sign-in", req.url));
+      response.cookies.delete("freeposal-authentication");
+      return response;
     }
 
     const finalPromptToGenerate = getPrompt({
@@ -73,7 +83,6 @@ export async function POST(req: NextRequest) {
       temperature: 0.7,
     });
 
-
     if (
       !response.choices[0].message?.content ||
       !response.choices ||
@@ -89,9 +98,10 @@ export async function POST(req: NextRequest) {
     const proposal = await prisma.proposal.create({
       data: {
         prompt: finalPromptToGenerate,
-        proposal: response.choices[0].message.content || "",
+        proposal: `${response.choices[0].message?.content}` || "",
         userInput: clientNeeds,
-        userId: userToken.id,
+        type: outreachType ? "freelance" : "email",
+        userId: user.id,
         title: "",
       },
     });

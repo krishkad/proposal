@@ -68,6 +68,8 @@ const ProposalGenerator = () => {
 
       const res = await response.json();
 
+      console.log({ res });
+
       if (!res.success) {
         toast.warning("failed to generate proposal");
         return;
@@ -94,7 +96,12 @@ const ProposalGenerator = () => {
         {/* Header Section */}
         <div className="mb-12 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full mb-6">
-            <Sparkles className="w-8 h-8 text-white" />
+            {/* <Sparkles className="w-8 h-8 text-white" /> */}
+            <img
+              src="/freeposal-logo-removebg-preview.png"
+              className="w-18 h-18 shrink-0"
+              alt="Freeposal Logo"
+            />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text">
             AI Outreach Platform

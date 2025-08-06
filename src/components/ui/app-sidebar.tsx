@@ -168,7 +168,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             return (
               <React.Fragment key={i}>
                 {isMobile ? (
-                  <SheetClose asChild >
+                  <SheetClose asChild>
                     <Button
                       key={i}
                       variant={"outline"}

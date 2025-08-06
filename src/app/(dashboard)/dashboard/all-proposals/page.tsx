@@ -54,8 +54,6 @@ interface Proposal {
   clientName: string;
   createdAt: Date;
   lastModified: Date;
-  status: "draft" | "sent" | "responded" | "archived";
-  tags: string[];
   priority: "low" | "medium" | "high";
 }
 
@@ -81,8 +79,6 @@ Best regards!`,
     clientName: "Sarah Johnson",
     createdAt: new Date("2024-01-15"),
     lastModified: new Date("2024-01-15"),
-    status: "sent",
-    tags: ["web-development", "react", "ecommerce"],
     priority: "high",
   },
   {
@@ -108,8 +104,6 @@ Best regards`,
     clientName: "Tech Startup Inc.",
     createdAt: new Date("2024-01-14"),
     lastModified: new Date("2024-01-14"),
-    status: "responded",
-    tags: ["marketing", "seo", "strategy"],
     priority: "medium",
   },
   {
@@ -128,8 +122,6 @@ Would you be open to a brief chat?`,
     clientName: "John Smith",
     createdAt: new Date("2024-01-13"),
     lastModified: new Date("2024-01-13"),
-    status: "draft",
-    tags: ["consulting", "fintech", "business"],
     priority: "high",
   },
   {
@@ -146,8 +138,6 @@ Would love to connect! ✨ DM me if interested!`,
     clientName: "@techstartup",
     createdAt: new Date("2024-01-12"),
     lastModified: new Date("2024-01-12"),
-    status: "sent",
-    tags: ["social-media", "ai", "growth"],
     priority: "low",
   },
   {
@@ -172,8 +162,6 @@ Alex`,
     clientName: "Dr. Martinez",
     createdAt: new Date("2024-01-11"),
     lastModified: new Date("2024-01-11"),
-    status: "draft",
-    tags: ["mobile-development", "healthcare", "hipaa"],
     priority: "high",
   },
   {
@@ -201,8 +189,6 @@ Maria`,
     clientName: "Restaurant Chain Corp",
     createdAt: new Date("2024-01-10"),
     lastModified: new Date("2024-01-10"),
-    status: "sent",
-    tags: ["web-design", "restaurant", "branding"],
     priority: "medium",
   },
   {
@@ -227,8 +213,6 @@ David`,
     clientName: "Jennifer Lee",
     createdAt: new Date("2024-01-09"),
     lastModified: new Date("2024-01-09"),
-    status: "responded",
-    tags: ["ai", "ml", "fintech", "consulting"],
     priority: "high",
   },
   {
@@ -247,8 +231,6 @@ DM me if you'd like to see my portfolio! ✨`,
     clientName: "@contentcreator",
     createdAt: new Date("2024-01-08"),
     lastModified: new Date("2024-01-08"),
-    status: "draft",
-    tags: ["content-creation", "animation", "video"],
     priority: "low",
   },
   {
@@ -276,8 +258,6 @@ Sarah`,
     clientName: "Retail Analytics Corp",
     createdAt: new Date("2024-01-07"),
     lastModified: new Date("2024-01-07"),
-    status: "sent",
-    tags: ["data-science", "retail", "analytics"],
     priority: "medium",
   },
   {
@@ -305,8 +285,6 @@ Michael`,
     clientName: "Enterprise Solutions Ltd",
     createdAt: new Date("2024-01-06"),
     lastModified: new Date("2024-01-06"),
-    status: "archived",
-    tags: ["cybersecurity", "compliance", "audit"],
     priority: "high",
   },
   {
@@ -332,8 +310,6 @@ Lisa`,
     clientName: "Robert Chen",
     createdAt: new Date("2024-01-05"),
     lastModified: new Date("2024-01-05"),
-    status: "draft",
-    tags: ["ux-ui", "edtech", "design"],
     priority: "medium",
   },
   {
@@ -356,8 +332,6 @@ Let's chat about taking your podcast to the next level! 🚀`,
     clientName: "@podcasthost",
     createdAt: new Date("2024-01-04"),
     lastModified: new Date("2024-01-04"),
-    status: "sent",
-    tags: ["podcast", "audio", "production"],
     priority: "low",
   },
   {
@@ -384,8 +358,6 @@ Tom`,
     clientName: "Cloud Migration Project",
     createdAt: new Date("2024-01-03"),
     lastModified: new Date("2024-01-03"),
-    status: "responded",
-    tags: ["devops", "cloud", "migration"],
     priority: "high",
   },
   {
@@ -414,8 +386,6 @@ Rachel`,
     clientName: "Corporate Training Dept",
     createdAt: new Date("2024-01-02"),
     lastModified: new Date("2024-01-02"),
-    status: "draft",
-    tags: ["elearning", "training", "education"],
     priority: "medium",
   },
   {
@@ -441,8 +411,6 @@ Kevin`,
     clientName: "Amanda Rodriguez",
     createdAt: new Date("2024-01-01"),
     lastModified: new Date("2024-01-01"),
-    status: "sent",
-    tags: ["blockchain", "supply-chain", "smart-contracts"],
     priority: "high",
   },
   {
@@ -465,8 +433,6 @@ DM me to see the case study! ✨ #SustainableFashion`,
     clientName: "@fashionbrand",
     createdAt: new Date("2023-12-31"),
     lastModified: new Date("2023-12-31"),
-    status: "archived",
-    tags: ["influencer", "fashion", "marketing"],
     priority: "low",
   },
   {
@@ -496,8 +462,6 @@ Chris`,
     clientName: "WordPress Plugin Project",
     createdAt: new Date("2023-12-30"),
     lastModified: new Date("2023-12-30"),
-    status: "draft",
-    tags: ["wordpress", "plugin", "booking"],
     priority: "medium",
   },
   {
@@ -526,8 +490,6 @@ Jessica`,
     clientName: "Brand Marketing Solutions",
     createdAt: new Date("2023-12-29"),
     lastModified: new Date("2023-12-29"),
-    status: "responded",
-    tags: ["video-marketing", "strategy", "content"],
     priority: "high",
   },
   {
@@ -554,8 +516,6 @@ Emma`,
     clientName: "Mark Thompson",
     createdAt: new Date("2023-12-28"),
     lastModified: new Date("2023-12-28"),
-    status: "sent",
-    tags: ["seo", "saas", "b2b"],
     priority: "high",
   },
   {
@@ -579,8 +539,6 @@ Let's level up your visual game! DM me your ideas! 🚀 #GameDesign`,
     clientName: "@gamingguild",
     createdAt: new Date("2023-12-27"),
     lastModified: new Date("2023-12-27"),
-    status: "draft",
-    tags: ["graphic-design", "gaming", "community"],
     priority: "low",
   },
 ];
@@ -640,12 +598,11 @@ const AllProposals: React.FC = () => {
     }
   }, []);
 
-
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await fetch(
-          "/api/proposal/all-proposals/08dabe1b-5cf1-470c-836a-05ba53c50299",
+          "/api/proposal/all-proposals/8baf43ff-16d4-4fb6-9da4-ab362b559fdb",
           {
             credentials: "include",
           }
@@ -659,8 +616,6 @@ const AllProposals: React.FC = () => {
       }
     };
 
-
-
     fetchPost();
   }, []);
 
@@ -670,18 +625,13 @@ const AllProposals: React.FC = () => {
       const matchesSearch =
         proposal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         proposal.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        proposal.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        proposal.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+        proposal.content.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesType = filterType === "all" || proposal.type === filterType;
-      const matchesStatus =
-        filterStatus === "all" || proposal.status === filterStatus;
       const matchesPriority =
         filterPriority === "all" || proposal.priority === filterPriority;
 
-      return matchesSearch && matchesType && matchesStatus && matchesPriority;
+      return matchesSearch && matchesType && matchesPriority;
     });
 
     // Sort proposals
@@ -960,9 +910,6 @@ const AllProposals: React.FC = () => {
                                 <TableHead className="font-semibold text-gray-900 hidden md:table-cell">
                                   Client
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900 hidden lg:table-cell">
-                                  Status
-                                </TableHead>
                                 <TableHead className="font-semibold text-gray-900 w-16">
                                   Actions
                                 </TableHead>
@@ -990,16 +937,6 @@ const AllProposals: React.FC = () => {
                                         <div className="font-medium text-gray-900 line-clamp-1">
                                           {proposal.title}
                                         </div>
-                                        <div className="flex gap-1 flex-wrap md:hidden">
-                                          <Badge
-                                            variant="outline"
-                                            className={`${getStatusColor(
-                                              proposal.status
-                                            )} text-xs`}
-                                          >
-                                            {proposal.status}
-                                          </Badge>
-                                        </div>
                                       </div>
                                     </TableCell>
                                     <TableCell>
@@ -1018,16 +955,7 @@ const AllProposals: React.FC = () => {
                                     <TableCell className="text-gray-600 hidden md:table-cell">
                                       {proposal.clientName}
                                     </TableCell>
-                                    <TableCell className="hidden lg:table-cell">
-                                      <Badge
-                                        variant="outline"
-                                        className={`${getStatusColor(
-                                          proposal.status
-                                        )} text-xs`}
-                                      >
-                                        {proposal.status}
-                                      </Badge>
-                                    </TableCell>
+
                                     <TableCell>
                                       <button
                                         onClick={(e) => {
@@ -1129,13 +1057,6 @@ const AllProposals: React.FC = () => {
                         {selectedProposal.type.toUpperCase()}
                       </Badge>
                       <Badge
-                        className={`${getStatusColor(
-                          selectedProposal.status
-                        )} border text-xs`}
-                      >
-                        {selectedProposal.status.toUpperCase()}
-                      </Badge>
-                      <Badge
                         className={`${getPriorityColor(
                           selectedProposal.priority
                         )} border text-xs`}
@@ -1155,18 +1076,6 @@ const AllProposals: React.FC = () => {
                           {selectedProposal.clientName}
                         </span>
                       </div>
-                      {selectedProposal.tags.length > 0 && (
-                        <div className="flex gap-2 flex-wrap">
-                          {selectedProposal.tags.map((tag, index) => (
-                            <span
-                              key={index}
-                              className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
 
                     {/* Title */}
@@ -1313,13 +1222,6 @@ const AllProposals: React.FC = () => {
                           {selectedProposal.type.toUpperCase()}
                         </Badge>
                         <Badge
-                          className={`${getStatusColor(
-                            selectedProposal.status
-                          )} border text-xs`}
-                        >
-                          {selectedProposal.status.toUpperCase()}
-                        </Badge>
-                        <Badge
                           className={`${getPriorityColor(
                             selectedProposal.priority
                           )} border text-xs`}
@@ -1339,18 +1241,6 @@ const AllProposals: React.FC = () => {
                             {selectedProposal.clientName}
                           </span>
                         </div>
-                        {selectedProposal.tags.length > 0 && (
-                          <div className="flex gap-2 flex-wrap">
-                            {selectedProposal.tags.map((tag, index) => (
-                              <span
-                                key={index}
-                                className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full border border-blue-200"
-                              >
-                                #{tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
 
                       {/* Title */}
