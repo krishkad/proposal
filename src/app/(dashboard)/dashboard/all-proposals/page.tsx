@@ -690,18 +690,7 @@ const AllProposals: React.FC = () => {
     );
   };
 
-  const getStatusColor = (status: string) => {
-    const colors = {
-      draft: "bg-orange-100 text-orange-700 border-orange-300",
-      sent: "bg-blue-100 text-blue-700 border-blue-300",
-      responded: "bg-green-100 text-green-700 border-green-300",
-      archived: "bg-gray-100 text-gray-700 border-gray-300",
-    };
-    return (
-      colors[status as keyof typeof colors] ||
-      "bg-gray-100 text-gray-700 border-gray-300"
-    );
-  };
+
 
   const getPriorityColor = (priority: string) => {
     const colors = {
