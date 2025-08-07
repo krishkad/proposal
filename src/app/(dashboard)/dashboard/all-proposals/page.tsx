@@ -21,6 +21,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
   Table,
   TableBody,
   TableCell,
@@ -30,6 +37,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
   Briefcase,
   Copy,
@@ -43,7 +51,7 @@ import {
   Twitter,
   User,
   X,
-  XIcon
+  XIcon,
 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -1122,182 +1130,192 @@ const AllProposals: React.FC = () => {
           </Dialog>
         ) : (
           // Desktop Panel (only show when not mobile and panel is open)
-          showDetailPanel &&
-          !isMobile && (
-            <div className="fixed inset-y-0 right-0 w-1/2 bg-white shadow-xl z-50 flex flex-col">
-              {/* Detail Header */}
-              <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    {selectedProposal ? (
-                      <>
-                        {isEditing ? (
-                          <Edit className="w-5 h-5 text-blue-600" />
-                        ) : (
-                          <FileTextIcon className="w-5 h-5 text-gray-600" />
-                        )}
-                        <h2 className="text-lg font-semibold text-gray-900">
-                          {isEditing ? "Edit Proposal" : "View Proposal"}
-                        </h2>
-                      </>
-                    ) : (
-                      <>
-                        <FileTextIcon className="w-5 h-5 text-gray-400" />
-                        <h2 className="text-lg font-semibold text-gray-500">
-                          Select a proposal
-                        </h2>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {selectedProposal && (
-                      <>
-                        {isEditing ? (
-                          <>
-                            <Button
-                              onClick={handleSave}
-                              size="sm"
-                              className="bg-green-600 hover:bg-green-700"
-                            >
-                              <Save className="w-4 h-4 mr-2" />
-                              Save
-                            </Button>
-                            <Button
-                              onClick={handleCancel}
-                              variant="outline"
-                              size="sm"
-                            >
-                              <X className="w-4 h-4 mr-2" />
-                              Cancel
-                            </Button>
-                          </>
-                        ) : (
-                          <>
-                            <Button
-                              onClick={() => setIsEditing(true)}
-                              size="sm"
-                            >
-                              <Edit className="w-4 h-4 mr-2" />
-                              Edit
-                            </Button>
-                            <Button
-                              onClick={() =>
-                                copyToClipboard(selectedProposal.content)
-                              }
-                              variant="outline"
-                              size="sm"
-                            >
-                              <Copy className="w-4 h-4 mr-2" />
-                              Copy
-                            </Button>
-                          </>
-                        )}
-                      </>
-                    )}
-                    <Button onClick={closeModal} variant="ghost" size="sm">
-                      <XIcon className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Detail Content */}
-              <ScrollArea className="h-[calc(100%-64px)]">
-                <div className="p-6">
-                  {selectedProposal ? (
-                    <div className="space-y-6">
-                      {/* Meta Information */}
-                      <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                        <Badge
-                          className={`${getTypeColor(
-                            selectedProposal.type
-                          )} border text-xs`}
-                        >
-                          {React.createElement(
-                            getTypeIcon(selectedProposal.type),
-                            { className: "w-3 h-3 mr-1" }
+          <Sheet
+            open={showDetailPanel && !isMobile}
+            onOpenChange={setShowDetailPanel}
+          >
+            <SheetContent className="min-w-[50vw]">
+              <VisuallyHidden>
+                <SheetHeader>
+                  <SheetTitle></SheetTitle>
+                  <SheetDescription></SheetDescription>
+                </SheetHeader>
+              </VisuallyHidden>
+              <div className=" w-full h-screen bg-white shadow-xl z-50 flex flex-col">
+                {/* Detail Header */}
+                <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {selectedProposal ? (
+                        <>
+                          {isEditing ? (
+                            <Edit className="w-5 h-5 text-blue-600" />
+                          ) : (
+                            <FileTextIcon className="w-5 h-5 text-gray-600" />
                           )}
-                          {selectedProposal.type.toUpperCase()}
-                        </Badge>
-                        <Badge
-                          className={`${getPriorityColor(
-                            selectedProposal.priority
-                          )} border text-xs`}
-                        >
-                          {selectedProposal.priority.toUpperCase()}
-                        </Badge>
-                        <div className="ml-auto text-xs text-gray-500">
-                          {selectedProposal.lastModified.toLocaleDateString()}
-                        </div>
-                      </div>
-
-                      {/* Client Info */}
-                      <div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                          <User className="w-4 h-4" />
-                          <span className="font-medium">
-                            {selectedProposal.clientName}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Title */}
-                      <div>
-                        <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                          Title
-                        </Label>
-                        {isEditing ? (
-                          <Input
-                            value={editedTitle}
-                            onChange={(e) => setEditedTitle(e.target.value)}
-                            className="font-medium"
-                            placeholder="Enter proposal title"
-                          />
-                        ) : (
-                          <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
-                            {selectedProposal.title}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-1 flex flex-col">
-                        <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                          Content
-                        </Label>
-                        {isEditing ? (
-                          <Textarea
-                            value={editedContent}
-                            onChange={(e) => setEditedContent(e.target.value)}
-                            className="min-h-[300px] text-sm font-mono resize-none"
-                            placeholder="Enter proposal content"
-                          />
-                        ) : (
-                          <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
-                            <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
-                              {selectedProposal.content}
-                            </pre>
-                          </div>
-                        )}
-                      </div>
+                          <h2 className="text-lg font-semibold text-gray-900">
+                            {isEditing ? "Edit Proposal" : "View Proposal"}
+                          </h2>
+                        </>
+                      ) : (
+                        <>
+                          <FileTextIcon className="w-5 h-5 text-gray-400" />
+                          <h2 className="text-lg font-semibold text-gray-500">
+                            Select a proposal
+                          </h2>
+                        </>
+                      )}
                     </div>
-                  ) : (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          Select a proposal
-                        </h3>
-                        <p className="text-gray-500">
-                          Choose a proposal from the list to view or edit
-                        </p>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      {selectedProposal && (
+                        <>
+                          {isEditing ? (
+                            <>
+                              <Button
+                                onClick={handleSave}
+                                size="sm"
+                                className="bg-green-600 hover:bg-green-700"
+                              >
+                                <Save className="w-4 h-4 mr-2" />
+                                Save
+                              </Button>
+                              <Button
+                                onClick={handleCancel}
+                                variant="outline"
+                                size="sm"
+                              >
+                                <X className="w-4 h-4 mr-2" />
+                                Cancel
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <Button
+                                onClick={() => setIsEditing(true)}
+                                size="sm"
+                              >
+                                <Edit className="w-4 h-4 mr-2" />
+                                Edit
+                              </Button>
+                              <Button
+                                onClick={() =>
+                                  copyToClipboard(selectedProposal.content)
+                                }
+                                variant="outline"
+                                size="sm"
+                              >
+                                <Copy className="w-4 h-4 mr-2" />
+                                Copy
+                              </Button>
+                            </>
+                          )}
+                        </>
+                      )}
+                      <Button onClick={closeModal} variant="ghost" size="sm">
+                        <XIcon className="w-4 h-4" />
+                      </Button>
                     </div>
-                  )}
+                  </div>
                 </div>
-              </ScrollArea>
-            </div>
-          )
+
+                {/* Detail Content */}
+                <ScrollArea className="h-[calc(100%-64px)]">
+                  <div className="p-6">
+                    {selectedProposal ? (
+                      <div className="space-y-6">
+                        {/* Meta Information */}
+                        <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                          <Badge
+                            className={`${getTypeColor(
+                              selectedProposal.type
+                            )} border text-xs`}
+                          >
+                            {React.createElement(
+                              getTypeIcon(selectedProposal.type),
+                              { className: "w-3 h-3 mr-1" }
+                            )}
+                            {selectedProposal.type.toUpperCase()}
+                          </Badge>
+                          <Badge
+                            className={`${getPriorityColor(
+                              selectedProposal.priority
+                            )} border text-xs`}
+                          >
+                            {selectedProposal.priority.toUpperCase()}
+                          </Badge>
+                          <div className="ml-auto text-xs text-gray-500">
+                            {selectedProposal.lastModified.toLocaleDateString()}
+                          </div>
+                        </div>
+
+                        {/* Client Info */}
+                        <div>
+                          <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                            <User className="w-4 h-4" />
+                            <span className="font-medium">
+                              {selectedProposal.clientName}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Title */}
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                            Title
+                          </Label>
+                          {isEditing ? (
+                            <Input
+                              value={editedTitle}
+                              onChange={(e) => setEditedTitle(e.target.value)}
+                              className="font-medium"
+                              placeholder="Enter proposal title"
+                            />
+                          ) : (
+                            <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                              {selectedProposal.title}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 flex flex-col">
+                          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                            Content
+                          </Label>
+                          {isEditing ? (
+                            <Textarea
+                              value={editedContent}
+                              onChange={(e) => setEditedContent(e.target.value)}
+                              className="min-h-[300px] text-sm font-mono resize-none"
+                              placeholder="Enter proposal content"
+                            />
+                          ) : (
+                            <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
+                              <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
+                                {selectedProposal.content}
+                              </pre>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="h-full flex items-center justify-center">
+                        <div className="text-center">
+                          <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            Select a proposal
+                          </h3>
+                          <p className="text-gray-500">
+                            Choose a proposal from the list to view or edit
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ScrollArea>
+              </div>
+            </SheetContent>
+          </Sheet>
         )}
       </div>
     </div>
