@@ -568,9 +568,7 @@ const AllProposals: React.FC = () => {
   const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
     "all"
   );
-  const [filterStatus, setFilterStatus] = useState<
-    "all" | "draft" | "sent" | "responded" | "archived"
-  >("all");
+  
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
@@ -675,7 +673,6 @@ const AllProposals: React.FC = () => {
     proposals,
     searchQuery,
     filterType,
-    filterStatus,
     filterPriority,
     sortBy,
   ]);
@@ -874,7 +871,6 @@ const AllProposals: React.FC = () => {
                           <p className="text-gray-500">
                             {searchQuery ||
                             filterType !== "all" ||
-                            filterStatus !== "all" ||
                             filterPriority !== "all"
                               ? "Try adjusting your search or filters"
                               : "Generate some proposals to see them here"}
