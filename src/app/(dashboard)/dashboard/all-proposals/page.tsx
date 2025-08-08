@@ -1,9 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-
-
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -568,7 +565,7 @@ const AllProposals: React.FC = () => {
   const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
     "all"
   );
-  
+
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
     "newest" | "oldest" | "title" | "priority"
@@ -669,13 +666,7 @@ const AllProposals: React.FC = () => {
     });
 
     return filtered;
-  }, [
-    proposals,
-    searchQuery,
-    filterType,
-    filterPriority,
-    sortBy,
-  ]);
+  }, [proposals, searchQuery, filterType, filterPriority, sortBy]);
 
   const getTypeIcon = (type: string) => {
     const icons = {

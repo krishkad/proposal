@@ -1,13 +1,12 @@
 "use client";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 import React from "react";
 import { Plus, FileText, Clock, Target, Eye, Edit, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-
-
-const Dashboard  = () => {
+const Dashboard = () => {
   const router = useRouter();
   const metrics = [
     {
@@ -105,7 +104,12 @@ const Dashboard  = () => {
                     </p>
                   </div>
                   <div
-                    className={`w-12 h-12 bg-${metric.color}-100 rounded-lg flex items-center justify-center`}
+                    className={cn(
+                      `w-12 h-12  rounded-lg flex items-center justify-center`,
+                      metric.color === "purple"
+                        ? "bg-purple-100"
+                        : `bg-${metric.color}-100`
+                    )}
                   >
                     <Icon className={`w-6 h-6 text-${metric.color}-600`} />
                   </div>
@@ -227,5 +231,3 @@ const Dashboard  = () => {
 };
 
 export default Dashboard;
-
-
