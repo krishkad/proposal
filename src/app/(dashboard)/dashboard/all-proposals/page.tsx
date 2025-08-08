@@ -1,5 +1,9 @@
 "use client";
 export const dynamic = "force-dynamic";
+
+
+
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -57,7 +61,7 @@ import React, { useEffect, useMemo, useState } from "react";
 
 interface Proposal {
   id: string;
-  type: "upwork" | "email" | "linkedin" | "twitter";
+  type: "freelance" | "email";
   title: string;
   content: string;
   clientName: string;
@@ -69,7 +73,7 @@ interface Proposal {
 const sampleProposals: Proposal[] = [
   {
     id: "sample-1",
-    type: "upwork",
+    type: "freelance",
     title: "E-commerce Website Development Proposal",
     content: `Hi Sarah,
 
@@ -117,7 +121,7 @@ Best regards`,
   },
   {
     id: "sample-3",
-    type: "linkedin",
+    type: "freelance",
     title: "Business Consulting Connection Request",
     content: `Hi John! 👋
 
@@ -135,7 +139,7 @@ Would you be open to a brief chat?`,
   },
   {
     id: "sample-4",
-    type: "twitter",
+    type: "email",
     title: "Social Media Growth Partnership",
     content: `Hey @techstartup! 👋
 
@@ -151,7 +155,7 @@ Would love to connect! ✨ DM me if interested!`,
   },
   {
     id: "sample-5",
-    type: "upwork",
+    type: "freelance",
     title: "Mobile App Development for Healthcare",
     content: `Hello Dr. Martinez,
 
@@ -202,7 +206,7 @@ Maria`,
   },
   {
     id: "sample-7",
-    type: "linkedin",
+    type: "email",
     title: "AI/ML Consulting for Financial Services",
     content: `Hi Jennifer,
 
@@ -226,7 +230,7 @@ David`,
   },
   {
     id: "sample-8",
-    type: "twitter",
+    type: "freelance",
     title: "Content Creation Collaboration",
     content: `Hey @contentcreator! 🎬
 
@@ -244,7 +248,7 @@ DM me if you'd like to see my portfolio! ✨`,
   },
   {
     id: "sample-9",
-    type: "upwork",
+    type: "freelance",
     title: "Data Analysis for Retail Analytics",
     content: `Dear Hiring Manager,
 
@@ -298,7 +302,7 @@ Michael`,
   },
   {
     id: "sample-11",
-    type: "linkedin",
+    type: "freelance",
     title: "UX/UI Design for EdTech Platform",
     content: `Hi Robert,
 
@@ -323,7 +327,7 @@ Lisa`,
   },
   {
     id: "sample-12",
-    type: "twitter",
+    type: "email",
     title: "Podcast Production Services",
     content: `Hey @podcasthost! 🎙️
 
@@ -345,7 +349,7 @@ Let's chat about taking your podcast to the next level! 🚀`,
   },
   {
     id: "sample-13",
-    type: "upwork",
+    type: "freelance",
     title: "DevOps and Cloud Migration Services",
     content: `Hello,
 
@@ -399,7 +403,7 @@ Rachel`,
   },
   {
     id: "sample-15",
-    type: "linkedin",
+    type: "freelance",
     title: "Blockchain Development Proposal",
     content: `Hi Amanda,
 
@@ -424,7 +428,7 @@ Kevin`,
   },
   {
     id: "sample-16",
-    type: "twitter",
+    type: "email",
     title: "Influencer Marketing Campaign",
     content: `Hey @fashionbrand! 👗
 
@@ -446,7 +450,7 @@ DM me to see the case study! ✨ #SustainableFashion`,
   },
   {
     id: "sample-17",
-    type: "upwork",
+    type: "freelance",
     title: "WordPress Plugin Development",
     content: `Dear WordPress Developer Needed,
 
@@ -503,7 +507,7 @@ Jessica`,
   },
   {
     id: "sample-19",
-    type: "linkedin",
+    type: "freelance",
     title: "SEO Optimization for SaaS Company",
     content: `Hi Mark,
 
@@ -529,7 +533,7 @@ Emma`,
   },
   {
     id: "sample-20",
-    type: "twitter",
+    type: "freelance",
     title: "Graphic Design for Gaming Community",
     content: `Hey @gamingguild! 🎮
 
@@ -561,9 +565,9 @@ const AllProposals: React.FC = () => {
   const [editedTitle, setEditedTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterType, setFilterType] = useState<
-    "all" | "upwork" | "email" | "linkedin" | "twitter"
-  >("all");
+  const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
+    "all"
+  );
   const [filterStatus, setFilterStatus] = useState<
     "all" | "draft" | "sent" | "responded" | "archived"
   >("all");
@@ -688,7 +692,7 @@ const AllProposals: React.FC = () => {
 
   const getTypeColor = (type: string) => {
     const colors = {
-      upwork: "bg-emerald-100 text-emerald-700 border-emerald-300",
+      freelance: "bg-emerald-100 text-emerald-700 border-emerald-300",
       email: "bg-blue-100 text-blue-700 border-blue-300",
       linkedin: "bg-indigo-100 text-indigo-700 border-indigo-300",
       twitter: "bg-cyan-100 text-cyan-700 border-cyan-300",
@@ -775,13 +779,13 @@ const AllProposals: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-secondary/50 p-3 sm:p-6">
+    <div className="w-full bg-secondary/50 p-6">
       <div className="min-h-screen flex flex-col bg-gray-50">
         {/* Header */}
         <div className="flex-shrink-0 border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 Proposals
               </h1>
               <p className="text-gray-600">Manage your generated proposals</p>
@@ -797,78 +801,62 @@ const AllProposals: React.FC = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex-shrink-0 border-b border-gray-200 py-4">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <Input
-                placeholder="Search proposals..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-              />
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm my-10">
+          <CardContent>
+            {/* Filters */}
+            <div className="flex-shrink-0 border-gray-200 ">
+              <div className="flex flex-col lg:flex-row gap-4">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    placeholder="Search proposals..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <Select
+                    value={filterType}
+                    onValueChange={(value: "all" | "freelance" | "email") =>
+                      setFilterType(value)
+                    }
+                  >
+                    <SelectTrigger className="w-32 h-10">
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Types</SelectItem>
+                      <SelectItem value="freelance">Freelance</SelectItem>
+                      <SelectItem value="email">Email</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select
+                    value={sortBy}
+                    onValueChange={(
+                      value: "title" | "newest" | "oldest" | "priority"
+                    ) => setSortBy(value)}
+                  >
+                    <SelectTrigger className="w-32 h-10">
+                      <SelectValue placeholder="Sort" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="newest">Newest</SelectItem>
+                      <SelectItem value="oldest">Oldest</SelectItem>
+                      <SelectItem value="title">Title</SelectItem>
+                      <SelectItem value="priority">Priority</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </div>
-
-            <div className="flex flex-wrap gap-2">
-              <Select
-                value={filterType}
-                onValueChange={(
-                  value: "all" | "upwork" | "email" | "linkedin" | "twitter"
-                ) => setFilterType(value)}
-              >
-                <SelectTrigger className="w-32 h-10">
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="upwork">Upwork</SelectItem>
-                  <SelectItem value="email">Email</SelectItem>
-                  <SelectItem value="linkedin">LinkedIn</SelectItem>
-                  <SelectItem value="twitter">Twitter</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={filterStatus}
-                onValueChange={(
-                  value: "all" | "draft" | "sent" | "responded" | "archived"
-                ) => setFilterStatus(value)}
-              >
-                <SelectTrigger className="w-32 h-10">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="sent">Sent</SelectItem>
-                  <SelectItem value="responded">Responded</SelectItem>
-                  <SelectItem value="archived">Archived</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={sortBy}
-                onValueChange={(
-                  value: "title" | "newest" | "oldest" | "priority"
-                ) => setSortBy(value)}
-              >
-                <SelectTrigger className="w-32 h-10">
-                  <SelectValue placeholder="Sort" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="newest">Newest</SelectItem>
-                  <SelectItem value="oldest">Oldest</SelectItem>
-                  <SelectItem value="title">Title</SelectItem>
-                  <SelectItem value="priority">Priority</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Main Content */}
-        <Card>
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
           <CardContent>
             <div className="flex-1 flex min-h-0">
               {/* Proposals List */}

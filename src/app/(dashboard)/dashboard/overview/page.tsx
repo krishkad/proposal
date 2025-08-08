@@ -1,6 +1,6 @@
 "use client";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 import React from "react";
 import { Plus, FileText, Clock, Target, Eye, Edit, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
