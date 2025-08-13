@@ -271,12 +271,12 @@ const ProposalGenerator = () => {
                 {isGenerating ? (
                   <>
                     <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent mr-3" />
-                    Generating 3 Variations...
+                    Generating AI Proposal...
                   </>
                 ) : (
                   <>
                     <Wand2 className="w-6 h-6 mr-3" />
-                    Generate 3 AI Proposals
+                    Generate AI Proposal
                   </>
                 )}
               </Button>

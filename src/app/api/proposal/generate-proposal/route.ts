@@ -95,14 +95,19 @@ export async function POST(req: NextRequest) {
       }); // or return response
     }
 
+    const response_json = JSON.parse(response.choices[0].message.content);
+
+    console.log({ response_json });
+
     const proposal = await prisma.proposal.create({
       data: {
         prompt: finalPromptToGenerate,
-        proposal: `${response.choices[0].message?.content}` || "",
+        proposal: `${response_json.proposal}` || "",
         userInput: clientNeeds,
         type: outreachType ? "freelance" : "email",
         userId: user.id,
-        title: "",
+        successRate: response_json.successRate,
+        title: response_json.shortTitle,
       },
     });
 
@@ -116,7 +121,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "ok",
-      data: response.choices[0].message.content,
+      data: response_json.proposal,
     });
   } catch (error) {
     console.log("[ERROR WHILE CREATING PROPOSAL]: ", error);

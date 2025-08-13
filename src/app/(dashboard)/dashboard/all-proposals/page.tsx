@@ -28,6 +28,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -60,498 +61,498 @@ interface Proposal {
   id: string;
   type: "freelance" | "email";
   title: string;
-  content: string;
-  clientName: string;
+  proposal: string;
+  successRate: number;
   createdAt: Date;
-  lastModified: Date;
-  priority: "low" | "medium" | "high";
+  updatedAt: Date;
+  // priority: "low" | "medium" | "high";
 }
 
-const sampleProposals: Proposal[] = [
-  {
-    id: "sample-1",
-    type: "freelance",
-    title: "E-commerce Website Development Proposal",
-    content: `Hi Sarah,
-
-I'm excited about your e-commerce project! With my expertise in React, Node.js, and payment integration, I can deliver exactly what you're looking for.
-
-Here's what I bring to the table:
-• 5+ years of e-commerce development experience
-• Professional, deadline-driven execution
-• 100% client satisfaction rate
-
-I noticed you mentioned needing custom product filtering and advanced analytics. I have specific experience with this and would love to discuss how I can help.
-
-I'd love to chat about your vision and show you some relevant work samples. When would be a good time for a quick call?
-
-Best regards!`,
-    clientName: "Sarah Johnson",
-    createdAt: new Date("2024-01-15"),
-    lastModified: new Date("2024-01-15"),
-    priority: "high",
-  },
-  {
-    id: "sample-2",
-    type: "email",
-    title: "Digital Marketing Partnership Opportunity",
-    content: `Subject: Partnership Opportunity - Digital Growth Solutions
-
-Hi Marketing Director,
-
-I hope this email finds you well! I specialize in SEO, content strategy, and conversion optimization and noticed your company could benefit from my expertise.
-
-Here's what I can offer:
-• Proven results in increasing organic traffic by 300%+
-• Strategic, data-driven solutions
-• Custom solutions tailored to your needs
-
-I saw that you're looking to expand into new markets - this aligns perfectly with my experience helping similar companies scale their digital presence.
-
-Would you be open to a 15-minute conversation this week to explore how we could work together?
-
-Best regards`,
-    clientName: "Tech Startup Inc.",
-    createdAt: new Date("2024-01-14"),
-    lastModified: new Date("2024-01-14"),
-    priority: "medium",
-  },
-  {
-    id: "sample-3",
-    type: "freelance",
-    title: "Business Consulting Connection Request",
-    content: `Hi John! 👋
-
-I came across your profile and was impressed by your work in fintech. I specialize in business process optimization and help companies like yours achieve breakthrough results.
-
-I believe there could be some interesting synergies between our work.
-
-I noticed your company is expanding to European markets - I've helped other fintech companies navigate similar international expansion challenges with great success.
-
-Would you be open to a brief chat?`,
-    clientName: "John Smith",
-    createdAt: new Date("2024-01-13"),
-    lastModified: new Date("2024-01-13"),
-    priority: "high",
-  },
-  {
-    id: "sample-4",
-    type: "email",
-    title: "Social Media Growth Partnership",
-    content: `Hey @techstartup! 👋
-
-Loving your content about AI innovations! I specialize in viral social media strategies and help brands like yours build amazing communities.
-
-Saw your post about launching your new AI product - totally relate to the challenges of product marketing!
-
-Would love to connect! ✨ DM me if interested!`,
-    clientName: "@techstartup",
-    createdAt: new Date("2024-01-12"),
-    lastModified: new Date("2024-01-12"),
-    priority: "low",
-  },
-  {
-    id: "sample-5",
-    type: "freelance",
-    title: "Mobile App Development for Healthcare",
-    content: `Hello Dr. Martinez,
-
-I'm a mobile app developer specializing in healthcare applications with HIPAA compliance expertise.
-
-Your project for a patient management app caught my attention because:
-• I've built 15+ healthcare apps with 99.9% uptime
-• Deep understanding of medical workflows
-• Expert in React Native and secure data handling
-
-I can deliver a robust, user-friendly solution that meets all regulatory requirements.
-
-Let's schedule a call to discuss your specific needs and timeline.
-
-Best regards,
-Alex`,
-    clientName: "Dr. Martinez",
-    createdAt: new Date("2024-01-11"),
-    lastModified: new Date("2024-01-11"),
-    priority: "high",
-  },
-  {
-    id: "sample-6",
-    type: "email",
-    title: "Web Design Services for Restaurant Chain",
-    content: `Subject: Modern Website Design for Your Restaurant Chain
-
-Dear Operations Manager,
-
-I'm a web designer who specializes in creating stunning, conversion-focused websites for restaurant chains.
-
-What I can do for you:
-• Mobile-first responsive design
-• Online ordering integration
-• SEO optimization for local search
-• Brand consistency across all locations
-
-I've helped similar businesses increase online orders by 150% within 6 months.
-
-Would you like to see some examples of my recent restaurant projects?
-
-Best regards,
-Maria`,
-    clientName: "Restaurant Chain Corp",
-    createdAt: new Date("2024-01-10"),
-    lastModified: new Date("2024-01-10"),
-    priority: "medium",
-  },
-  {
-    id: "sample-7",
-    type: "email",
-    title: "AI/ML Consulting for Financial Services",
-    content: `Hi Jennifer,
-
-Your recent post about implementing AI in financial services really resonated with me. I'm an AI/ML consultant with 8 years of experience in the fintech sector.
-
-I've helped companies like yours:
-• Implement fraud detection systems with 99.5% accuracy
-• Build predictive models for risk assessment
-• Automate compliance reporting processes
-
-I'd love to share some case studies that might be relevant to your current initiatives.
-
-Would you be interested in a brief conversation?
-
-Best,
-David`,
-    clientName: "Jennifer Lee",
-    createdAt: new Date("2024-01-09"),
-    lastModified: new Date("2024-01-09"),
-    priority: "high",
-  },
-  {
-    id: "sample-8",
-    type: "freelance",
-    title: "Content Creation Collaboration",
-    content: `Hey @contentcreator! 🎬
-
-Love your video editing style! I'm a motion graphics designer who specializes in creating engaging animations for content creators.
-
-Your recent travel vlogs would look amazing with some custom animated intro/outro sequences!
-
-I've worked with creators who've seen 40% increase in engagement after adding professional animations.
-
-DM me if you'd like to see my portfolio! ✨`,
-    clientName: "@contentcreator",
-    createdAt: new Date("2024-01-08"),
-    lastModified: new Date("2024-01-08"),
-    priority: "low",
-  },
-  {
-    id: "sample-9",
-    type: "freelance",
-    title: "Data Analysis for Retail Analytics",
-    content: `Dear Hiring Manager,
-
-I'm a data scientist with extensive experience in retail analytics and customer behavior analysis.
-
-For your retail data project, I can provide:
-• Customer segmentation and lifetime value analysis
-• Sales forecasting with 95% accuracy
-• Inventory optimization recommendations
-• Interactive dashboards and visualizations
-
-I've helped retailers increase revenue by 25% through data-driven insights.
-
-I'm available to start immediately and can deliver results within your timeline.
-
-Looking forward to discussing this opportunity!
-
-Best regards,
-Sarah`,
-    clientName: "Retail Analytics Corp",
-    createdAt: new Date("2024-01-07"),
-    lastModified: new Date("2024-01-07"),
-    priority: "medium",
-  },
-  {
-    id: "sample-10",
-    type: "email",
-    title: "Cybersecurity Audit Services",
-    content: `Subject: Comprehensive Cybersecurity Assessment
-
-Dear IT Director,
-
-With cyber threats increasing by 300% this year, I wanted to reach out about your company's security posture.
-
-I'm a certified cybersecurity consultant offering:
-• Comprehensive security audits and penetration testing
-• GDPR and SOC 2 compliance assistance
-• Employee security training programs
-• 24/7 incident response services
-
-I've helped 50+ companies prevent data breaches and achieve compliance.
-
-Would you be interested in a free security assessment to identify potential vulnerabilities?
-
-Best regards,
-Michael`,
-    clientName: "Enterprise Solutions Ltd",
-    createdAt: new Date("2024-01-06"),
-    lastModified: new Date("2024-01-06"),
-    priority: "high",
-  },
-  {
-    id: "sample-11",
-    type: "freelance",
-    title: "UX/UI Design for EdTech Platform",
-    content: `Hi Robert,
-
-I noticed your company is developing an educational platform. As a UX/UI designer specializing in EdTech, I'd love to help create an engaging learning experience.
-
-My expertise includes:
-• User research and persona development
-• Interactive learning interface design
-• Accessibility compliance (WCAG 2.1)
-• Gamification strategies that increase engagement by 60%
-
-I've designed interfaces for 20+ educational platforms used by over 100,000 students.
-
-Would you like to see some of my recent EdTech projects?
-
-Best,
-Lisa`,
-    clientName: "Robert Chen",
-    createdAt: new Date("2024-01-05"),
-    lastModified: new Date("2024-01-05"),
-    priority: "medium",
-  },
-  {
-    id: "sample-12",
-    type: "email",
-    title: "Podcast Production Services",
-    content: `Hey @podcasthost! 🎙️
-
-Your podcast about entrepreneurship is incredible! I'm an audio engineer specializing in podcast production.
-
-I can help you:
-• Professional audio editing and mastering
-• Intro/outro music creation
-• Show notes and transcript generation
-• Distribution to all major platforms
-
-My clients have seen 200% growth in downloads after professional production!
-
-Let's chat about taking your podcast to the next level! 🚀`,
-    clientName: "@podcasthost",
-    createdAt: new Date("2024-01-04"),
-    lastModified: new Date("2024-01-04"),
-    priority: "low",
-  },
-  {
-    id: "sample-13",
-    type: "freelance",
-    title: "DevOps and Cloud Migration Services",
-    content: `Hello,
-
-I'm a DevOps engineer with 10+ years of experience in cloud migrations and infrastructure automation.
-
-For your cloud migration project, I offer:
-• AWS/Azure/GCP migration strategies
-• CI/CD pipeline implementation
-• Infrastructure as Code (Terraform/CloudFormation)
-• 99.99% uptime guarantee
-• Cost optimization (typically 30-50% savings)
-
-I've successfully migrated 100+ applications to the cloud with zero downtime.
-
-I'm available for a consultation call to discuss your specific requirements.
-
-Best regards,
-Tom`,
-    clientName: "Cloud Migration Project",
-    createdAt: new Date("2024-01-03"),
-    lastModified: new Date("2024-01-03"),
-    priority: "high",
-  },
-  {
-    id: "sample-14",
-    type: "email",
-    title: "E-learning Course Development",
-    content: `Subject: Custom E-learning Course Development
-
-Dear Training Manager,
-
-I'm an instructional designer who creates engaging online courses that drive real learning outcomes.
-
-What I can create for your team:
-• Interactive multimedia courses
-• Microlearning modules for busy professionals
-• Assessment and certification systems
-• Mobile-responsive course design
-• SCORM compliance for LMS integration
-
-My courses have achieved 95% completion rates and 40% better knowledge retention.
-
-Would you like to discuss your training objectives and see some sample courses?
-
-Best regards,
-Rachel`,
-    clientName: "Corporate Training Dept",
-    createdAt: new Date("2024-01-02"),
-    lastModified: new Date("2024-01-02"),
-    priority: "medium",
-  },
-  {
-    id: "sample-15",
-    type: "freelance",
-    title: "Blockchain Development Proposal",
-    content: `Hi Amanda,
-
-I saw your post about exploring blockchain solutions for supply chain transparency. I'm a blockchain developer with expertise in enterprise implementations.
-
-I can help you build:
-• Smart contracts for supply chain tracking
-• Decentralized identity verification systems
-• NFT-based product authenticity certificates
-• Integration with existing ERP systems
-
-I've delivered blockchain solutions for Fortune 500 companies with 100% success rate.
-
-Would you be interested in discussing how blockchain can transform your supply chain?
-
-Best,
-Kevin`,
-    clientName: "Amanda Rodriguez",
-    createdAt: new Date("2024-01-01"),
-    lastModified: new Date("2024-01-01"),
-    priority: "high",
-  },
-  {
-    id: "sample-16",
-    type: "email",
-    title: "Influencer Marketing Campaign",
-    content: `Hey @fashionbrand! 👗
-
-Love your sustainable fashion line! I'm a social media strategist who helps fashion brands build authentic communities.
-
-I can help you:
-• Identify micro-influencers in your niche
-• Create viral campaign strategies
-• Track ROI and engagement metrics
-• Build long-term brand partnerships
-
-My last campaign generated 5M impressions and 25% sales increase!
-
-DM me to see the case study! ✨ #SustainableFashion`,
-    clientName: "@fashionbrand",
-    createdAt: new Date("2023-12-31"),
-    lastModified: new Date("2023-12-31"),
-    priority: "low",
-  },
-  {
-    id: "sample-17",
-    type: "freelance",
-    title: "WordPress Plugin Development",
-    content: `Dear WordPress Developer Needed,
-
-I'm a WordPress expert with 8+ years of custom plugin development experience.
-
-For your booking system plugin, I can deliver:
-• Custom booking calendar with availability management
-• Payment integration (Stripe, PayPal, WooCommerce)
-• Email notifications and reminders
-• Multi-language support
-• Mobile-responsive interface
-• Comprehensive documentation
-
-I've built 50+ WordPress plugins with 5-star ratings and 100k+ active installations.
-
-I guarantee clean, secure code that follows WordPress coding standards.
-
-Ready to start immediately!
-
-Best regards,
-Chris`,
-    clientName: "WordPress Plugin Project",
-    createdAt: new Date("2023-12-30"),
-    lastModified: new Date("2023-12-30"),
-    priority: "medium",
-  },
-  {
-    id: "sample-18",
-    type: "email",
-    title: "Video Marketing Strategy Consultation",
-    content: `Subject: Transform Your Brand with Video Marketing
-
-Dear Marketing Director,
-
-Video content generates 1200% more shares than text and images combined. I'm a video marketing strategist who helps brands create compelling video campaigns.
-
-My services include:
-• Video marketing strategy development
-• Scriptwriting and storyboarding
-• Production coordination
-• Multi-platform distribution optimization
-• Performance analytics and optimization
-
-I've helped brands achieve 300% increase in engagement and 150% boost in conversions.
-
-Would you like to schedule a strategy session to discuss your video marketing goals?
-
-Best regards,
-Jessica`,
-    clientName: "Brand Marketing Solutions",
-    createdAt: new Date("2023-12-29"),
-    lastModified: new Date("2023-12-29"),
-    priority: "high",
-  },
-  {
-    id: "sample-19",
-    type: "freelance",
-    title: "SEO Optimization for SaaS Company",
-    content: `Hi Mark,
-
-I noticed your SaaS company is looking to improve organic search rankings. I'm an SEO specialist with a focus on B2B SaaS companies.
-
-Here's how I can help:
-• Technical SEO audit and optimization
-• Content strategy for high-converting keywords
-• Link building from industry-relevant sources
-• Conversion rate optimization for landing pages
-• Monthly reporting and strategy adjustments
-
-I've helped SaaS companies increase organic traffic by 400% and reduce customer acquisition costs by 60%.
-
-Would you be interested in a free SEO audit of your current site?
-
-Best,
-Emma`,
-    clientName: "Mark Thompson",
-    createdAt: new Date("2023-12-28"),
-    lastModified: new Date("2023-12-28"),
-    priority: "high",
-  },
-  {
-    id: "sample-20",
-    type: "freelance",
-    title: "Graphic Design for Gaming Community",
-    content: `Hey @gamingguild! 🎮
-
-Your gaming community is awesome! I'm a graphic designer specializing in gaming assets and community branding.
-
-I can create:
-• Custom Discord server artwork
-• Twitch overlays and alerts
-• Tournament banners and graphics
-• Merchandise designs
-• Social media content templates
-
-I've designed for 100+ gaming communities and esports teams!
-
-Let's level up your visual game! DM me your ideas! 🚀 #GameDesign`,
-    clientName: "@gamingguild",
-    createdAt: new Date("2023-12-27"),
-    lastModified: new Date("2023-12-27"),
-    priority: "low",
-  },
-];
+// const sampleProposals: Proposal[] = [
+//   {
+//     id: "sample-1",
+//     type: "freelance",
+//     title: "E-commerce Website Development Proposal",
+//     content: `Hi Sarah,
+
+// I'm excited about your e-commerce project! With my expertise in React, Node.js, and payment integration, I can deliver exactly what you're looking for.
+
+// Here's what I bring to the table:
+// • 5+ years of e-commerce development experience
+// • Professional, deadline-driven execution
+// • 100% client satisfaction rate
+
+// I noticed you mentioned needing custom product filtering and advanced analytics. I have specific experience with this and would love to discuss how I can help.
+
+// I'd love to chat about your vision and show you some relevant work samples. When would be a good time for a quick call?
+
+// Best regards!`,
+//     clientName: "Sarah Johnson",
+//     createdAt: new Date("2024-01-15"),
+//     lastModified: new Date("2024-01-15"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-2",
+//     type: "email",
+//     title: "Digital Marketing Partnership Opportunity",
+//     content: `Subject: Partnership Opportunity - Digital Growth Solutions
+
+// Hi Marketing Director,
+
+// I hope this email finds you well! I specialize in SEO, content strategy, and conversion optimization and noticed your company could benefit from my expertise.
+
+// Here's what I can offer:
+// • Proven results in increasing organic traffic by 300%+
+// • Strategic, data-driven solutions
+// • Custom solutions tailored to your needs
+
+// I saw that you're looking to expand into new markets - this aligns perfectly with my experience helping similar companies scale their digital presence.
+
+// Would you be open to a 15-minute conversation this week to explore how we could work together?
+
+// Best regards`,
+//     clientName: "Tech Startup Inc.",
+//     createdAt: new Date("2024-01-14"),
+//     lastModified: new Date("2024-01-14"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-3",
+//     type: "freelance",
+//     title: "Business Consulting Connection Request",
+//     content: `Hi John! 👋
+
+// I came across your profile and was impressed by your work in fintech. I specialize in business process optimization and help companies like yours achieve breakthrough results.
+
+// I believe there could be some interesting synergies between our work.
+
+// I noticed your company is expanding to European markets - I've helped other fintech companies navigate similar international expansion challenges with great success.
+
+// Would you be open to a brief chat?`,
+//     clientName: "John Smith",
+//     createdAt: new Date("2024-01-13"),
+//     lastModified: new Date("2024-01-13"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-4",
+//     type: "email",
+//     title: "Social Media Growth Partnership",
+//     content: `Hey @techstartup! 👋
+
+// Loving your content about AI innovations! I specialize in viral social media strategies and help brands like yours build amazing communities.
+
+// Saw your post about launching your new AI product - totally relate to the challenges of product marketing!
+
+// Would love to connect! ✨ DM me if interested!`,
+//     clientName: "@techstartup",
+//     createdAt: new Date("2024-01-12"),
+//     lastModified: new Date("2024-01-12"),
+//     priority: "low",
+//   },
+//   {
+//     id: "sample-5",
+//     type: "freelance",
+//     title: "Mobile App Development for Healthcare",
+//     content: `Hello Dr. Martinez,
+
+// I'm a mobile app developer specializing in healthcare applications with HIPAA compliance expertise.
+
+// Your project for a patient management app caught my attention because:
+// • I've built 15+ healthcare apps with 99.9% uptime
+// • Deep understanding of medical workflows
+// • Expert in React Native and secure data handling
+
+// I can deliver a robust, user-friendly solution that meets all regulatory requirements.
+
+// Let's schedule a call to discuss your specific needs and timeline.
+
+// Best regards,
+// Alex`,
+//     clientName: "Dr. Martinez",
+//     createdAt: new Date("2024-01-11"),
+//     lastModified: new Date("2024-01-11"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-6",
+//     type: "email",
+//     title: "Web Design Services for Restaurant Chain",
+//     content: `Subject: Modern Website Design for Your Restaurant Chain
+
+// Dear Operations Manager,
+
+// I'm a web designer who specializes in creating stunning, conversion-focused websites for restaurant chains.
+
+// What I can do for you:
+// • Mobile-first responsive design
+// • Online ordering integration
+// • SEO optimization for local search
+// • Brand consistency across all locations
+
+// I've helped similar businesses increase online orders by 150% within 6 months.
+
+// Would you like to see some examples of my recent restaurant projects?
+
+// Best regards,
+// Maria`,
+//     clientName: "Restaurant Chain Corp",
+//     createdAt: new Date("2024-01-10"),
+//     lastModified: new Date("2024-01-10"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-7",
+//     type: "email",
+//     title: "AI/ML Consulting for Financial Services",
+//     content: `Hi Jennifer,
+
+// Your recent post about implementing AI in financial services really resonated with me. I'm an AI/ML consultant with 8 years of experience in the fintech sector.
+
+// I've helped companies like yours:
+// • Implement fraud detection systems with 99.5% accuracy
+// • Build predictive models for risk assessment
+// • Automate compliance reporting processes
+
+// I'd love to share some case studies that might be relevant to your current initiatives.
+
+// Would you be interested in a brief conversation?
+
+// Best,
+// David`,
+//     clientName: "Jennifer Lee",
+//     createdAt: new Date("2024-01-09"),
+//     lastModified: new Date("2024-01-09"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-8",
+//     type: "freelance",
+//     title: "Content Creation Collaboration",
+//     content: `Hey @contentcreator! 🎬
+
+// Love your video editing style! I'm a motion graphics designer who specializes in creating engaging animations for content creators.
+
+// Your recent travel vlogs would look amazing with some custom animated intro/outro sequences!
+
+// I've worked with creators who've seen 40% increase in engagement after adding professional animations.
+
+// DM me if you'd like to see my portfolio! ✨`,
+//     clientName: "@contentcreator",
+//     createdAt: new Date("2024-01-08"),
+//     lastModified: new Date("2024-01-08"),
+//     priority: "low",
+//   },
+//   {
+//     id: "sample-9",
+//     type: "freelance",
+//     title: "Data Analysis for Retail Analytics",
+//     content: `Dear Hiring Manager,
+
+// I'm a data scientist with extensive experience in retail analytics and customer behavior analysis.
+
+// For your retail data project, I can provide:
+// • Customer segmentation and lifetime value analysis
+// • Sales forecasting with 95% accuracy
+// • Inventory optimization recommendations
+// • Interactive dashboards and visualizations
+
+// I've helped retailers increase revenue by 25% through data-driven insights.
+
+// I'm available to start immediately and can deliver results within your timeline.
+
+// Looking forward to discussing this opportunity!
+
+// Best regards,
+// Sarah`,
+//     clientName: "Retail Analytics Corp",
+//     createdAt: new Date("2024-01-07"),
+//     lastModified: new Date("2024-01-07"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-10",
+//     type: "email",
+//     title: "Cybersecurity Audit Services",
+//     content: `Subject: Comprehensive Cybersecurity Assessment
+
+// Dear IT Director,
+
+// With cyber threats increasing by 300% this year, I wanted to reach out about your company's security posture.
+
+// I'm a certified cybersecurity consultant offering:
+// • Comprehensive security audits and penetration testing
+// • GDPR and SOC 2 compliance assistance
+// • Employee security training programs
+// • 24/7 incident response services
+
+// I've helped 50+ companies prevent data breaches and achieve compliance.
+
+// Would you be interested in a free security assessment to identify potential vulnerabilities?
+
+// Best regards,
+// Michael`,
+//     clientName: "Enterprise Solutions Ltd",
+//     createdAt: new Date("2024-01-06"),
+//     lastModified: new Date("2024-01-06"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-11",
+//     type: "freelance",
+//     title: "UX/UI Design for EdTech Platform",
+//     content: `Hi Robert,
+
+// I noticed your company is developing an educational platform. As a UX/UI designer specializing in EdTech, I'd love to help create an engaging learning experience.
+
+// My expertise includes:
+// • User research and persona development
+// • Interactive learning interface design
+// • Accessibility compliance (WCAG 2.1)
+// • Gamification strategies that increase engagement by 60%
+
+// I've designed interfaces for 20+ educational platforms used by over 100,000 students.
+
+// Would you like to see some of my recent EdTech projects?
+
+// Best,
+// Lisa`,
+//     clientName: "Robert Chen",
+//     createdAt: new Date("2024-01-05"),
+//     lastModified: new Date("2024-01-05"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-12",
+//     type: "email",
+//     title: "Podcast Production Services",
+//     content: `Hey @podcasthost! 🎙️
+
+// Your podcast about entrepreneurship is incredible! I'm an audio engineer specializing in podcast production.
+
+// I can help you:
+// • Professional audio editing and mastering
+// • Intro/outro music creation
+// • Show notes and transcript generation
+// • Distribution to all major platforms
+
+// My clients have seen 200% growth in downloads after professional production!
+
+// Let's chat about taking your podcast to the next level! 🚀`,
+//     clientName: "@podcasthost",
+//     createdAt: new Date("2024-01-04"),
+//     lastModified: new Date("2024-01-04"),
+//     priority: "low",
+//   },
+//   {
+//     id: "sample-13",
+//     type: "freelance",
+//     title: "DevOps and Cloud Migration Services",
+//     content: `Hello,
+
+// I'm a DevOps engineer with 10+ years of experience in cloud migrations and infrastructure automation.
+
+// For your cloud migration project, I offer:
+// • AWS/Azure/GCP migration strategies
+// • CI/CD pipeline implementation
+// • Infrastructure as Code (Terraform/CloudFormation)
+// • 99.99% uptime guarantee
+// • Cost optimization (typically 30-50% savings)
+
+// I've successfully migrated 100+ applications to the cloud with zero downtime.
+
+// I'm available for a consultation call to discuss your specific requirements.
+
+// Best regards,
+// Tom`,
+//     clientName: "Cloud Migration Project",
+//     createdAt: new Date("2024-01-03"),
+//     lastModified: new Date("2024-01-03"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-14",
+//     type: "email",
+//     title: "E-learning Course Development",
+//     content: `Subject: Custom E-learning Course Development
+
+// Dear Training Manager,
+
+// I'm an instructional designer who creates engaging online courses that drive real learning outcomes.
+
+// What I can create for your team:
+// • Interactive multimedia courses
+// • Microlearning modules for busy professionals
+// • Assessment and certification systems
+// • Mobile-responsive course design
+// • SCORM compliance for LMS integration
+
+// My courses have achieved 95% completion rates and 40% better knowledge retention.
+
+// Would you like to discuss your training objectives and see some sample courses?
+
+// Best regards,
+// Rachel`,
+//     clientName: "Corporate Training Dept",
+//     createdAt: new Date("2024-01-02"),
+//     lastModified: new Date("2024-01-02"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-15",
+//     type: "freelance",
+//     title: "Blockchain Development Proposal",
+//     content: `Hi Amanda,
+
+// I saw your post about exploring blockchain solutions for supply chain transparency. I'm a blockchain developer with expertise in enterprise implementations.
+
+// I can help you build:
+// • Smart contracts for supply chain tracking
+// • Decentralized identity verification systems
+// • NFT-based product authenticity certificates
+// • Integration with existing ERP systems
+
+// I've delivered blockchain solutions for Fortune 500 companies with 100% success rate.
+
+// Would you be interested in discussing how blockchain can transform your supply chain?
+
+// Best,
+// Kevin`,
+//     clientName: "Amanda Rodriguez",
+//     createdAt: new Date("2024-01-01"),
+//     lastModified: new Date("2024-01-01"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-16",
+//     type: "email",
+//     title: "Influencer Marketing Campaign",
+//     content: `Hey @fashionbrand! 👗
+
+// Love your sustainable fashion line! I'm a social media strategist who helps fashion brands build authentic communities.
+
+// I can help you:
+// • Identify micro-influencers in your niche
+// • Create viral campaign strategies
+// • Track ROI and engagement metrics
+// • Build long-term brand partnerships
+
+// My last campaign generated 5M impressions and 25% sales increase!
+
+// DM me to see the case study! ✨ #SustainableFashion`,
+//     clientName: "@fashionbrand",
+//     createdAt: new Date("2023-12-31"),
+//     lastModified: new Date("2023-12-31"),
+//     priority: "low",
+//   },
+//   {
+//     id: "sample-17",
+//     type: "freelance",
+//     title: "WordPress Plugin Development",
+//     content: `Dear WordPress Developer Needed,
+
+// I'm a WordPress expert with 8+ years of custom plugin development experience.
+
+// For your booking system plugin, I can deliver:
+// • Custom booking calendar with availability management
+// • Payment integration (Stripe, PayPal, WooCommerce)
+// • Email notifications and reminders
+// • Multi-language support
+// • Mobile-responsive interface
+// • Comprehensive documentation
+
+// I've built 50+ WordPress plugins with 5-star ratings and 100k+ active installations.
+
+// I guarantee clean, secure code that follows WordPress coding standards.
+
+// Ready to start immediately!
+
+// Best regards,
+// Chris`,
+//     clientName: "WordPress Plugin Project",
+//     createdAt: new Date("2023-12-30"),
+//     lastModified: new Date("2023-12-30"),
+//     priority: "medium",
+//   },
+//   {
+//     id: "sample-18",
+//     type: "email",
+//     title: "Video Marketing Strategy Consultation",
+//     content: `Subject: Transform Your Brand with Video Marketing
+
+// Dear Marketing Director,
+
+// Video content generates 1200% more shares than text and images combined. I'm a video marketing strategist who helps brands create compelling video campaigns.
+
+// My services include:
+// • Video marketing strategy development
+// • Scriptwriting and storyboarding
+// • Production coordination
+// • Multi-platform distribution optimization
+// • Performance analytics and optimization
+
+// I've helped brands achieve 300% increase in engagement and 150% boost in conversions.
+
+// Would you like to schedule a strategy session to discuss your video marketing goals?
+
+// Best regards,
+// Jessica`,
+//     clientName: "Brand Marketing Solutions",
+//     createdAt: new Date("2023-12-29"),
+//     lastModified: new Date("2023-12-29"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-19",
+//     type: "freelance",
+//     title: "SEO Optimization for SaaS Company",
+//     content: `Hi Mark,
+
+// I noticed your SaaS company is looking to improve organic search rankings. I'm an SEO specialist with a focus on B2B SaaS companies.
+
+// Here's how I can help:
+// • Technical SEO audit and optimization
+// • Content strategy for high-converting keywords
+// • Link building from industry-relevant sources
+// • Conversion rate optimization for landing pages
+// • Monthly reporting and strategy adjustments
+
+// I've helped SaaS companies increase organic traffic by 400% and reduce customer acquisition costs by 60%.
+
+// Would you be interested in a free SEO audit of your current site?
+
+// Best,
+// Emma`,
+//     clientName: "Mark Thompson",
+//     createdAt: new Date("2023-12-28"),
+//     lastModified: new Date("2023-12-28"),
+//     priority: "high",
+//   },
+//   {
+//     id: "sample-20",
+//     type: "freelance",
+//     title: "Graphic Design for Gaming Community",
+//     content: `Hey @gamingguild! 🎮
+
+// Your gaming community is awesome! I'm a graphic designer specializing in gaming assets and community branding.
+
+// I can create:
+// • Custom Discord server artwork
+// • Twitch overlays and alerts
+// • Tournament banners and graphics
+// • Merchandise designs
+// • Social media content templates
+
+// I've designed for 100+ gaming communities and esports teams!
+
+// Let's level up your visual game! DM me your ideas! 🚀 #GameDesign`,
+//     clientName: "@gamingguild",
+//     createdAt: new Date("2023-12-27"),
+//     lastModified: new Date("2023-12-27"),
+//     priority: "low",
+//   },
+// ];
 
 const AllProposals: React.FC = () => {
   const [proposals, setProposals] = useState<Proposal[]>([]);
@@ -565,6 +566,7 @@ const AllProposals: React.FC = () => {
   const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
     "all"
   );
+  const [isFetching, setIsFetching] = useState(true);
 
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
@@ -586,31 +588,32 @@ const AllProposals: React.FC = () => {
   }, []);
 
   // Load proposals from localStorage on component mount
-  useEffect(() => {
-    const savedProposals = localStorage.getItem("saved-proposals");
-    if (savedProposals) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const parsedProposals = JSON.parse(savedProposals).map((p: any) => ({
-        ...p,
-        createdAt: new Date(p.createdAt),
-        lastModified: new Date(p.lastModified),
-        status: p.status || "draft",
-        tags: p.tags || [],
-        priority: p.priority || "medium",
-      }));
-      setProposals(parsedProposals);
-    } else {
-      // If no saved proposals, load sample data
-      setProposals(sampleProposals);
-      localStorage.setItem("saved-proposals", JSON.stringify(sampleProposals));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedProposals = localStorage.getItem("saved-proposals");
+  //   if (savedProposals) {
+  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //     const parsedProposals = JSON.parse(savedProposals).map((p: any) => ({
+  //       ...p,
+  //       createdAt: new Date(p.createdAt),
+  //       lastModified: new Date(p.lastModified),
+  //       status: p.status || "draft",
+  //       tags: p.tags || [],
+  //       priority: p.priority || "medium",
+  //     }));
+  //     setProposals(parsedProposals);
+  //   } else {
+  //     // If no saved proposals, load sample data
+  //     setProposals(sampleProposals);
+  //     localStorage.setItem("saved-proposals", JSON.stringify(sampleProposals));
+  //   }
+  // }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
+      setIsFetching(true);
       try {
         const response = await fetch(
-          "/api/proposal/all-proposals/8baf43ff-16d4-4fb6-9da4-ab362b559fdb",
+          "/api/proposal/all-proposals/c1f442f5-24a3-441a-ba17-50bebefb4542",
           {
             credentials: "include",
           }
@@ -619,8 +622,11 @@ const AllProposals: React.FC = () => {
         const res = await response.json();
 
         console.log({ res });
+        setProposals(res.proposals);
       } catch (error) {
         console.log("ERROR WHILE FETCHING PROPOSALS", error);
+      } finally {
+        setIsFetching(false);
       }
     };
 
@@ -632,38 +638,14 @@ const AllProposals: React.FC = () => {
     const filtered = proposals.filter((proposal) => {
       const matchesSearch =
         proposal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        proposal.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        proposal.content.toLowerCase().includes(searchQuery.toLowerCase());
+        proposal.proposal.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesType = filterType === "all" || proposal.type === filterType;
-      const matchesPriority =
-        filterPriority === "all" || proposal.priority === filterPriority;
 
-      return matchesSearch && matchesType && matchesPriority;
+      return matchesSearch && matchesType;
     });
 
     // Sort proposals
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "newest":
-          return (
-            new Date(b.lastModified).getTime() -
-            new Date(a.lastModified).getTime()
-          );
-        case "oldest":
-          return (
-            new Date(a.lastModified).getTime() -
-            new Date(b.lastModified).getTime()
-          );
-        case "title":
-          return a.title.localeCompare(b.title);
-        case "priority":
-          const priorityOrder = { high: 3, medium: 2, low: 1 };
-          return priorityOrder[b.priority] - priorityOrder[a.priority];
-        default:
-          return 0;
-      }
-    });
 
     return filtered;
   }, [proposals, searchQuery, filterType, filterPriority, sortBy]);
@@ -691,17 +673,6 @@ const AllProposals: React.FC = () => {
     );
   };
 
-  const getPriorityColor = (priority: string) => {
-    const colors = {
-      low: "bg-slate-100 text-slate-700 border-slate-300",
-      medium: "bg-amber-100 text-amber-700 border-amber-300",
-      high: "bg-red-100 text-red-700 border-red-300",
-    };
-    return (
-      colors[priority as keyof typeof colors] ||
-      "bg-gray-100 text-gray-700 border-gray-300"
-    );
-  };
 
   const handleSave = () => {
     if (!selectedProposal) return;
@@ -738,7 +709,7 @@ const AllProposals: React.FC = () => {
   const handleCancel = () => {
     setIsEditing(false);
     if (selectedProposal) {
-      setEditedContent(selectedProposal.content);
+      setEditedContent(selectedProposal.proposal);
       setEditedTitle(selectedProposal.title);
     }
   };
@@ -754,7 +725,7 @@ const AllProposals: React.FC = () => {
 
   const handleProposalSelect = (proposal: Proposal) => {
     setSelectedProposal(proposal);
-    setEditedContent(proposal.content);
+    setEditedContent(proposal.proposal);
     setEditedTitle(proposal.title);
     setIsEditing(false);
     setShowDetailPanel(true);
@@ -853,7 +824,55 @@ const AllProposals: React.FC = () => {
                   {/* Proposals Content */}
                   <ScrollArea className="size-full mt-5 bg-white">
                     <div className="h-max">
-                      {filteredAndSortedProposals.length === 0 ? (
+                      {isFetching ? (
+                        <div className="border border-gray-200 rounded-xl overflow-hidden">
+                          <Table>
+                            <TableHeader>
+                              <TableRow className="bg-gray-50">
+                                <TableHead className="font-semibold text-gray-900">
+                                  Title
+                                </TableHead>
+                                <TableHead className="font-semibold text-gray-900">
+                                  Type
+                                </TableHead>
+                                <TableHead className="font-semibold text-gray-900 hidden md:table-cell">
+                                  Success Rate
+                                </TableHead>
+                                <TableHead className="font-semibold text-gray-900 w-16">
+                                  Actions
+                                </TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {Array.from({ length: 4 }).map((_, r) => (
+                                <TableRow
+                                  key={r}
+                                  className={ "h-14"}
+                                >
+                                  {Array.from({ length: 3 }).map((__, c) => (
+                                    <TableCell key={c} className="align-middle">
+                                      <div className="flex items-center gap-2">
+                                        <Skeleton
+                                          className={
+                                            "h-4 w-28"
+                                          }
+                                        />
+                                        {c === 0 && (
+                                          <Skeleton
+                                            className={
+                                              "h-4 w-16"
+                                            }
+                                          />
+                                        )}
+                                      </div>
+                                    </TableCell>
+                                  ))}
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      ) : filteredAndSortedProposals.length === 0 ? (
                         <div className="text-center py-12">
                           <FileTextIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                           <h3 className="text-lg font-medium text-gray-900 mb-2">
@@ -879,7 +898,7 @@ const AllProposals: React.FC = () => {
                                   Type
                                 </TableHead>
                                 <TableHead className="font-semibold text-gray-900 hidden md:table-cell">
-                                  Client
+                                  Success Rate
                                 </TableHead>
                                 <TableHead className="font-semibold text-gray-900 w-16">
                                   Actions
@@ -924,7 +943,7 @@ const AllProposals: React.FC = () => {
                                       </Badge>
                                     </TableCell>
                                     <TableCell className="text-gray-600 hidden md:table-cell">
-                                      {proposal.clientName}
+                                      {proposal.successRate}
                                     </TableCell>
 
                                     <TableCell>
@@ -1000,7 +1019,7 @@ const AllProposals: React.FC = () => {
                             </Button>
                             <Button
                               onClick={() =>
-                                copyToClipboard(selectedProposal.content)
+                                copyToClipboard(selectedProposal.proposal)
                               }
                               variant="outline"
                               size="sm"
@@ -1037,15 +1056,15 @@ const AllProposals: React.FC = () => {
                         )}
                         {selectedProposal.type.toUpperCase()}
                       </Badge>
-                      <Badge
+                      {/* <Badge
                         className={`${getPriorityColor(
                           selectedProposal.priority
                         )} border text-xs`}
                       >
                         {selectedProposal.priority.toUpperCase()}
-                      </Badge>
+                      </Badge> */}
                       <div className="ml-auto text-xs text-gray-500">
-                        {selectedProposal.lastModified.toLocaleDateString()}
+                        {new Date(selectedProposal.updatedAt).toISOString()}
                       </div>
                     </div>
 
@@ -1054,7 +1073,7 @@ const AllProposals: React.FC = () => {
                       <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                         <User className="w-4 h-4" />
                         <span className="font-medium">
-                          {selectedProposal.clientName}
+                          {selectedProposal.successRate}
                         </span>
                       </div>
                     </div>
@@ -1093,7 +1112,7 @@ const AllProposals: React.FC = () => {
                       ) : (
                         <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
                           <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
-                            {selectedProposal.content}
+                            {selectedProposal.proposal}
                           </pre>
                         </div>
                       )}
@@ -1174,7 +1193,7 @@ const AllProposals: React.FC = () => {
                               </Button>
                               <Button
                                 onClick={() =>
-                                  copyToClipboard(selectedProposal.content)
+                                  copyToClipboard(selectedProposal.proposal)
                                 }
                                 variant="outline"
                                 size="sm"
@@ -1211,15 +1230,15 @@ const AllProposals: React.FC = () => {
                             )}
                             {selectedProposal.type.toUpperCase()}
                           </Badge>
-                          <Badge
+                          {/* <Badge
                             className={`${getPriorityColor(
                               selectedProposal.priority
                             )} border text-xs`}
                           >
                             {selectedProposal.priority.toUpperCase()}
-                          </Badge>
+                          </Badge> */}
                           <div className="ml-auto text-xs text-gray-500">
-                            {selectedProposal.lastModified.toLocaleDateString()}
+                            {new Date(selectedProposal.updatedAt).toISOString()}
                           </div>
                         </div>
 
@@ -1228,7 +1247,7 @@ const AllProposals: React.FC = () => {
                           <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
                             <User className="w-4 h-4" />
                             <span className="font-medium">
-                              {selectedProposal.clientName}
+                              {selectedProposal.successRate}
                             </span>
                           </div>
                         </div>
@@ -1267,7 +1286,7 @@ const AllProposals: React.FC = () => {
                           ) : (
                             <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
                               <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
-                                {selectedProposal.content}
+                                {selectedProposal.proposal}
                               </pre>
                             </div>
                           )}

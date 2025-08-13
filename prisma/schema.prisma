@@ -39,6 +39,7 @@ model Proposal {
   type        String
   prompt      String
   userInput   String
+  successRate Int
   proposal    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
