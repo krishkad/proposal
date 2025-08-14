@@ -232,7 +232,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {recentProposals !== undefined &&
+                {(recentProposals !== undefined && !isLoading) &&
                   recentProposals.map((proposal) => (
                     <tr
                       key={proposal.id}
