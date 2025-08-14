@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { CustomJwtPayload } from "../generate-proposal/route";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function GET(req: NextRequest, params: any) {
+export async function GET(req: NextRequest) {
   try {
     const { userId } = Object.fromEntries(new URL(req.url).searchParams);
 
