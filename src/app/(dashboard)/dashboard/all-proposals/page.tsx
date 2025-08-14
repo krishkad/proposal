@@ -623,14 +623,22 @@ const AllProposals: React.FC = () => {
 
         console.log({ res });
         setProposals(res.proposals);
+        localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
       } catch (error) {
         console.log("ERROR WHILE FETCHING PROPOSALS", error);
       } finally {
         setIsFetching(false);
       }
     };
+    const AllProposals = localStorage.getItem("all-freeposals");
 
-    fetchPost();
+    if (AllProposals) {
+      const json_proposal = JSON.parse(AllProposals);
+      setProposals(json_proposal);
+      setIsFetching(false);
+    } else {
+      fetchPost();
+    }
   }, []);
 
   // Filter and sort proposals
@@ -672,7 +680,6 @@ const AllProposals: React.FC = () => {
       "bg-gray-100 text-gray-700 border-gray-300"
     );
   };
-
 
   const handleSave = () => {
     if (!selectedProposal) return;
@@ -845,24 +852,13 @@ const AllProposals: React.FC = () => {
                             </TableHeader>
                             <TableBody>
                               {Array.from({ length: 4 }).map((_, r) => (
-                                <TableRow
-                                  key={r}
-                                  className={ "h-12"}
-                                >
+                                <TableRow key={r} className={"h-12"}>
                                   {Array.from({ length: 4 }).map((__, c) => (
                                     <TableCell key={c} className="align-middle">
                                       <div className="flex items-center gap-2">
-                                        <Skeleton
-                                          className={
-                                            "h-4 w-28"
-                                          }
-                                        />
+                                        <Skeleton className={"h-4 w-28"} />
                                         {c === 0 && (
-                                          <Skeleton
-                                            className={
-                                              "h-4 w-16"
-                                            }
-                                          />
+                                          <Skeleton className={"h-4 w-16"} />
                                         )}
                                       </div>
                                     </TableCell>

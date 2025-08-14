@@ -1,12 +1,25 @@
 "use client";
 
 export const dynamic = "force-dynamic";
-import React from "react";
-import { Plus, FileText, Clock, Target, Eye, Edit, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Clock, Edit, Eye, FileText, Plus, Target, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+interface Proposal {
+  id: string;
+  type: "freelance" | "email";
+  title: string;
+  proposal: string;
+  successRate: number;
+  createdAt: Date;
+  updatedAt: Date;
+  // priority: "low" | "medium" | "high";
+}
 
 const Dashboard = () => {
+  const [recentProposals, setRecentProposals] = useState<Proposal[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const metrics = [
     {
@@ -32,36 +45,74 @@ const Dashboard = () => {
     },
   ];
 
-  const recentProposals = [
-    {
-      id: 1,
-      title: "SaaS Marketing Strategy for TechCorp",
-      date: "2024-05-27",
-      length: "2,400 words",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      title: "E-commerce Platform Proposal",
-      date: "2024-05-26",
-      length: "1,850 words",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      title: "Mobile App Development Brief",
-      date: "2024-05-25",
-      length: "3,200 words",
-      status: "Completed",
-    },
-    {
-      id: 4,
-      title: "Digital Transformation Consulting",
-      date: "2024-05-24",
-      length: "2,800 words",
-      status: "Draft",
-    },
-  ];
+  // const recentProposals = [
+  //   {
+  //     id: 1,
+  //     title: "SaaS Marketing Strategy for TechCorp",
+  //     date: "2024-05-27",
+  //     length: "2,400 words",
+  //     status: "Completed",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "E-commerce Platform Proposal",
+  //     date: "2024-05-26",
+  //     length: "1,850 words",
+  //     status: "Completed",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Mobile App Development Brief",
+  //     date: "2024-05-25",
+  //     length: "3,200 words",
+  //     status: "Completed",
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Digital Transformation Consulting",
+  //     date: "2024-05-24",
+  //     length: "2,800 words",
+  //     status: "Draft",
+  //   },
+  // ];
+
+  useEffect(() => {
+    const fetchRecentProposals = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          "/api/proposal/all-proposals?userId=c1f442f5-24a3-441a-ba17-50bebefb4542",
+          {
+            credentials: "include",
+          }
+        );
+
+        const res = await response.json();
+
+        if (!res.success) {
+          console.log("failed to fetch recent proposal");
+          return;
+        }
+
+        setRecentProposals(res.proposals);
+        localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
+      } catch (error) {
+        console.log("failed to fetch recent proposal", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const stringify_proposals = localStorage.getItem("all-freeposals");
+
+    if (stringify_proposals) {
+      const AllProposals = JSON.parse(stringify_proposals);
+      setRecentProposals(AllProposals);
+      setIsLoading(false);
+    } else {
+      fetchRecentProposals();
+    }
+  }, []);
 
   return (
     <div className="w-full bg-secondary/50">
@@ -172,30 +223,37 @@ const Dashboard = () => {
                   <th className="text-left py-3 px-6 font-medium text-gray-700">
                     Length
                   </th>
-                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                  {/* <th className="text-left py-3 px-6 font-medium text-gray-700">
                     Status
-                  </th>
+                  </th> */}
                   <th className="text-left py-3 px-6 font-medium text-gray-700">
                     Actions
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {recentProposals.map((proposal) => (
-                  <tr
-                    key={proposal.id}
-                    className="border-b border-gray-100 hover:bg-gray-50"
-                  >
-                    <td className="py-4 px-6">
-                      <p className="font-medium text-gray-900">
-                        {proposal.title}
-                      </p>
-                    </td>
-                    <td className="py-4 px-6 text-gray-600">{proposal.date}</td>
-                    <td className="py-4 px-6 text-gray-600">
-                      {proposal.length}
-                    </td>
-                    <td className="py-4 px-6">
+                {recentProposals !== undefined &&
+                  recentProposals.map((proposal) => (
+                    <tr
+                      key={proposal.id}
+                      className="border-b border-gray-100 hover:bg-gray-50"
+                    >
+                      <td className="py-4 px-6">
+                        <p className="w-max font-medium text-gray-900">
+                          {proposal.title}
+                        </p>
+                      </td>
+                      <td className="py-4 px-6 text-gray-600">
+                        <p className="w-max">
+                          {new Date(proposal.createdAt).toDateString()}
+                        </p>
+                      </td>
+                      <td className="py-4 px-6 text-gray-600">
+                        <p className="w-max">
+                          {proposal.proposal.length} Words
+                        </p>
+                      </td>
+                      {/* <td className="py-4 px-6">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
                           proposal.status === "Completed"
@@ -205,22 +263,22 @@ const Dashboard = () => {
                       >
                         {proposal.status}
                       </span>
-                    </td>
-                    <td className="py-4 px-6">
-                      <div className="flex space-x-2">
-                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                          <Eye className="w-4 h-4 text-gray-600" />
-                        </button>
-                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                          <Edit className="w-4 h-4 text-gray-600" />
-                        </button>
-                        <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                          <Trash2 className="w-4 h-4 text-gray-600" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                    </td> */}
+                      <td className="py-4 px-6">
+                        <div className="flex space-x-2">
+                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                            <Eye className="w-4 h-4 text-gray-600" />
+                          </button>
+                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                            <Edit className="w-4 h-4 text-gray-600" />
+                          </button>
+                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
+                            <Trash2 className="w-4 h-4 text-gray-600" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
