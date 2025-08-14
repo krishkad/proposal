@@ -613,7 +613,7 @@ const AllProposals: React.FC = () => {
       setIsFetching(true);
       try {
         const response = await fetch(
-          "/api/proposal/all-proposals/c1f442f5-24a3-441a-ba17-50bebefb4542",
+          "/api/proposal/all-proposals?userId=c1f442f5-24a3-441a-ba17-50bebefb4542",
           {
             credentials: "include",
           }
@@ -847,9 +847,9 @@ const AllProposals: React.FC = () => {
                               {Array.from({ length: 4 }).map((_, r) => (
                                 <TableRow
                                   key={r}
-                                  className={ "h-14"}
+                                  className={ "h-12"}
                                 >
-                                  {Array.from({ length: 3 }).map((__, c) => (
+                                  {Array.from({ length: 4 }).map((__, c) => (
                                     <TableCell key={c} className="align-middle">
                                       <div className="flex items-center gap-2">
                                         <Skeleton

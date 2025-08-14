@@ -2,12 +2,12 @@ import prisma from "@/lib/prisma";
 import { excludePrompt } from "@/lib/utils";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
-import { CustomJwtPayload } from "../../generate-proposal/route";
+import { CustomJwtPayload } from "../generate-proposal/route";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function GET(req: NextRequest, params: any) {
   try {
-    const userId = params.params.userId as string;
+    const { userId } = Object.fromEntries(new URL(req.url).searchParams);
 
     console.log({ userId });
 
