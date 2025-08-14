@@ -148,7 +148,9 @@ const Dashboard = () => {
                   <div>
                     <p className="text-sm text-gray-600 mb-1">{metric.title}</p>
                     <p className="text-2xl font-bold text-gray-900">
-                      {metric.value}
+                      {metric.title === "Proposals Generated"
+                        ? recentProposals.length
+                        : metric.value}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">
                       {metric.subtitle}
@@ -232,7 +234,8 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {(recentProposals !== undefined && !isLoading) &&
+                {recentProposals !== undefined &&
+                  !isLoading &&
                   recentProposals.map((proposal) => (
                     <tr
                       key={proposal.id}
