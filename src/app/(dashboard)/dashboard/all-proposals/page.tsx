@@ -630,15 +630,8 @@ const AllProposals: React.FC = () => {
         setIsFetching(false);
       }
     };
-    const AllProposals = localStorage.getItem("all-freeposals");
 
-    if (AllProposals) {
-      const json_proposal = JSON.parse(AllProposals);
-      setProposals(json_proposal);
-      setIsFetching(false);
-    } else {
-      fetchPost();
-    }
+    fetchPost();
   }, []);
 
   // Filter and sort proposals

@@ -103,15 +103,7 @@ const Dashboard = () => {
       }
     };
 
-    const stringify_proposals = localStorage.getItem("all-freeposals");
-
-    if (stringify_proposals) {
-      const AllProposals = JSON.parse(stringify_proposals);
-      setRecentProposals(AllProposals);
-      setIsLoading(false);
-    } else {
-      fetchRecentProposals();
-    }
+    fetchRecentProposals();
   }, []);
 
   return (
