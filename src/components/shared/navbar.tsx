@@ -5,7 +5,7 @@ import { buttonVariants } from "../ui/button";
 
 const Navbar = () => {
   return (
-    <div className="max-w-wrapper h-16 flex items-center justify-between border-b border-gray-200">
+    <div className="max-w-wrapper h-16 flex items-center justify-between border-b ">
       <h1 className="text-2xl font-bold text-primary">Freeposal</h1>
 
       {/* LINKS */}
@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link href={"#"} className="hover:text-primary transition-all">
           How It Works
         </Link>
-        <Link href={"#"} className="hover:text-primary transition-all">
+        <Link href={"#pricing"} className="hover:text-primary transition-all">
           Pricing
         </Link>
         <Link href={"#"} className="hover:text-primary transition-all">

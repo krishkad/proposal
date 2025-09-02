@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { features, madeFor } from "@/constants/constants";
-import { CheckIcon, FileIcon, Mail, StarIcon } from "lucide-react";
+import { CheckIcon, Mail, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { SiCodemagic } from "react-icons/si";
@@ -15,47 +15,46 @@ import {
 } from "@/components/ui/accordion";
 import { BsTwitterX } from "react-icons/bs";
 import { CiLinkedin } from "react-icons/ci";
-import HeroSection from "@/components/shared/HeroSection";
+import CreativeHero from "@/components/shared/CreativeHero";
 
 export default function Home() {
+  const legalLinks = [
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms & Conditions", href: "/terms" },
+    { name: "Cookie Policy", href: "/cookies" },
+  ];
+
+  const supportLinks = [
+    { name: "Help Center", href: "/help" },
+    { name: "API Documentation", href: "/api-docs" },
+    { name: "Integration Guide", href: "/integrations" },
+    { name: "Status Page", href: "/status" },
+  ];
   return (
     <div className="w-full">
       {/* <Navbar /> */}
 
-      {/* <div className="max-w-wrapper z-[10]">
-        <div className="w-full flex items-center justify-center">
-          <div className="w-full md:max-w-4xl mt-[10vh] md:mt-[20vh]">
-            <h1 className="text-4xl md:text-6xl font-bold text-wrap text-center z-10">
-              <span className="text-gradient-primary">Win More Clients</span>{" "}
-              With Ready-to-Send Proposals & Emails — Powered by AI
-            </h1>
-            <p className="max-w-3xl mx-auto text-xl text-center mt-6">
-              Create stunning proposals and professional emails in minutes. Just
-              enter client details — we&apos;ll do the rest.
-            </p>
-            <div className="w-full flex max-md:flex-col items-center justify-center gap-5 mt-6">
-              <Button className="text-lg" size={"lg"}>
-                Start Free — No Credit Card Required
-              </Button>
-              <Link href={"#"} className="text-lg text-primary font-medium">
-                See Example
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <CreativeHero />
 
       {/* FEATURES  */}
-      <div className="max-w-wrapper bg-secondary/50 mt-20">
+      <div className="max-w-wrapper bg-secondary/50 mt-0">
         <div className="w-full py-24">
-          <h2 className="w-full md:max-w-[700px] mx-auto text-4xl font-bold text-center">
+          {/* <h2 className="w-full md:max-w-[700px] mx-auto text-4xl font-bold text-center">
             Powerful Features to{" "}
             <span className="text-gradient-primary">Win More Clients</span>
           </h2>
           <p className="w-full md:max-w-[700px] mx-auto text-center text-xl mt-5">
             Our AI-powered platform helps you create professional proposals and
             emails that convert prospects into clients.
+          </p> */}
+          <h2 className="w-full md:max-w-[700px] mx-auto text-4xl font-bold text-center">
+            Unlock the Power of AI to{" "}
+            <span className="text-gradient-primary">Win More Clients</span>
+          </h2>
+          <p className="w-full md:max-w-[700px] mx-auto text-center text-xl mt-5">
+            Create high-converting freelance proposals in minutes with AI —
+            faster, smarter, and more effective.
           </p>
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-16 gap-7">
@@ -83,7 +82,7 @@ export default function Home() {
       <div className="w-full bg-background">
         <div className="max-w-wrapper py-24">
           <h1 className="font-bold text-4xl text-center">
-            Made for Freelancers & Small Business Owners
+            Made for Freelancers
           </h1>
           <p className="text-center text-xl mt-5">Whether you&apos;re a...</p>
 
@@ -96,7 +95,7 @@ export default function Home() {
                     key={i}
                   >
                     <div className="w-max-h-full">
-                      <div className="w-max h-max p-2 rounded-full bg-primary/10">
+                      <div className="w-max h-max p-3 rounded-full bg-primary/10">
                         <made.Icon className="w-6 h-6 text-primary" />
                       </div>
                     </div>
@@ -188,7 +187,7 @@ export default function Home() {
       </div>
 
       {/* HOW IT WORKS  */}
-      <div className="w-full">
+      {/* <div className="w-full">
         <div className="max-w-wrapper py-24 bg-secondary/50">
           <div className="w-full">
             <p className="w-max text-center mx-auto px-5 py-2 rounded-full bg-primary/20 text-voilet-700 text-sm">
@@ -204,7 +203,6 @@ export default function Home() {
           </div>
 
           <div className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* BOXES  */}
             <div className="w-full p-[2px] rounded-md bg-gradient-to-r from-purple-300 via-purple-200 to-purple-300 hover:-translate-y-2 duration-300 transition-all hover:shadow-lg">
               <div className="bg-background rounded-md p-6">
                 <div className="w-full">
@@ -294,15 +292,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* <div className="w-full flex flex-col justify-center items-center rounded-md mt-20 px-4 py-8 space-y-4 bg-background">
-            <h2 className="text-center text-3xl font-bold">
-              Ready to transform your proposal process?
-            </h2>
-            <Button className="">Start Your Free Trial</Button>
-            <p className="text-sm text-center">No credit card required</p>
-          </div> */}
+          
         </div>
-      </div>
+      </div> */}
 
       {/* FREELANCERS LOVE US  */}
       <div className="w-full bg-background">
@@ -319,7 +311,7 @@ export default function Home() {
             </p>
           </div>
           <div className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="w-full rounded-md border border-gray-200 p-4 hover:shadow-md transition-all">
+            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
               <div className="w-full flex items-center justify-start gap-2">
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
@@ -352,7 +344,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full rounded-md border border-gray-200 p-4 hover:shadow-md transition-all">
+            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
               <div className="w-full flex items-center justify-start gap-2">
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
@@ -385,7 +377,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="w-full rounded-md border border-gray-200 p-4 hover:shadow-md transition-all">
+            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
               <div className="w-full flex items-center justify-start gap-2">
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
                 <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
@@ -423,7 +415,7 @@ export default function Home() {
       </div>
 
       {/* PRICING  */}
-      <div className="w-full bg-secondary/50">
+      <div id="pricing" className="w-full bg-secondary/50">
         <div className="max-w-wrapper py-24">
           <h1 className="text-4xl font-bold text-center">
             Simple, <span className="text-gradient-primary">Transparent</span>{" "}
@@ -435,9 +427,12 @@ export default function Home() {
 
           <div className="w-full mt-16">
             <div className="w-full flex max-md:flex-col items-center justify-center gap-6">
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background hover:shadow-md">
-                <h3 className="text-xl font-bold mt-3">Free</h3>
-                <h2 className="text-3xl font-bold mt-3">Free</h2>
+              <div className="w-[320px] h-[500px] p-5 border border-border rounded-xl bg-background hover:shadow-md">
+                <h3 className="text-xl font-bold mt-3">Basic</h3>
+                <h2 className="text-3xl font-bold mt-3">
+                    $4.99{" "}
+                    <span className="text-base text-gray-400">/month</span>
+                  </h2>
                 <p className="mt-3">Perfect for trying out the platform</p>
                 <Button
                   className="mt-3 text-primary w-full hover:border-primary hover:text-primary"
@@ -448,7 +443,7 @@ export default function Home() {
 
                 <p className="mt-5">
                   <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
-                  5 proposals/emails per month
+                  30 proposals/emails per month
                 </p>
                 <p className="mt-3">
                   <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
@@ -476,7 +471,8 @@ export default function Home() {
                 <div className="w-full p-5">
                   <h3 className="text-xl font-bold mt-3">Pro</h3>
                   <h2 className="text-3xl font-bold mt-3">
-                    $19 <span className="text-base text-gray-400">/month</span>
+                    $9.99{" "}
+                    <span className="text-base text-gray-400">/month</span>
                   </h2>
                   <p className="mt-3">
                     Everything you need to grow your business
@@ -491,7 +487,7 @@ export default function Home() {
 
                   <p className="mt-5">
                     <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
-                    Unlimited proposals/emails
+                    100 proposals/emails
                   </p>
                   <p className="mt-3">
                     <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
@@ -516,10 +512,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="w-[320px] h-[500px] p-5 border border-gray-200 rounded-xl bg-background hover:shadow-md">
-                <h3 className="text-xl font-bold mt-3">Business</h3>
+              <div className="w-[320px] h-[500px] p-5 border border-border rounded-xl bg-background hover:shadow-md">
+                <h3 className="text-xl font-bold mt-3">Premium</h3>
                 <h2 className="text-3xl font-bold mt-3">
-                  $49 <span className="text-base text-gray-400">/month</span>
+                  $11.99 <span className="text-base text-gray-400">/month</span>
                 </h2>
                 <p className="mt-3">For teams and growing businesses</p>
                 <Button
@@ -531,7 +527,7 @@ export default function Home() {
 
                 <p className="mt-5">
                   <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
-                  Everything in Pro
+                  Unlimited proposals/emails
                 </p>
                 <p className="mt-3">
                   <CheckIcon className="w-5 h-5 shrink-0 inline-flex mr-2.5 text-primary" />{" "}
@@ -589,28 +585,71 @@ export default function Home() {
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                   <AccordionTrigger className="text-lg">
-                    Is it accessible?
+                    How does this tool personalize proposals based on the job
+                    post I paste?
                   </AccordionTrigger>
                   <AccordionContent className="text-lg">
-                    Yes. It adheres to the WAI-ARIA design pattern.
+                    The tool uses AI to analyze the job post’s language,
+                    requirements, and tone to generate a tailored proposal that
+                    aligns with what the client is looking for.
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="item-2">
                   <AccordionTrigger className="text-lg">
-                    Is it styled?
+                    Can I customize the generated proposal before submitting it?
                   </AccordionTrigger>
                   <AccordionContent className="text-lg">
-                    Yes. It comes with default styles that matches the other
-                    components&apos; aesthetic.
+                    Yes, once the proposal is generated, you can edit it
+                    directly in the tool to add your own voice, tweak specific
+                    sections, or include attachments/links.
                   </AccordionContent>
                 </AccordionItem>
+
                 <AccordionItem value="item-3">
                   <AccordionTrigger className="text-lg">
-                    Is it animated?
+                    Will the proposal reflect my skills and experience
+                    accurately?
                   </AccordionTrigger>
                   <AccordionContent className="text-lg">
-                    Yes. It&apos;s animated by default, but you can disable it
-                    if you prefer.
+                    Absolutely — you can input your skills, portfolio links, and
+                    background, and the tool incorporates that context into
+                    every proposal.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="text-lg">
+                    Does it work with job posts from platforms other than
+                    Upwork?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-lg">
+                    While it’s optimized for Upwork, the tool works with job
+                    posts from most freelance platforms like Fiverr, Freelancer,
+                    and PeoplePerHour, as long as you paste the full job
+                    description.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-5">
+                  <AccordionTrigger className="text-lg">
+                    How does this tool help me stand out from other freelancers?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-lg">
+                    It crafts proposals that sound human, are tailored to each
+                    client, and highlight relevant skills — no generic
+                    templates, giving you a better chance of grabbing attention.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-6">
+                  <AccordionTrigger className="text-lg">
+                    Is there a limit to how many proposals I can generate?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-lg">
+                    Free users get a limited number of proposals per month. Paid
+                    users enjoy unlimited access, advanced customization
+                    options, and priority support.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -632,7 +671,7 @@ export default function Home() {
       </div>
 
       {/* CTA - SECTION  */}
-      <div className="w-full bg-gradient-primary">
+      <div className="w-full bg-gradient-primary-3">
         <div className="max-w-3xl mx-auto px-6 py-24 flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-bold text-center text-white">
             Ready to Win More Clients?
@@ -652,7 +691,7 @@ export default function Home() {
       {/* FOOTER  */}
       <div className="w-full bg-[#111827]">
         <div className="max-w-wrapper pt-16 pb-8">
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             <div className="w-full">
               <h3 className="font-bold text-3xl text-white">Freeposal</h3>
 
@@ -668,7 +707,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-full max-md:mt-14">
-              <h3 className="font-bold text-xl text-white">Product</h3>
+              <h3 className="font-bold text-xl text-white">Quick Links</h3>
 
               <div className="w-full mt-6">
                 <Link
@@ -702,6 +741,38 @@ export default function Home() {
                   FAQ&apos;s
                 </Link>
               </div>
+            </div>
+            <div className="w-full max-md:mt-10 space-y-4">
+              <h3 className="font-semibold text-xl text-white">Support</h3>
+              <ul className="space-y-2">
+                {supportLinks.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div className="w-full max-md:mt-10 space-y-4">
+              <h3 className="font-semibold text-xl text-white">Legal</h3>
+              <ul className="space-y-2"> 
+                {legalLinks.map((link, index) => (
+                  <li key={index}>
+                    <a
+                      href={link.href}
+                      className="text-primary-foreground/80 hover:text-accent transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           <div className="w-full mt-24 flex max-md:flex-col items-center justify-between gap-3">

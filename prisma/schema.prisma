@@ -16,15 +16,16 @@ datasource db {
 }
 
 model User {
-  id          String     @id @default(uuid())
-  email       String     @unique
-  name        String?
-  password    String // hashed password
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  plan        Plans      @default(FREE)
-  planExpires DateTime?
-  Proposal    Proposal[]
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String?
+  password     String // hashed password
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  plan         Plans          @default(FREE)
+  planExpires  DateTime?
+  Proposal     Proposal[]
+  Subscription Subscription[]
 }
 
 enum Plans {
@@ -45,4 +46,15 @@ model Proposal {
   updatedAt   DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  status    String // "active", "cancelled", "expired"
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

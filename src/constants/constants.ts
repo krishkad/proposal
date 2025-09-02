@@ -5,10 +5,24 @@ import {
   Home,
   LucideIcon,
   Mail,
+  PaperclipIcon,
   Settings
 } from "lucide-react";
 import { IconType } from "react-icons";
-import { FaRegClock } from "react-icons/fa";
+import {
+  FaRegClock,
+  FaMagic,
+  FaRobot,
+  FaStar,
+  FaEdit,
+  FaSpellCheck,
+  FaCode,
+  FaPenNib,
+  FaCameraRetro,
+  FaBriefcase,
+  FaStore,
+} from "react-icons/fa";
+
 
 interface FeatureType {
   Icon: IconType;
@@ -24,36 +38,38 @@ export const features: FeatureType[] = [
       "Generate professional proposals in minutes instead of hours. Focus on your actual work, not paperwork.",
   },
   {
-    Icon: FaRegClock,
-    title: "Ready-to-Send Templates",
+    Icon: FaMagic,
+    title: "No More Blank Pages",
     description:
-      "Access dozens of industry-specific templates crafted by experts. Just add your personal touch.",
+      "AI helps you get started instantly with smart suggestions and structure — no writer’s block.",
   },
   {
-    Icon: FaRegClock,
-    title: "AI-Powered Customization",
+    Icon: FaRobot,
+    title: "AI-Powered Proposals",
     description:
-      "Our AI tailors content to your specific client, industry, and project requirements.",
+      "Our AI generates personalized proposals tailored to your client's needs, industry, and project scope.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaStar,
     title: "Stand Out From Competition",
     description:
       "Professionally designed proposals that make your business look established and trustworthy.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaEdit,
     title: "Easy Editing",
     description:
       "Intuitive editor lets you customize every aspect of your proposal without design skills.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaSpellCheck,
     title: "Professional Language",
     description:
       "Perfect tone and vocabulary for your industry, eliminating grammar and spelling errors.",
   },
 ];
+
+
 
 interface MadeForType {
   Icon: IconType;
@@ -63,36 +79,37 @@ interface MadeForType {
 
 export const madeFor: MadeForType[] = [
   {
-    Icon: FaRegClock,
+    Icon: FaCode,
     title: "Freelance Developer",
     description:
       "Win client projects with detailed technical proposals that explain your process and value.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaPenNib,
     title: "Copywriter or Designer",
     description:
       "Showcase your creative process and deliverables with visually appealing proposals.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaCameraRetro,
     title: "Photographer or Creative",
     description:
       "Create beautiful proposals that match your aesthetic and highlight your unique style.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaBriefcase,
     title: "Agency or Consultant",
     description:
       "Deliver professional, branded proposals that reflect your expertise and methodology.",
   },
   {
-    Icon: FaRegClock,
+    Icon: FaStore,
     title: "Small E-commerce Owner",
     description:
       "Create proposals for vendors, partners, and service providers to grow your business.",
   },
 ];
+
 
 export const invoices = [
   {
@@ -169,5 +186,11 @@ export const outreachTypes = [
     label: "Email Pitch",
     icon: Mail,
     color: "from-blue-500 to-cyan-600",
-  }
+  },
+  {
+    id: "cover-letter",
+    label: "Cover Letter",
+    icon: PaperclipIcon,
+    color: "from-[#FF9B00] to-[#F97A00]",
+  },
 ];

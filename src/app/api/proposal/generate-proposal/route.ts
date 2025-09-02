@@ -67,9 +67,31 @@ export async function POST(req: NextRequest) {
       return response;
     }
 
+    const now = new Date();
+
+    const activeSub = await prisma.subscription.findFirst({
+      where: {
+        userId: userToken.id,
+        status: "active",
+        endDate: {
+          gt: now,
+        },
+      },
+    });
+
+    if (!activeSub && false) {
+      return NextResponse.json({
+        success: false,
+        message: "no active subscription",
+      });
+    }
+
     const finalPromptToGenerate = getPrompt({
-      myGig:
-        "I build custom, responsive websites using React, Tailwind, and Framer Motion, focusing on fast performance and clean design.",
+      myGig: `I am an experienced Full Stack Developer with 5+ years of experience in building and maintaining high-quality web applications.
+
+My expertise lies in multiple front-end technologies such as React, HTML, CSS, and JavaScript, and back-end technologies like Node.js, Java, and Spring. I have a strong understanding of Agile methodology and database management systems.
+
+Throughout my career, I have consistently delivered innovative and effective solutions that have exceeded client expectations. I have a passion for continuously learning and staying up to date with the latest technologies.`,
       clientNeeds,
       lengthPerference,
       proposalTone,
@@ -79,6 +101,7 @@ export async function POST(req: NextRequest) {
 
     const response = await openai.chat.completions.create({
       model: "moonshotai/kimi-k2:free", // You can also try "deepseek/deepseek-coder"
+      // model: "openai/gpt-oss-20b:free", // You can also try "deepseek/deepseek-coder"
       messages: [{ role: "user", content: finalPromptToGenerate }],
       temperature: 0.7,
     });
@@ -97,16 +120,17 @@ export async function POST(req: NextRequest) {
 
     const response_json = JSON.parse(response.choices[0].message.content);
 
-    console.log({ response_json });
-
     const proposal = await prisma.proposal.create({
       data: {
         prompt: finalPromptToGenerate,
         proposal: `${response_json.proposal}` || "",
         userInput: clientNeeds,
-        type: outreachType ? "freelance" : "email",
+        type: outreachType === "freelance-proposal" ? "freelance" : "email",
         userId: user.id,
-        successRate: response_json.successRate,
+        successRate:
+          typeof response_json.successRate === "string"
+            ? parseInt(response_json.successRate)
+            : response_json.successRate,
         title: response_json.shortTitle,
       },
     });

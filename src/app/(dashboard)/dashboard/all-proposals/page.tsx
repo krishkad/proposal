@@ -8,8 +8,10 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,6 +46,7 @@ import {
   Briefcase,
   Copy,
   Edit,
+  EditIcon,
   FileText,
   FileTextIcon,
   Mail,
@@ -56,12 +59,20 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface Proposal {
   id: string;
   type: "freelance" | "email";
   title: string;
   proposal: string;
+  userInput: string;
   successRate: number;
   createdAt: Date;
   updatedAt: Date;
@@ -611,9 +622,10 @@ const AllProposals: React.FC = () => {
   useEffect(() => {
     const fetchPost = async () => {
       setIsFetching(true);
+      const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
       try {
         const response = await fetch(
-          "/api/proposal/all-proposals?userId=c1f442f5-24a3-441a-ba17-50bebefb4542",
+          `/api/proposal/all-proposals?userId=${user.id}`,
           {
             credentials: "include",
           }
@@ -621,7 +633,6 @@ const AllProposals: React.FC = () => {
 
         const res = await response.json();
 
-        console.log({ res });
         setProposals(res.proposals);
         localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
       } catch (error) {
@@ -636,6 +647,7 @@ const AllProposals: React.FC = () => {
 
   // Filter and sort proposals
   const filteredAndSortedProposals = useMemo(() => {
+    if (!proposals || proposals.length <= 0) return;
     const filtered = proposals.filter((proposal) => {
       const matchesSearch =
         proposal.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -665,8 +677,8 @@ const AllProposals: React.FC = () => {
     const colors = {
       freelance: "bg-emerald-100 text-emerald-700 border-emerald-300",
       email: "bg-blue-100 text-blue-700 border-blue-300",
-      linkedin: "bg-indigo-100 text-indigo-700 border-indigo-300",
-      twitter: "bg-cyan-100 text-cyan-700 border-cyan-300",
+      // linkedin: "bg-indigo-100 text-indigo-700 border-indigo-300",
+      // twitter: "bg-cyan-100 text-cyan-700 border-cyan-300",
     };
     return (
       colors[type as keyof typeof colors] ||
@@ -674,24 +686,45 @@ const AllProposals: React.FC = () => {
     );
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!selectedProposal) return;
+    const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
+    try {
+      const response = await fetch(
+        `/api/proposal/edit-proposal?userId=${user.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            proposal: editedContent,
+            proposalId: selectedProposal.id,
+            proposalTitle: editedTitle,
+          }),
+        }
+      );
 
-    const updatedProposal = {
-      ...selectedProposal,
-      title: editedTitle,
-      content: editedContent,
-      lastModified: new Date(),
-    };
+      const res = await response.json();
 
-    const updatedProposals = proposals.map((p) =>
-      p.id === selectedProposal.id ? updatedProposal : p
-    );
+      if (!res.success) {
+        console.log("failed to update proposal");
+        toast.error(res.message);
+        return;
+      }
 
-    setProposals(updatedProposals);
-    localStorage.setItem("saved-proposals", JSON.stringify(updatedProposals));
-    setSelectedProposal(updatedProposal);
-    setIsEditing(false);
+      const updatedProposals = proposals.map((p) =>
+        p.id === selectedProposal.id ? res.data : p
+      );
+      setProposals(updatedProposals);
+      setSelectedProposal(res.data);
+      toast.success("successfully updated");
+    } catch (error) {
+      console.log("failed to update proposal");
+    } finally {
+      setIsEditing(false);
+    }
   };
 
   const handleDelete = (proposalId: string) => {
@@ -739,31 +772,31 @@ const AllProposals: React.FC = () => {
 
   return (
     <div className="w-full bg-secondary/50 p-6">
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col">
         {/* Header */}
-        <div className="flex-shrink-0 border-gray-200">
+        <div className="flex-shrink-0 border-border">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-foreground mb-2">
                 Proposals
               </h1>
-              <p className="text-gray-600">Manage your generated proposals</p>
+              <p className="text-secondary-foreground">Manage your generated proposals</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
                 <div className="text-xl md:text-2xl font-bold text-blue-600">
-                  {proposals.length}
+                  {proposals &&proposals.length}
                 </div>
-                <div className="text-xs text-gray-500">Total</div>
+                <div className="text-xs text-secondary-foreground">Total</div>
               </div>
             </div>
           </div>
         </div>
 
-        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm my-10">
+        <Card className="bg-background rounded-xl border border-border shadow-sm my-10">
           <CardContent>
             {/* Filters */}
-            <div className="flex-shrink-0 border-gray-200 ">
+            <div className="flex-shrink-0 border-border ">
               <div className="flex flex-col lg:flex-row gap-4">
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -771,7 +804,7 @@ const AllProposals: React.FC = () => {
                     placeholder="Search proposals..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                    className="pl-10 h-10 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
 
@@ -815,30 +848,30 @@ const AllProposals: React.FC = () => {
         </Card>
 
         {/* Main Content */}
-        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+        <Card className="bg-background rounded-xl border border-border shadow-sm">
           <CardContent>
             <div className="flex-1 flex min-h-0">
               {/* Proposals List */}
               <div className="w-full">
-                <div className="h-full flex flex-col bg-white">
+                <div className="h-full flex flex-col bg-background">
                   {/* Proposals Content */}
-                  <ScrollArea className="size-full mt-5 bg-white">
+                  <div className="size-full overflow-x-scroll mt-5 bg-background">
                     <div className="h-max">
                       {isFetching ? (
-                        <div className="border border-gray-200 rounded-xl overflow-hidden">
+                        <div className="border border-border rounded-xl overflow-hidden">
                           <Table>
                             <TableHeader>
-                              <TableRow className="bg-gray-50">
-                                <TableHead className="font-semibold text-gray-900">
+                              <TableRow className="bg-secondary">
+                                <TableHead className="font-semibold text-secondary-foreground">
                                   Title
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900">
+                                <TableHead className="font-semibold text-secondary-foreground">
                                   Type
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900 hidden md:table-cell">
+                                <TableHead className="font-semibold text-secondary-foreground hidden md:table-cell">
                                   Success Rate
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900 w-16">
+                                <TableHead className="font-semibold text-secondary-foreground w-16">
                                   Actions
                                 </TableHead>
                               </TableRow>
@@ -861,10 +894,10 @@ const AllProposals: React.FC = () => {
                             </TableBody>
                           </Table>
                         </div>
-                      ) : filteredAndSortedProposals.length === 0 ? (
+                      ) : filteredAndSortedProposals?.length === 0 ? (
                         <div className="text-center py-12">
-                          <FileTextIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                          <h3 className="text-lg font-medium text-gray-900 mb-2">
+                          <FileTextIcon className="w-12 h-12 mx-auto mb-4 text-secondary-foreground" />
+                          <h3 className="text-lg font-medium text-secondary-foreground mb-2">
                             No proposals found
                           </h3>
                           <p className="text-gray-500">
@@ -876,35 +909,35 @@ const AllProposals: React.FC = () => {
                           </p>
                         </div>
                       ) : (
-                        <div className="border border-gray-200 rounded-xl overflow-hidden">
+                        <div className="border border-border rounded-xl overflow-hidden">
                           <Table>
                             <TableHeader>
-                              <TableRow className="bg-gray-50">
-                                <TableHead className="font-semibold text-gray-900">
+                              <TableRow className="">
+                                <TableHead className="font-semibold text-secondary-foreground">
                                   Title
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900">
+                                <TableHead className="font-semibold text-secondary-foreground">
                                   Type
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900 hidden md:table-cell">
+                                <TableHead className="font-semibold text-secondary-foreground hidden md:table-cell">
                                   Success Rate
                                 </TableHead>
-                                <TableHead className="font-semibold text-gray-900 w-16">
+                                <TableHead className="font-semibold text-secondary-foreground w-16">
                                   Actions
                                 </TableHead>
                               </TableRow>
                             </TableHeader>
                             <TableBody>
-                              {filteredAndSortedProposals.map((proposal) => {
+                              {filteredAndSortedProposals?.map((proposal) => {
                                 const TypeIcon = getTypeIcon(proposal.type);
 
                                 return (
                                   <TableRow
                                     key={proposal.id}
                                     className={cn(
-                                      "h-12 cursor-pointer hover:bg-gray-50 transition-colors",
+                                      "h-12 cursor-pointer hover:bg-secondary transition-colors",
                                       selectedProposal?.id === proposal.id
-                                        ? "bg-blue-50"
+                                        ? "bg-secondary"
                                         : ""
                                     )}
                                     onClick={() =>
@@ -913,7 +946,7 @@ const AllProposals: React.FC = () => {
                                   >
                                     <TableCell>
                                       <div className="space-y-1">
-                                        <div className="font-medium text-gray-900 line-clamp-1">
+                                        <div className="font-medium text-secondary-foreground line-clamp-1">
                                           {proposal.title}
                                         </div>
                                       </div>
@@ -931,20 +964,18 @@ const AllProposals: React.FC = () => {
                                         </span>
                                       </Badge>
                                     </TableCell>
-                                    <TableCell className="text-gray-600 hidden md:table-cell">
+                                    <TableCell className="text-secondary-foreground hidden md:table-cell">
                                       {proposal.successRate}
                                     </TableCell>
 
                                     <TableCell>
-                                      <button
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          handleDelete(proposal.id);
-                                        }}
-                                        className="text-gray-400 hover:text-red-500 transition-colors p-1 rounded hover:bg-red-50"
+                                      <Button
+                                        size={"icon"}
+                                        variant={"ghost"}
+                                        className=" transition-colors p-1 rounded0"
                                       >
-                                        <Trash2 className="w-4 h-4" />
-                                      </button>
+                                        <EditIcon className="w-4 h-4" />
+                                      </Button>
                                     </TableCell>
                                   </TableRow>
                                 );
@@ -954,7 +985,7 @@ const AllProposals: React.FC = () => {
                         </div>
                       )}
                     </div>
-                  </ScrollArea>
+                  </div>
                 </div>
               </div>
             </div>
@@ -970,7 +1001,7 @@ const AllProposals: React.FC = () => {
               showCloseButton={false}
               aria-describedby={undefined}
             >
-              <DialogHeader className="px-4 py-3 border-b border-gray-200">
+              <DialogHeader className="px-4 py-3 border-b border-border">
                 <div className="flex items-center justify-between">
                   <DialogTitle className="text-lg font-semibold">
                     {isEditing ? "Edit Proposal" : "View Proposal"}
@@ -1033,7 +1064,7 @@ const AllProposals: React.FC = () => {
                 {selectedProposal && (
                   <div className="space-y-4">
                     {/* Meta Information */}
-                    <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                    <div className="flex flex-wrap items-center gap-2 p-3 bg-background rounded-lg">
                       <Badge
                         className={`${getTypeColor(
                           selectedProposal.type
@@ -1080,7 +1111,7 @@ const AllProposals: React.FC = () => {
                           placeholder="Enter proposal title"
                         />
                       ) : (
-                        <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                        <div className="text-base font-semibold text-secondary-foreground p-3 border border-border rounded-lg bg-gray-50">
                           {selectedProposal.title}
                         </div>
                       )}
@@ -1099,8 +1130,8 @@ const AllProposals: React.FC = () => {
                           placeholder="Enter proposal content"
                         />
                       ) : (
-                        <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
-                          <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
+                        <div className="border border-border rounded-lg bg-gray-50 p-4 min-h-[300px]">
+                          <pre className="whitespace-pre-wrap text-sm text-secondary-foreground font-sans leading-relaxed">
                             {selectedProposal.proposal}
                           </pre>
                         </div>
@@ -1117,16 +1148,19 @@ const AllProposals: React.FC = () => {
             open={showDetailPanel && !isMobile}
             onOpenChange={setShowDetailPanel}
           >
-            <SheetContent className="min-w-[50vw]">
+            <SheetContent
+              className="min-w-[50vw] border-none border-l-0 ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 active:ring-0 border-border focus:outline-0"
+              onOpenAutoFocus={(e) => e.preventDefault()}
+            >
               <VisuallyHidden>
                 <SheetHeader>
                   <SheetTitle></SheetTitle>
                   <SheetDescription></SheetDescription>
                 </SheetHeader>
               </VisuallyHidden>
-              <div className=" w-full h-screen bg-white shadow-xl z-50 flex flex-col">
+              <div className=" w-full h-screen bg-background shadow-xl z-50 flex flex-col">
                 {/* Detail Header */}
-                <div className="flex-shrink-0 px-6 py-4 border-b border-gray-200">
+                <div className="flex-shrink-0 px-6 py-4 border-b border-border">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       {selectedProposal ? (
@@ -1134,16 +1168,16 @@ const AllProposals: React.FC = () => {
                           {isEditing ? (
                             <Edit className="w-5 h-5 text-blue-600" />
                           ) : (
-                            <FileTextIcon className="w-5 h-5 text-gray-600" />
+                            <FileTextIcon className="w-5 h-5 text-secondary-foreground" />
                           )}
-                          <h2 className="text-lg font-semibold text-gray-900">
+                          <h2 className="text-lg font-semibold text-secondary-foreground">
                             {isEditing ? "Edit Proposal" : "View Proposal"}
                           </h2>
                         </>
                       ) : (
                         <>
-                          <FileTextIcon className="w-5 h-5 text-gray-400" />
-                          <h2 className="text-lg font-semibold text-gray-500">
+                          <FileTextIcon className="w-5 h-5 text-secondary-foreground" />
+                          <h2 className="text-lg font-semibold text-secondary-foreground">
                             Select a proposal
                           </h2>
                         </>
@@ -1180,16 +1214,20 @@ const AllProposals: React.FC = () => {
                                 <Edit className="w-4 h-4 mr-2" />
                                 Edit
                               </Button>
-                              <Button
+                              {/* <Button
                                 onClick={() =>
-                                  copyToClipboard(selectedProposal.proposal)
+                                  handleDelete(selectedProposal.id)
                                 }
                                 variant="outline"
                                 size="sm"
                               >
-                                <Copy className="w-4 h-4 mr-2" />
-                                Copy
-                              </Button>
+                                <Trash2 className="w-4 h-4 mr-2" />
+                                Delete
+                              </Button> */}
+                              <DeleteDialog
+                                proposalId={selectedProposal.id}
+                                handleDelete={handleDelete}
+                              />
                             </>
                           )}
                         </>
@@ -1207,7 +1245,8 @@ const AllProposals: React.FC = () => {
                     {selectedProposal ? (
                       <div className="space-y-6">
                         {/* Meta Information */}
-                        <div className="flex flex-wrap items-center gap-2 p-3 bg-gray-50 rounded-lg">
+
+                        <div className="flex flex-wrap items-center gap-2 p-3 bg-secondary rounded-lg">
                           <Badge
                             className={`${getTypeColor(
                               selectedProposal.type
@@ -1226,14 +1265,16 @@ const AllProposals: React.FC = () => {
                           >
                             {selectedProposal.priority.toUpperCase()}
                           </Badge> */}
-                          <div className="ml-auto text-xs text-gray-500">
-                            {new Date(selectedProposal.updatedAt).toISOString()}
+                          <div className="ml-auto text-xs text-secondary-foreground">
+                            {new Date(
+                              selectedProposal.updatedAt
+                            ).toDateString()}
                           </div>
                         </div>
 
                         {/* Client Info */}
                         <div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
+                          <div className="flex items-center gap-2 text-sm text-secondary-foreground mb-2">
                             <User className="w-4 h-4" />
                             <span className="font-medium">
                               {selectedProposal.successRate}
@@ -1243,7 +1284,7 @@ const AllProposals: React.FC = () => {
 
                         {/* Title */}
                         <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                          <Label className="text-sm font-medium mb-2 block">
                             Title
                           </Label>
                           {isEditing ? (
@@ -1254,7 +1295,7 @@ const AllProposals: React.FC = () => {
                               placeholder="Enter proposal title"
                             />
                           ) : (
-                            <div className="text-base font-semibold text-gray-900 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                            <div className="text-base font-semibold text-secondary-foreground p-3 border border-border rounded-lg bg-secondary">
                               {selectedProposal.title}
                             </div>
                           )}
@@ -1262,30 +1303,51 @@ const AllProposals: React.FC = () => {
 
                         {/* Content */}
                         <div className="flex-1 flex flex-col">
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                          <Label className="text-sm font-medium  mb-2 block">
                             Content
                           </Label>
                           {isEditing ? (
                             <Textarea
                               value={editedContent}
                               onChange={(e) => setEditedContent(e.target.value)}
-                              className="min-h-[300px] text-sm font-mono resize-none"
+                              className="min-h-[300px] text-sm font-mono resize-none bg-secondary"
                               placeholder="Enter proposal content"
                             />
                           ) : (
-                            <div className="border border-gray-200 rounded-lg bg-gray-50 p-4 min-h-[300px]">
-                              <pre className="whitespace-pre-wrap text-sm text-gray-900 font-sans leading-relaxed">
+                            <div className="border border-border rounded-lg bg-secondary p-4 min-h-[300px]">
+                              <pre className="whitespace-pre-wrap text-sm  text-secondary-foreground font-sans leading-relaxed">
                                 {selectedProposal.proposal}
                               </pre>
                             </div>
                           )}
                         </div>
+
+                        {/* USER INPUT */}
+                        <div className="flex-1 flex flex-col">
+                          <Accordion type="single" collapsible>
+                            <AccordionItem value="item-1">
+                              <AccordionTrigger className="pt-0 mt-0">
+                                {" "}
+                                <Label className="text-sm font-medium  mb-2 block">
+                                  Input
+                                </Label>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="border border-border rounded-lg  p-4 max-h-[300px] overflow-y-scroll bg-secondary">
+                                  <pre className="whitespace-pre-wrap text-sm text-secondary-foreground font-sans leading-relaxed">
+                                    {selectedProposal.userInput}
+                                  </pre>
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
+                        </div>
                       </div>
                     ) : (
                       <div className="h-full flex items-center justify-center">
                         <div className="text-center">
-                          <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                          <FileTextIcon className="w-16 h-16 mx-auto mb-4 text-foreground" />
+                          <h3 className="text-lg font-semibold text-secondary-foreground mb-2">
                             Select a proposal
                           </h3>
                           <p className="text-gray-500">
@@ -1306,3 +1368,53 @@ const AllProposals: React.FC = () => {
 };
 
 export default AllProposals;
+
+// components/DeleteDialog.tsx
+
+import { AlertTriangle } from "lucide-react";
+
+export function DeleteDialog({
+  proposalId,
+  handleDelete,
+}: {
+  proposalId: string;
+  handleDelete: (value: string) => void;
+}) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="destructive"  size="sm">
+          <Trash2 className="w-4 h-4 mr-2" />
+          Delete
+        </Button>
+      </DialogTrigger>
+
+      <DialogContent className="max-w-md rounded-xl border border-border bg-secondary shadow-sm">
+        <DialogHeader className="border-b border-border pb-4">
+          <div className="flex items-center">
+            <AlertTriangle className="w-5 h-5 text-red-500 mr-2" />
+            <DialogTitle className="text-xl text-secondary-foreground font-semibold">
+              Confirm Deletion
+            </DialogTitle>
+          </div>
+        </DialogHeader>
+
+        <div className="py-4 text-secondary-foreground">
+          Are you sure you want to delete this? This action cannot be undone.
+        </div>
+
+        <DialogFooter className="flex justify-end gap-2 pt-4 border-t border-border">
+          <DialogClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
+          <Button
+            variant="destructive"
+            onClick={() => handleDelete(proposalId)}
+          >
+            Delete
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}

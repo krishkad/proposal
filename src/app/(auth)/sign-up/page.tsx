@@ -9,8 +9,13 @@ const SignUpPage = () => {
           href="/"
           className="flex items-center gap-2 self-center font-medium"
         >
-          <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <img src="/android-chrome.png" className="size-4" alt="logo" />
+          <div className="inline-flex items-center justify-center size-6 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full">
+            {/* <Sparkles className="w-8 h-8 text-white" /> */}
+            <img
+              src="/freeposal-logo-removebg-preview.png"
+              className="size-6 shrink-0"
+              alt="Freeposal Logo"
+            />
           </div>
           Freeposal
         </Link>

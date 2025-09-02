@@ -1,10 +1,28 @@
 "use client";
 
 export const dynamic = "force-dynamic";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Clock, Edit, Eye, FileText, Plus, Target, Trash2 } from "lucide-react";
+import {
+  ArrowRightIcon,
+  Clock,
+  Edit,
+  Eye,
+  FileText,
+  Plus,
+  Target,
+  Trash2,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface Proposal {
   id: string;
@@ -45,43 +63,14 @@ const Dashboard = () => {
     },
   ];
 
-  // const recentProposals = [
-  //   {
-  //     id: 1,
-  //     title: "SaaS Marketing Strategy for TechCorp",
-  //     date: "2024-05-27",
-  //     length: "2,400 words",
-  //     status: "Completed",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "E-commerce Platform Proposal",
-  //     date: "2024-05-26",
-  //     length: "1,850 words",
-  //     status: "Completed",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Mobile App Development Brief",
-  //     date: "2024-05-25",
-  //     length: "3,200 words",
-  //     status: "Completed",
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Digital Transformation Consulting",
-  //     date: "2024-05-24",
-  //     length: "2,800 words",
-  //     status: "Draft",
-  //   },
-  // ];
 
   useEffect(() => {
     const fetchRecentProposals = async () => {
       setIsLoading(true);
+      const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
       try {
         const response = await fetch(
-          "/api/proposal/all-proposals?userId=c1f442f5-24a3-441a-ba17-50bebefb4542",
+          `/api/proposal/all-proposals?userId=${user.id}`,
           {
             credentials: "include",
           }
@@ -94,7 +83,7 @@ const Dashboard = () => {
           return;
         }
 
-        setRecentProposals(res.proposals);
+        setRecentProposals(res.proposals ?? []);
         localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
       } catch (error) {
         console.log("failed to fetch recent proposal", error);
@@ -102,19 +91,18 @@ const Dashboard = () => {
         setIsLoading(false);
       }
     };
-
     fetchRecentProposals();
   }, []);
 
   return (
-    <div className="w-full bg-secondary/50">
+    <div className="overflow-hidden w-full bg-secondary/50">
       <div className="p-6 max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Welcome back!
           </h1>
-          <p className="text-gray-600 mb-6">
+          <p className="text-secondary-foreground mb-6">
             Ready to create your next winning proposal?
           </p>
 
@@ -128,23 +116,23 @@ const Dashboard = () => {
         </div>
 
         {/* Metrics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-background rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">{metric.title}</p>
-                    <p className="text-2xl font-bold text-gray-900">
+                    <p className="text-sm text-foreground mb-1">{metric.title}</p>
+                    <p className="text-2xl font-bold text-foreground">
                       {metric.title === "Proposals Generated"
                         ? recentProposals.length
                         : metric.value}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-foreground mt-1">
                       {metric.subtitle}
                     </p>
                   </div>
@@ -152,7 +140,7 @@ const Dashboard = () => {
                     className={cn(
                       `w-12 h-12  rounded-lg flex items-center justify-center`,
                       metric.color === "purple"
-                        ? "bg-purple-100"
+                        ? "bg-purple-100": metric.color === "green" ? "bg-green-100"
                         : `bg-${metric.color}-100`
                     )}
                   >
@@ -197,85 +185,98 @@ const Dashboard = () => {
         </div> */}
 
         {/* Recent Proposals */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">
+        <div className="bg-background rounded-xl border border-border shadow-sm">
+          <div
+            className="p-6 border-b border-border w-full flex items-center justify-between"
+            onClick={() => router.push("/dashboard/all-proposals")}
+          >
+            <h2 className="text-xl font-semibold text-foreground">
               Recent Proposals
             </h2>
+            <Button variant={"ghost"}>
+              View More <ArrowRightIcon />
+            </Button>
           </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+          <div className="w-full overflow-x-scroll">
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-secondary border-b border-border hover:bg-transparent">
+                  <TableHead className="text-left py-3 px-6 font-medium text-foreground">
                     Proposal Title
-                  </th>
-                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                  </TableHead>
+                  <TableHead className="text-left py-3 px-6 font-medium text-foreground">
                     Date Created
-                  </th>
-                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                  </TableHead>
+                  <TableHead className="text-left py-3 px-6 font-medium text-foreground">
                     Length
-                  </th>
-                  {/* <th className="text-left py-3 px-6 font-medium text-gray-700">
-                    Status
-                  </th> */}
-                  <th className="text-left py-3 px-6 font-medium text-gray-700">
+                  </TableHead>
+                  <TableHead className="text-left py-3 px-6 font-medium text-foreground">
                     Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentProposals !== undefined &&
-                  !isLoading &&
-                  recentProposals.map((proposal) => (
-                    <tr
-                      key={proposal.id}
-                      className="border-b border-gray-100 hover:bg-gray-50"
-                    >
-                      <td className="py-4 px-6">
-                        <p className="w-max font-medium text-gray-900">
-                          {proposal.title}
-                        </p>
-                      </td>
-                      <td className="py-4 px-6 text-gray-600">
-                        <p className="w-max">
-                          {new Date(proposal.createdAt).toDateString()}
-                        </p>
-                      </td>
-                      <td className="py-4 px-6 text-gray-600">
-                        <p className="w-max">
-                          {proposal.proposal.length} Words
-                        </p>
-                      </td>
-                      {/* <td className="py-4 px-6">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          proposal.status === "Completed"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-yellow-100 text-yellow-700"
-                        }`}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {!isLoading
+                  ? recentProposals?.map((proposal) => (
+                      <TableRow
+                        key={proposal.id}
+                        className="border-b  hover:bg-secondary/50"
                       >
-                        {proposal.status}
-                      </span>
-                    </td> */}
-                      <td className="py-4 px-6">
-                        <div className="flex space-x-2">
-                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                            <Eye className="w-4 h-4 text-gray-600" />
-                          </button>
-                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                            <Edit className="w-4 h-4 text-gray-600" />
-                          </button>
-                          <button className="p-1 hover:bg-gray-200 rounded transition-colors">
-                            <Trash2 className="w-4 h-4 text-gray-600" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+                        <TableCell className="py-4 px-6">
+                          <p className="w-max font-medium ">
+                            {proposal.title}
+                          </p>
+                        </TableCell>
+                        <TableCell className="py-4 px-6 ">
+                          <p className="w-max">
+                            {new Date(proposal.createdAt).toDateString()}
+                          </p>
+                        </TableCell>
+                        <TableCell className="py-4 px-6 ">
+                          <p className="w-max">
+                            {proposal.proposal.length} Words
+                          </p>
+                        </TableCell>
+                        <TableCell className="py-4 px-6">
+                          <div className="flex space-x-2">
+                            <button className="p-1 hover:bg-secondary rounded transition-colors">
+                              <Eye className="w-4 h-4 text-gray-600" />
+                            </button>
+                            <button className="p-1 hover:bg-secondary rounded transition-colors">
+                              <Edit className="w-4 h-4 text-gray-600" />
+                            </button>
+                            <button className="p-1 hover:bg-secondary rounded transition-colors">
+                              <Trash2 className="w-4 h-4 text-gray-600" />
+                            </button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  : Array.from({ length: 5 }).map((_, index) => (
+                      <TableRow
+                        key={index}
+                        className="border-b  animate-pulse"
+                      >
+                        <TableCell className="py-4 px-6">
+                          <div className="h-4 bg-secondary rounded w-40"></div>
+                        </TableCell>
+                        <TableCell className="py-4 px-6">
+                          <div className="h-4 bg-secondary rounded w-32"></div>
+                        </TableCell>
+                        <TableCell className="py-4 px-6">
+                          <div className="h-4 bg-secondary rounded w-24"></div>
+                        </TableCell>
+                        <TableCell className="py-4 px-6">
+                          <div className="flex space-x-2">
+                            <div className="w-6 h-6 bg-secondary rounded"></div>
+                            <div className="w-6 h-6 bg-secondary rounded"></div>
+                            <div className="w-6 h-6 bg-secondary rounded"></div>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>

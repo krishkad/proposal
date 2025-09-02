@@ -116,6 +116,9 @@
   * {
     @apply box-border outline-ring/50;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -128,8 +131,20 @@
     @apply bg-gradient-to-r from-primary to-purple-400;
   }
 
+  .bg-gradient-primary-2 {
+    @apply bg-gradient-to-r from-[#7F56D9] via-[#9F44FF] to-[#D53F8C];
+  }
+
+  .bg-gradient-primary-3 {
+    @apply bg-gradient-to-r from-[#4C1D95] via-[#6D28D9] via-[#8B5CF6] to-[#A78BFA];
+  }
+
   .text-gradient-primary {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400;
+  }
+
+  .text-gradient-primary-2 {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-[#4C1D95] via-[#6D28D9] via-[#8B5CF6] to-[#A78BFA];
   }
 }
 

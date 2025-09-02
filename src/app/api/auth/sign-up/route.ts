@@ -36,6 +36,28 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const freeTrial = 7;
+
+    const startDate = new Date();
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + freeTrial);
+
+    const sub = await prisma.subscription.create({
+      data: {
+        userId: user.id,
+        status: "active",
+        startDate,
+        endDate,
+      },
+    });
+
+    if (!sub) {
+      return NextResponse.json({
+        success: false,
+        message: "failed to create free subscription",
+      });
+    }
+
     const safeUser = excludePassword(user);
 
     const token = await generateAccessToken(

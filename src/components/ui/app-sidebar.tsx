@@ -18,137 +18,6 @@ import { Separator } from "./separator";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SheetClose } from "./sheet";
 
-// This is sample data.
-// const data = {
-//   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
-//   navMain: [
-//     {
-//       title: "Getting Started",
-//       url: "#",
-//       items: [
-//         {
-//           title: "Installation",
-//           url: "#",
-//         },
-//         {
-//           title: "Project Structure",
-//           url: "#",
-//         },
-//       ],
-//     },
-//     {
-//       title: "Building Your Application",
-//       url: "#",
-//       items: [
-//         {
-//           title: "Routing",
-//           url: "#",
-//         },
-//         {
-//           title: "Data Fetching",
-//           url: "#",
-//           isActive: true,
-//         },
-//         {
-//           title: "Rendering",
-//           url: "#",
-//         },
-//         {
-//           title: "Caching",
-//           url: "#",
-//         },
-//         {
-//           title: "Styling",
-//           url: "#",
-//         },
-//         {
-//           title: "Optimizing",
-//           url: "#",
-//         },
-//         {
-//           title: "Configuring",
-//           url: "#",
-//         },
-//         {
-//           title: "Testing",
-//           url: "#",
-//         },
-//         {
-//           title: "Authentication",
-//           url: "#",
-//         },
-//         {
-//           title: "Deploying",
-//           url: "#",
-//         },
-//         {
-//           title: "Upgrading",
-//           url: "#",
-//         },
-//         {
-//           title: "Examples",
-//           url: "#",
-//         },
-//       ],
-//     },
-//     {
-//       title: "API Reference",
-//       url: "#",
-//       items: [
-//         {
-//           title: "Components",
-//           url: "#",
-//         },
-//         {
-//           title: "File Conventions",
-//           url: "#",
-//         },
-//         {
-//           title: "Functions",
-//           url: "#",
-//         },
-//         {
-//           title: "next.config.js Options",
-//           url: "#",
-//         },
-//         {
-//           title: "CLI",
-//           url: "#",
-//         },
-//         {
-//           title: "Edge Runtime",
-//           url: "#",
-//         },
-//       ],
-//     },
-//     {
-//       title: "Architecture",
-//       url: "#",
-//       items: [
-//         {
-//           title: "Accessibility",
-//           url: "#",
-//         },
-//         {
-//           title: "Fast Refresh",
-//           url: "#",
-//         },
-//         {
-//           title: "Next.js Compiler",
-//           url: "#",
-//         },
-//         {
-//           title: "Supported Browsers",
-//           url: "#",
-//         },
-//         {
-//           title: "Turbopack",
-//           url: "#",
-//         },
-//       ],
-//     },
-//   ],
-// };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
@@ -156,12 +25,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isMobile = useIsMobile();
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="bg-white">
+      <SidebarHeader className="bg-background">
         <h1 className="px-3 mt-2 text-2xl font-bold text-gradient-primary">
           <Link href={"/"}>Freeposal</Link>
         </h1>
       </SidebarHeader>
-      <SidebarContent className="bg-white px-5">
+      <SidebarContent className="bg-background px-5">
         {/* We create a SidebarGroup for each parent. */}
         <div className="w-full mt-6 space-y-3">
           {sidebarLinks.map((links, i) => {
@@ -193,7 +62,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       "w-full !h-11 !px-5 shadow-none flex items-center justify-start gap-3 text-base rounded-xl hover:bg-gray-100 transition-all duration-150",
                       links.path === pathname
                         ? "border-[0.2px] border-primary text-primary bg-primary/5 hover:bg-primary/5 hover:text-primary "
-                        : "bg-white border-white text-gray-700"
+                        : "bg-white text-secondary-foreground"
                     )}
                   >
                     <links.icon />
@@ -207,7 +76,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
       <Separator />
-      <SidebarFooter className="h-16 px-5 bg-white">
+      <SidebarFooter className="h-16 px-5 bg-background">
         <div className="w-full h-full flex items-center justify-center gap-3">
           <Avatar className="w-[38px] h-[38px]">
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
