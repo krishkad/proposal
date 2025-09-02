@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
       data: subscriptions,
     });
   } catch (error) {
-    console.log("error while getting subscription");
+    console.log("error while getting subscription", error);
     return NextResponse.json({
       success: false,
       message: "Internal server error",

@@ -721,7 +721,7 @@ const AllProposals: React.FC = () => {
       setSelectedProposal(res.data);
       toast.success("successfully updated");
     } catch (error) {
-      console.log("failed to update proposal");
+      console.log("failed to update proposal", error);
     } finally {
       setIsEditing(false);
     }
