@@ -334,7 +334,7 @@ function ResumeSection() {
 
 import { AlertTriangle } from "lucide-react";
 
-export function DeleteDialog({ handleLogOut }: { handleLogOut: () => void }) {
+function DeleteDialog({ handleLogOut }: { handleLogOut: () => void }) {
   return (
     <Dialog>
       <DialogTrigger asChild>

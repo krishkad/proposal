@@ -1373,7 +1373,7 @@ export default AllProposals;
 
 import { AlertTriangle } from "lucide-react";
 
-export function DeleteDialog({
+function DeleteDialog({
   proposalId,
   handleDelete,
 }: {
