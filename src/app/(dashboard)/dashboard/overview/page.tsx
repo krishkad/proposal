@@ -217,7 +217,7 @@ const Dashboard = () => {
               </TableHeader>
               <TableBody>
                 {!isLoading
-                  ? recentProposals?.map((proposal) => (
+                  ? recentProposals?.slice().reverse().map((proposal) => (
                       <TableRow
                         key={proposal.id}
                         className="border-b  hover:bg-secondary/50"

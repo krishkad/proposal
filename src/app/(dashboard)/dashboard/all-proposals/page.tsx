@@ -780,12 +780,14 @@ const AllProposals: React.FC = () => {
               <h1 className="text-3xl font-bold text-foreground mb-2">
                 Proposals
               </h1>
-              <p className="text-secondary-foreground">Manage your generated proposals</p>
+              <p className="text-secondary-foreground">
+                Manage your generated proposals
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
                 <div className="text-xl md:text-2xl font-bold text-blue-600">
-                  {proposals &&proposals.length}
+                  {proposals && proposals.length}
                 </div>
                 <div className="text-xs text-secondary-foreground">Total</div>
               </div>
@@ -928,58 +930,61 @@ const AllProposals: React.FC = () => {
                               </TableRow>
                             </TableHeader>
                             <TableBody>
-                              {filteredAndSortedProposals?.map((proposal) => {
-                                const TypeIcon = getTypeIcon(proposal.type);
+                              {filteredAndSortedProposals
+                                ?.slice()
+                                .reverse()
+                                ?.map((proposal) => {
+                                  const TypeIcon = getTypeIcon(proposal.type);
 
-                                return (
-                                  <TableRow
-                                    key={proposal.id}
-                                    className={cn(
-                                      "h-12 cursor-pointer hover:bg-secondary transition-colors",
-                                      selectedProposal?.id === proposal.id
-                                        ? "bg-secondary"
-                                        : ""
-                                    )}
-                                    onClick={() =>
-                                      handleProposalSelect(proposal)
-                                    }
-                                  >
-                                    <TableCell>
-                                      <div className="space-y-1">
-                                        <div className="font-medium text-secondary-foreground line-clamp-1">
-                                          {proposal.title}
+                                  return (
+                                    <TableRow
+                                      key={proposal.id}
+                                      className={cn(
+                                        "h-12 cursor-pointer hover:bg-secondary transition-colors",
+                                        selectedProposal?.id === proposal.id
+                                          ? "bg-secondary"
+                                          : ""
+                                      )}
+                                      onClick={() =>
+                                        handleProposalSelect(proposal)
+                                      }
+                                    >
+                                      <TableCell>
+                                        <div className="space-y-1">
+                                          <div className="font-medium text-secondary-foreground line-clamp-1">
+                                            {proposal.title}
+                                          </div>
                                         </div>
-                                      </div>
-                                    </TableCell>
-                                    <TableCell>
-                                      <Badge
-                                        variant="outline"
-                                        className={`${getTypeColor(
-                                          proposal.type
-                                        )} text-xs`}
-                                      >
-                                        <TypeIcon className="w-3 h-3 mr-1" />
-                                        <span className="hidden sm:inline">
-                                          {proposal.type}
-                                        </span>
-                                      </Badge>
-                                    </TableCell>
-                                    <TableCell className="text-secondary-foreground hidden md:table-cell">
-                                      {proposal.successRate}
-                                    </TableCell>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Badge
+                                          variant="outline"
+                                          className={`${getTypeColor(
+                                            proposal.type
+                                          )} text-xs`}
+                                        >
+                                          <TypeIcon className="w-3 h-3 mr-1" />
+                                          <span className="hidden sm:inline">
+                                            {proposal.type}
+                                          </span>
+                                        </Badge>
+                                      </TableCell>
+                                      <TableCell className="text-secondary-foreground hidden md:table-cell">
+                                        {proposal.successRate}
+                                      </TableCell>
 
-                                    <TableCell>
-                                      <Button
-                                        size={"icon"}
-                                        variant={"ghost"}
-                                        className=" transition-colors p-1 rounded0"
-                                      >
-                                        <EditIcon className="w-4 h-4" />
-                                      </Button>
-                                    </TableCell>
-                                  </TableRow>
-                                );
-                              })}
+                                      <TableCell>
+                                        <Button
+                                          size={"icon"}
+                                          variant={"ghost"}
+                                          className=" transition-colors p-1 rounded0"
+                                        >
+                                          <EditIcon className="w-4 h-4" />
+                                        </Button>
+                                      </TableCell>
+                                    </TableRow>
+                                  );
+                                })}
                             </TableBody>
                           </Table>
                         </div>
@@ -1383,7 +1388,7 @@ function DeleteDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="destructive"  size="sm">
+        <Button variant="destructive" size="sm">
           <Trash2 className="w-4 h-4 mr-2" />
           Delete
         </Button>

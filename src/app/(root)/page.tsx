@@ -16,6 +16,7 @@ import {
 import { BsTwitterX } from "react-icons/bs";
 import { CiLinkedin } from "react-icons/ci";
 import CreativeHero from "@/components/shared/CreativeHero";
+import CreativeFeatures from "@/components/shared/CreativeFeatures";
 
 export default function Home() {
   const legalLinks = [
@@ -36,7 +37,7 @@ export default function Home() {
 
       {/* <HeroSection /> */}
       <CreativeHero />
-
+      <CreativeFeatures />
       {/* FEATURES  */}
       <div className="max-w-wrapper bg-secondary/50 mt-0">
         <div className="w-full py-24">
@@ -430,9 +431,8 @@ export default function Home() {
               <div className="w-[320px] h-[500px] p-5 border border-border rounded-xl bg-background hover:shadow-md">
                 <h3 className="text-xl font-bold mt-3">Basic</h3>
                 <h2 className="text-3xl font-bold mt-3">
-                    $4.99{" "}
-                    <span className="text-base text-gray-400">/month</span>
-                  </h2>
+                  $4.99 <span className="text-base text-gray-400">/month</span>
+                </h2>
                 <p className="mt-3">Perfect for trying out the platform</p>
                 <Button
                   className="mt-3 text-primary w-full hover:border-primary hover:text-primary"
@@ -761,7 +761,7 @@ export default function Home() {
             {/* Legal */}
             <div className="w-full max-md:mt-10 space-y-4">
               <h3 className="font-semibold text-xl text-white">Legal</h3>
-              <ul className="space-y-2"> 
+              <ul className="space-y-2">
                 {legalLinks.map((link, index) => (
                   <li key={index}>
                     <a
