@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,8 +18,11 @@ import { BsTwitterX } from "react-icons/bs";
 import { CiLinkedin } from "react-icons/ci";
 import CreativeHero from "@/components/shared/CreativeHero";
 import CreativeFeatures from "@/components/shared/CreativeFeatures";
+import { useState } from "react";
 
 export default function Home() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms & Conditions", href: "/terms" },
@@ -39,16 +43,9 @@ export default function Home() {
       <CreativeHero />
       <CreativeFeatures />
       {/* FEATURES  */}
-      <div className="max-w-wrapper bg-secondary/50 mt-0">
+      {/* <div className="max-w-wrapper bg-secondary/50 mt-0">
         <div className="w-full py-24">
-          {/* <h2 className="w-full md:max-w-[700px] mx-auto text-4xl font-bold text-center">
-            Powerful Features to{" "}
-            <span className="text-gradient-primary">Win More Clients</span>
-          </h2>
-          <p className="w-full md:max-w-[700px] mx-auto text-center text-xl mt-5">
-            Our AI-powered platform helps you create professional proposals and
-            emails that convert prospects into clients.
-          </p> */}
+        
           <h2 className="w-full md:max-w-[700px] mx-auto text-4xl font-bold text-center">
             Unlock the Power of AI to{" "}
             <span className="text-gradient-primary">Win More Clients</span>
@@ -77,115 +74,175 @@ export default function Home() {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* MADE FOR  */}
-      <div className="w-full bg-background">
-        <div className="max-w-wrapper py-24">
-          <h1 className="font-bold text-4xl text-center">
-            Made for Freelancers
-          </h1>
-          <p className="text-center text-xl mt-5">Whether you&apos;re a...</p>
+      <section className="relative py-32 overflow-hidden bg-secondary/50">
+        {/* Animated Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-accent/10 to-background pointer-events-none z-0" />
 
-          <div className="max-w-5xl mx-auto">
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mt-16">
-              {madeFor.map((made, i) => {
-                return (
-                  <div
-                    className="w-full h-full flex items-start justify-center gap-4 p-4 rounded-md hover:bg-secondary/50 transition-all"
-                    key={i}
-                  >
-                    <div className="w-max-h-full">
-                      <div className="w-max h-max p-3 rounded-full bg-primary/10">
-                        <made.Icon className="w-6 h-6 text-primary" />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <h3 className="font-semibold text-lg">{made.title}</h3>
-                      <p className="mt-2">{made.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Floating Circles */}
+        <div className="absolute top-10 left-1/3 w-72 h-72 bg-primary/10 rounded-full animate-float opacity-10" />
+        <div
+          className="absolute bottom-10 right-1/4 w-56 h-56 bg-secondary/20 rounded-full animate-float opacity-10"
+          style={{ animationDelay: "3s" }}
+        />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-6">
+              🎯 Designed for You
             </div>
+            <h2 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-primary via-purple-600 to-pink-500 bg-clip-text text-transparent leading-tight">
+              Made for Freelancers
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-6">
+              Whether you&apos;re a designer, developer, writer or marketer—our
+              tools work for your flow.
+            </p>
           </div>
 
-          <p className="text-center text-xl font-semibold mt-16">
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {madeFor.map((item, index) => (
+              <div
+                key={index}
+                className="group relative transition-all duration-500 transform hover:scale-[1.03] hover:shadow-hero"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {/* Card */}
+                <div className="p-6 bg-card rounded-2xl shadow-lg transition-all duration-500 relative overflow-hidden">
+                  {/* Glow Background */}
+                  <div
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  />
+
+                  {/* Icon */}
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform">
+                      <item.Icon className="w-6 h-6 text-primary" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {item.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Closing CTA */}
+          <p className="text-center text-xl font-semibold mt-24 text-muted-foreground">
             ...our platform helps you close more deals, faster.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* TRY IT NOW  */}
-      <div className="w-full">
-        <div className="max-w-wrapper py-24">
-          <h1 className="text-center text-5xl font-bold text-primary">
-            Try It Now
-          </h1>
-          <p className="mt-5 text-xl text-center">
-            Enter your project details below and see our AI in action
-          </p>
+      <section className="relative py-32 bg-background overflow-hidden">
+        {/* Floating Blobs */}
+        <div className="absolute top-20 left-1/4 w-64 h-64 bg-primary/10 rounded-full animate-float opacity-10 z-0" />
+        <div className="absolute bottom-10 right-1/4 w-48 h-48 bg-secondary/10 rounded-full animate-float opacity-10 z-0" />
 
-          <div className="max-w-4xl mx-auto mt-16">
-            <div className="w-full rounded-xl shadow-xl overflow-hidden">
-              <div className="w-full bg-gradient-primary py-5 flex items-center justify-center gap-2">
-                <SiCodemagic className="w-4 h-4 text-white mt-0.5" />
-                <p className="text-lg md:text-xl font-bold text-white text-center">
-                  Generate Your Custom Proposal
-                </p>
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              Try It Now
+            </h2>
+            <p className="mt-4 text-xl text-muted-foreground">
+              Enter your project details below and see our AI in action
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <div className="max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-xl border border-border bg-card backdrop-blur-md">
+            {/* Header Strip */}
+            <div className="bg-gradient-to-r from-primary to-indigo-500 py-5 flex items-center justify-center gap-2">
+              <div className="p-2 bg-white/10 rounded-full">
+                <SiCodemagic className="w-5 h-5 text-white animate-pulse" />
               </div>
-              <div className="w-full px-4  mb-4">
-                <div className="w-full mt-8 mb-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="w-full space-y-1.5">
-                    <Label>Client Name</Label>
-                    <Input placeholder="eg. Acne Corporation" />
-                  </div>
-                  <div className="w-full space-y-1.5">
-                    <Label>Project Type</Label>
-                    <Input placeholder="eg. Website Design" />
-                  </div>
-                </div>
-
-                <div className="w-full space-y-1.5">
-                  <Label>Project Scope & requirements</Label>
-                  <Textarea placeholder="eg. Website Design" />
-                </div>
-
-                <div className="w-full mt-8 mb-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="w-full space-y-1.5">
-                    <Label>Budget Range (optional)</Label>
-                    <Input placeholder="eg. $5,000 - $10,000" />
-                  </div>
-                  <div className="w-full space-y-1.5">
-                    <Label>Project Timeline (optional)</Label>
-                    <Input placeholder="eg. 4 weeks" />
-                  </div>
-                </div>
-
-                <Button
-                  className="w-full bg-primary h-14 text-base"
-                  size={"lg"}
-                >
-                  Generate My Proposal
-                </Button>
-
-                <p className="text-center text-sm mt-4">
-                  Takes just 30 seconds to create a professional proposal
-                </p>
-              </div>
+              <p className="text-lg md:text-xl font-semibold text-white">
+                Generate Your Custom Proposal
+              </p>
             </div>
 
-            <div className="w-full rounded-md border border-gray-300 bg-secondary/50 p-4 mt-14">
-              <h3 className="font-semibold text-base">What happens next?</h3>
-              <p className="mt-2.5">
-                After submitting your details, our AI will generate a custom
-                proposal tailored to your client&apos;s needs. You&apos;ll be
-                able to review, edit, and send it directly to your client.
+            {/* Form Content */}
+            <div className="px-6 py-10 space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label>Client Name</Label>
+                  <Input placeholder="e.g. Acne Corporation" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Project Type</Label>
+                  <Input placeholder="e.g. Website Redesign" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Project Scope & Requirements</Label>
+                <Textarea placeholder="Describe the project, goals, and technical needs..." />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label>
+                    Budget Range{" "}
+                    <span className="text-muted-foreground">(optional)</span>
+                  </Label>
+                  <Input placeholder="e.g. $5,000 - $10,000" />
+                </div>
+                <div className="space-y-2">
+                  <Label>
+                    Project Timeline{" "}
+                    <span className="text-muted-foreground">(optional)</span>
+                  </Label>
+                  <Input placeholder="e.g. 4 weeks" />
+                </div>
+              </div>
+
+              <Button
+                size="lg"
+                className="w-full h-14 text-base font-semibold"
+                onClick={() => setLoading(true)}
+                disabled={loading}
+              >
+                {loading ? "Generating..." : "Generate My Proposal"}
+              </Button>
+
+              <p className="text-center text-sm text-muted-foreground mt-2">
+                Takes just 30 seconds to create a professional proposal.
               </p>
             </div>
           </div>
+
+          {/* What Happens Next */}
+          <div className="mt-16 max-w-3xl mx-auto bg-secondary/40 border border-border p-6 rounded-2xl backdrop-blur-md shadow-md transition-all hover:shadow-lg">
+            <div className="flex items-start gap-3">
+              <div className="text-2xl">🤖</div>
+              <div>
+                <h3 className="font-semibold text-lg">What happens next?</h3>
+                <p className="text-muted-foreground mt-2 leading-relaxed">
+                  After submitting your details, our AI instantly builds a
+                  custom proposal tailored to your client&apos;s project. You
+                  can review it, make edits, and send it directly — all within
+                  minutes.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* HOW IT WORKS  */}
       {/* <div className="w-full">
@@ -298,116 +355,116 @@ export default function Home() {
       </div> */}
 
       {/* FREELANCERS LOVE US  */}
-      <div className="w-full bg-background">
-        <div className="max-w-wrapper py-24">
-          <div className="max-w-xl mx-auto">
-            <h1 className="text-4xl font-bold text-center">
-              Loved by{" "}
-              <span className="text-gradient-primary">Freelancers</span>
-            </h1>
+      <div className="w-full bg-background relative py-24 overflow-hidden">
+        {/* Floating Effects */}
+        <div className="absolute top-16 left-1/3 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-10 animate-float z-0" />
+        <div className="absolute bottom-10 right-1/4 w-60 h-60 bg-purple-400/10 rounded-full blur-3xl opacity-10 animate-float-reverse z-0" />
 
-            <p className="mt-5 text-center text-xl">
+        <div className="max-w-wrapper relative z-10">
+          {/* Heading */}
+          <div className="max-w-xl mx-auto text-center">
+            <h1 className="text-4xl font-bold">
+              Loved by{" "}
+              <span className="bg-gradient-to-r from-primary to-indigo-500 bg-clip-text text-transparent">
+                Freelancers
+              </span>
+            </h1>
+            <p className="mt-5 text-xl text-muted-foreground">
               See what our customers are saying about how our platform has
               transformed their business
             </p>
           </div>
+
+          {/* Testimonials */}
           <div className="w-full mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
-              <div className="w-full flex items-center justify-start gap-2">
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
+            {/* Testimonial 1 */}
+            <div className="w-full rounded-2xl bg-card border border-border p-6 transition-shadow hover:shadow-hero">
+              <div className="flex gap-1">
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
               </div>
-              <p className="mt-5">
-                <i>
-                  &quot;I used to spend 3-4 hours writing proposals. Now, I can
-                  create a professional proposal in 20 minutes that has doubled
-                  my closing rate!&quot;
-                </i>
+              <p className="mt-5 italic text-muted-foreground">
+                &quot;I used to spend 3–4 hours writing proposals. Now, I can
+                create a professional proposal in 20 minutes that has doubled my
+                closing rate!&quot;
               </p>
-
-              <div className="w-full flex items-center gap-5 justify-start mt-4">
-                <div className="w-max h-max">
-                  <Image
-                    src={"/user-1.jpg"}
-                    width={60}
-                    height={60}
-                    unoptimized
-                    className="shrink-0 aspect-square rounded-full object-cover"
-                    alt="user"
-                  />
-                </div>
-                <div className="w-full">
+              <div className="flex items-center gap-4 mt-6">
+                <Image
+                  src="/user-1.jpg"
+                  width={60}
+                  height={60}
+                  unoptimized
+                  className="rounded-full aspect-square object-cover"
+                  alt="Sarah Johnson"
+                />
+                <div>
                   <p className="font-bold">Sarah Johnson</p>
-                  <p className="text-sm">UX Designer</p>
+                  <p className="text-sm text-muted-foreground">UX Designer</p>
                 </div>
               </div>
             </div>
-            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
-              <div className="w-full flex items-center justify-start gap-2">
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-              </div>
-              <p className="mt-5">
-                <i>
-                  &quot;The AI perfectly captures my voice and tone. My clients
-                  can&apos;t tell the difference between the AI-generated
-                  content and what I would write myself.&quot;
-                </i>
-              </p>
 
-              <div className="w-full flex items-center gap-5 justify-start mt-4">
-                <div className="w-max h-max">
-                  <Image
-                    src={"/user-2.jpg"}
-                    width={60}
-                    height={60}
-                    unoptimized
-                    className="shrink-0 aspect-square rounded-full object-cover"
-                    alt="user"
-                  />
-                </div>
-                <div className="w-full">
+            {/* Testimonial 2 */}
+            <div className="w-full rounded-2xl bg-card border border-border p-6 transition-shadow hover:shadow-hero">
+              <div className="flex gap-1">
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              </div>
+              <p className="mt-5 italic text-muted-foreground">
+                &quot;The AI perfectly captures my voice and tone. My clients
+                can't tell the difference between the AI-generated content and
+                what I would write myself.&quot;
+              </p>
+              <div className="flex items-center gap-4 mt-6">
+                <Image
+                  src="/user-2.jpg"
+                  width={60}
+                  height={60}
+                  unoptimized
+                  className="rounded-full aspect-square object-cover"
+                  alt="Mark Wilson"
+                />
+                <div>
                   <p className="font-bold">Mark Wilson</p>
-                  <p className="text-sm">Web Developer</p>
+                  <p className="text-sm text-muted-foreground">Web Developer</p>
                 </div>
               </div>
             </div>
-            <div className="w-full rounded-md border border-border p-4 hover:shadow-md transition-all">
-              <div className="w-full flex items-center justify-start gap-2">
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-                <StarIcon className="w-5 h-5 shrink-0 text-yellow-300 fill-yellow-300" />
-              </div>
-              <p className="mt-5">
-                <i>
-                  &quot;The templates are amazing and customizable. I&apos;ve
-                  closed 4 new clients in the first month of using this
-                  platform. Worth every penny!&quot;
-                </i>
-              </p>
 
-              <div className="w-full flex items-center gap-5 justify-start mt-4">
-                <div className="w-max h-max">
-                  <Image
-                    src={"/user-3.jpg"}
-                    width={60}
-                    height={60}
-                    unoptimized
-                    className="shrink-0 aspect-square rounded-full object-cover"
-                    alt="user"
-                  />
-                </div>
-                <div className="w-full">
+            {/* Testimonial 3 */}
+            <div className="w-full rounded-2xl bg-card border border-border p-6 transition-shadow hover:shadow-hero">
+              <div className="flex gap-1">
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              </div>
+              <p className="mt-5 italic text-muted-foreground">
+                &quot;The templates are amazing and customizable. I've closed 4
+                new clients in the first month of using this platform. Worth
+                every penny!&quot;
+              </p>
+              <div className="flex items-center gap-4 mt-6">
+                <Image
+                  src="/user-3.jpg"
+                  width={60}
+                  height={60}
+                  unoptimized
+                  className="rounded-full aspect-square object-cover"
+                  alt="Jessica Chen"
+                />
+                <div>
                   <p className="font-bold">Jessica Chen</p>
-                  <p className="text-sm">Marketing Consultant</p>
+                  <p className="text-sm text-muted-foreground">
+                    Marketing Consultant
+                  </p>
                 </div>
               </div>
             </div>
