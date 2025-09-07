@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { features, madeFor } from "@/constants/constants";
+import { madeFor } from "@/constants/constants";
 import { CheckIcon, Mail, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,7 +21,6 @@ import CreativeFeatures from "@/components/shared/CreativeFeatures";
 import { useState } from "react";
 
 export default function Home() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
@@ -109,8 +108,7 @@ export default function Home() {
               <div
                 key={index}
                 className="group relative transition-all duration-500 transform hover:scale-[1.03] hover:shadow-hero"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
+               
               >
                 {/* Card */}
                 <div className="p-6 bg-card rounded-2xl shadow-lg transition-all duration-500 relative overflow-hidden">
@@ -418,7 +416,7 @@ export default function Home() {
               </div>
               <p className="mt-5 italic text-muted-foreground">
                 &quot;The AI perfectly captures my voice and tone. My clients
-                can't tell the difference between the AI-generated content and
+                can&apos;t tell the difference between the AI-generated content and
                 what I would write myself.&quot;
               </p>
               <div className="flex items-center gap-4 mt-6">
@@ -447,7 +445,7 @@ export default function Home() {
                 <StarIcon className="w-5 h-5 text-yellow-400 fill-yellow-400" />
               </div>
               <p className="mt-5 italic text-muted-foreground">
-                &quot;The templates are amazing and customizable. I've closed 4
+                &quot;The templates are amazing and customizable. I&apos;ve closed 4
                 new clients in the first month of using this platform. Worth
                 every penny!&quot;
               </p>
