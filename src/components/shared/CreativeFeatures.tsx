@@ -93,7 +93,7 @@ const CreativeFeatures = () => {
                 {/* Floating Card */}
                 <div className={`
                   step-card h-full relative overflow-hidden p-6 rounded-xl
-                  ${hoveredIndex === index ? 'shadow-hero scale-105' : 'shadow-primary/20 shadow-xl'}
+                  ${hoveredIndex === index ? 'shadow-hero scale-105 shadow-2xl' : 'shadow-primary/20 shadow-xl'}
                   transition-all duration-500
                 `}>
                   
