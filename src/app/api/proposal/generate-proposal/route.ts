@@ -79,7 +79,18 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    if (!activeSub && false) {
+    if (!activeSub) {
+      return NextResponse.json({
+        success: false,
+        message: "no active subscription",
+      });
+    }
+
+    if (activeSub.proposals_generated >= activeSub.max_proposals_generation) {
+      await prisma.subscription.update({
+        where: { id: activeSub.id },
+        data: { status: "expired" },
+      });
       return NextResponse.json({
         success: false,
         message: "no active subscription",
@@ -100,8 +111,8 @@ Throughout my career, I have consistently delivered innovative and effective sol
     });
 
     const response = await openai.chat.completions.create({
-      model: "moonshotai/kimi-k2:free", // You can also try "deepseek/deepseek-coder"
-      // model: "openai/gpt-oss-20b:free", // You can also try "deepseek/deepseek-coder"
+      // model: "moonshotai/kimi-k2:free", // You can also try "deepseek/deepseek-coder"
+      model: "mistralai/mistral-small-3.2-24b-instruct:free", // You can also try "deepseek/deepseek-coder"
       messages: [{ role: "user", content: finalPromptToGenerate }],
       temperature: 0.7,
     });
@@ -117,8 +128,11 @@ Throughout my career, I have consistently delivered innovative and effective sol
         message: "failed to generate proposal",
       }); // or return response
     }
+    const filtered = response.choices[0].message.content.replace("```json", "");
+    const filtered2 = filtered.replace("```", "");
 
-    const response_json = JSON.parse(response.choices[0].message.content);
+    const response_json = JSON.parse(filtered2);
+    console.log({ response_json });
 
     const proposal = await prisma.proposal.create({
       data: {
@@ -141,6 +155,10 @@ Throughout my career, I have consistently delivered innovative and effective sol
         message: "failed to create proposal",
       });
     }
+    await prisma.subscription.update({
+      where: { userId: user.id, id: activeSub.id },
+      data: { proposals_generated: activeSub.proposals_generated + 1 },
+    });
 
     return NextResponse.json({
       success: true,

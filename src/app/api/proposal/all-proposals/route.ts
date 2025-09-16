@@ -7,10 +7,6 @@ import { CustomJwtPayload } from "../generate-proposal/route";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function GET(req: NextRequest) {
   try {
-    const { userId } = Object.fromEntries(new URL(req.url).searchParams);
-
-    console.log({ userId });
-
     const token = req.cookies.get("freeposal-authentication")?.value;
 
     console.log({ token });
@@ -35,13 +31,6 @@ export async function GET(req: NextRequest) {
       return response;
     }
 
-    if (userId !== userToken.id) {
-      console.log("userid and token userid does not match");
-      const response = NextResponse.redirect(new URL("/sign-in", req.url));
-      response.cookies.delete("freeposal-authentication");
-      return response;
-    }
-
     const user = await prisma.user.findUnique({ where: { id: userToken.id } });
 
     if (!user) {
@@ -52,7 +41,7 @@ export async function GET(req: NextRequest) {
     }
 
     const proposals = await prisma.proposal.findMany({
-      where: { userId },
+      where: { userId: userToken.id },
     });
 
     if (!proposals || proposals.length <= 0) {
@@ -64,7 +53,7 @@ export async function GET(req: NextRequest) {
 
     const filteredProposals = excludePrompt(proposals);
 
-    return NextResponse.json({ success: true, proposals: filteredProposals });
+    return NextResponse.json({ success: true, data: filteredProposals });
   } catch (error) {
     console.log("[ERROR WHILE GETTING ALL PROPOSALS]: ", error);
     return NextResponse.json({

@@ -1,9 +1,27 @@
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
+import { CustomJwtPayload } from "../../proposal/generate-proposal/route";
 
 export async function GET(req: NextRequest) {
   try {
+    const token = req.cookies.get("freeposal-authentication")?.value;
+    if (!token) {
+      return NextResponse.json({ success: false, message: "no token found" });
+    }
+    const token_data = jwt.verify(
+      token,
+      process.env.JWT_SECRET_KEY as string
+    ) as CustomJwtPayload;
+
+    if (!token_data.id) {
+      return NextResponse.json({ sucess: false, message: "token expired" });
+    }
     const { userId } = Object.fromEntries(new URL(req.url).searchParams);
+
+    if (token_data.id !== userId) {
+      return NextResponse.json({ success: false, message: "not authorized" });
+    }
 
     const now = new Date();
 

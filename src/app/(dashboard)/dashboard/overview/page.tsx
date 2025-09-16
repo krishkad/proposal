@@ -23,6 +23,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface Proposal {
   id: string;
@@ -36,8 +38,9 @@ interface Proposal {
 }
 
 const Dashboard = () => {
-  const [recentProposals, setRecentProposals] = useState<Proposal[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [recentProposals, setRecentProposals] = useState<Proposal[]>([]);
+  const {proposals} = useSelector((state: RootState) => state.proposals);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const metrics = [
     {
@@ -64,35 +67,35 @@ const Dashboard = () => {
   ];
 
 
-  useEffect(() => {
-    const fetchRecentProposals = async () => {
-      setIsLoading(true);
-      const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
-      try {
-        const response = await fetch(
-          `/api/proposal/all-proposals?userId=${user.id}`,
-          {
-            credentials: "include",
-          }
-        );
+  // useEffect(() => {
+  //   const fetchRecentProposals = async () => {
+  //     setIsLoading(true);
+  //     const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
+  //     try {
+  //       const response = await fetch(
+  //         `/api/proposal/all-proposals?userId=${user.id}`,
+  //         {
+  //           credentials: "include",
+  //         }
+  //       );
 
-        const res = await response.json();
+  //       const res = await response.json();
 
-        if (!res.success) {
-          console.log("failed to fetch recent proposal");
-          return;
-        }
+  //       if (!res.success) {
+  //         console.log("failed to fetch recent proposal");
+  //         return;
+  //       }
 
-        setRecentProposals(res.proposals ?? []);
-        localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
-      } catch (error) {
-        console.log("failed to fetch recent proposal", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchRecentProposals();
-  }, []);
+  //       setRecentProposals(res.proposals ?? []);
+  //       localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
+  //     } catch (error) {
+  //       console.log("failed to fetch recent proposal", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchRecentProposals();
+  // }, []);
 
   return (
     <div className="overflow-hidden w-full bg-secondary/50">
@@ -129,7 +132,7 @@ const Dashboard = () => {
                     <p className="text-sm text-foreground mb-1">{metric.title}</p>
                     <p className="text-2xl font-bold text-foreground">
                       {metric.title === "Proposals Generated"
-                        ? recentProposals.length
+                        ? proposals.length
                         : metric.value}
                     </p>
                     <p className="text-xs text-foreground mt-1">
@@ -217,7 +220,7 @@ const Dashboard = () => {
               </TableHeader>
               <TableBody>
                 {!isLoading
-                  ? recentProposals?.slice().reverse().map((proposal) => (
+                  ? proposals?.slice().reverse().map((proposal) => (
                       <TableRow
                         key={proposal.id}
                         className="border-b  hover:bg-secondary/50"

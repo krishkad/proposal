@@ -61,7 +61,7 @@ Make sure the proposal is:
 
 ${value.additional && `Additional: ${value.additional}`}
 
-VERY IMPORTANT — Return ONLY valid JSON in the exact format below. Do not include any explanations, markdown, or extra text outside the JSON.
+VERY IMPORTANT — Return ONLY valid JSON in the exact format below. Do not include any explanations, markdown, or extra text outside the JSON. RETURN STRICKLY JSON object only, no other things
 {
   "proposal": "The full generated proposal text here",
   "shortTitle": "A short and catchy title summarizing the proposal",

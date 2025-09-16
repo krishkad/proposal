@@ -14,6 +14,8 @@ export async function POST(req: NextRequest) {
         status: "active",
         startDate,
         endDate,
+        max_proposals_generation: 30,
+        proposals_generated: 0
       },
     });
 

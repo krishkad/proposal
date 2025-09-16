@@ -69,7 +69,7 @@ import {
 
 interface Proposal {
   id: string;
-  type: "freelance" | "email";
+  type: "freelance" | "email" | string;
   title: string;
   proposal: string;
   userInput: string;
@@ -566,7 +566,8 @@ interface Proposal {
 // ];
 
 const AllProposals: React.FC = () => {
-  const [proposals, setProposals] = useState<Proposal[]>([]);
+  // const [proposals, setProposals] = useState<Proposal[]>([]);
+  const { proposals } = useSelector((state: RootState) => state.proposals);
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(
     null
   );
@@ -577,7 +578,7 @@ const AllProposals: React.FC = () => {
   const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
     "all"
   );
-  const [isFetching, setIsFetching] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
 
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
@@ -620,30 +621,8 @@ const AllProposals: React.FC = () => {
   // }, []);
 
   useEffect(() => {
-    const fetchPost = async () => {
-      setIsFetching(true);
-      const user = JSON.parse(localStorage.getItem("freeposal-user") || "");
-      try {
-        const response = await fetch(
-          `/api/proposal/all-proposals?userId=${user.id}`,
-          {
-            credentials: "include",
-          }
-        );
-
-        const res = await response.json();
-
-        setProposals(res.proposals);
-        localStorage.setItem("all-freeposals", JSON.stringify(res.proposals));
-      } catch (error) {
-        console.log("ERROR WHILE FETCHING PROPOSALS", error);
-      } finally {
-        setIsFetching(false);
-      }
-    };
-
-    fetchPost();
-  }, []);
+    console.log({ proposals });
+  }, [proposals]);
 
   // Filter and sort proposals
   const filteredAndSortedProposals = useMemo(() => {
@@ -717,7 +696,7 @@ const AllProposals: React.FC = () => {
       const updatedProposals = proposals.map((p) =>
         p.id === selectedProposal.id ? res.data : p
       );
-      setProposals(updatedProposals);
+      // setProposals(updatedProposals);
       setSelectedProposal(res.data);
       toast.success("successfully updated");
     } catch (error) {
@@ -729,7 +708,7 @@ const AllProposals: React.FC = () => {
 
   const handleDelete = (proposalId: string) => {
     const updatedProposals = proposals.filter((p) => p.id !== proposalId);
-    setProposals(updatedProposals);
+    // setProposals(updatedProposals);
     localStorage.setItem("saved-proposals", JSON.stringify(updatedProposals));
 
     if (selectedProposal?.id === proposalId) {
@@ -1377,6 +1356,8 @@ export default AllProposals;
 // components/DeleteDialog.tsx
 
 import { AlertTriangle } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function DeleteDialog({
   proposalId,

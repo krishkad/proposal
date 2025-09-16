@@ -49,12 +49,14 @@ model Proposal {
 }
 
 model Subscription {
-  id        String    @id @default(uuid())
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  status    String // "active", "cancelled", "expired"
-  startDate DateTime  @default(now())
-  endDate   DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id                       String    @id @default(uuid())
+  userId                   String
+  user                     User      @relation(fields: [userId], references: [id])
+  status                   String // "active", "cancelled", "expired"
+  startDate                DateTime  @default(now())
+  endDate                  DateTime?
+  max_proposals_generation Int
+  proposals_generated      Int
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
 }
