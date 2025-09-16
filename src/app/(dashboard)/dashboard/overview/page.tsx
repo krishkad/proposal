@@ -2,7 +2,16 @@
 
 export const dynamic = "force-dynamic";
 import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { RootState } from "@/redux/store";
 import {
   ArrowRightIcon,
   Clock,
@@ -14,33 +23,13 @@ import {
   Trash2,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 
-interface Proposal {
-  id: string;
-  type: "freelance" | "email";
-  title: string;
-  proposal: string;
-  successRate: number;
-  createdAt: Date;
-  updatedAt: Date;
-  // priority: "low" | "medium" | "high";
-}
+
 
 const Dashboard = () => {
   // const [recentProposals, setRecentProposals] = useState<Proposal[]>([]);
   const {proposals} = useSelector((state: RootState) => state.proposals);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const metrics = [
     {
@@ -219,7 +208,7 @@ const Dashboard = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {!isLoading
+                {!false
                   ? proposals?.slice().reverse().map((proposal) => (
                       <TableRow
                         key={proposal.id}

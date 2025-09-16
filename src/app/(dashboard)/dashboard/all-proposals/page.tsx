@@ -578,7 +578,6 @@ const AllProposals: React.FC = () => {
   const [filterType, setFilterType] = useState<"all" | "freelance" | "email">(
     "all"
   );
-  const [isFetching, setIsFetching] = useState(false);
 
   const filterPriority = "all";
   const [sortBy, setSortBy] = useState<
@@ -693,9 +692,9 @@ const AllProposals: React.FC = () => {
         return;
       }
 
-      const updatedProposals = proposals.map((p) =>
-        p.id === selectedProposal.id ? res.data : p
-      );
+      // const updatedProposals = proposals.map((p) =>
+      //   p.id === selectedProposal.id ? res.data : p
+      // );
       // setProposals(updatedProposals);
       setSelectedProposal(res.data);
       toast.success("successfully updated");
@@ -838,7 +837,7 @@ const AllProposals: React.FC = () => {
                   {/* Proposals Content */}
                   <div className="size-full overflow-x-scroll mt-5 bg-background">
                     <div className="h-max">
-                      {isFetching ? (
+                      {false ? (
                         <div className="border border-border rounded-xl overflow-hidden">
                           <Table>
                             <TableHeader>
